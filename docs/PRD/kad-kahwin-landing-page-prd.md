@@ -517,7 +517,7 @@ A: Malay dan English. You boleh set default language, tetamu boleh switch kalau 
 **Design Notes:**
 - Background: White
 - Text: #666666
-- Links: #B43B8A on hover
+- Links: Refer global.css for styling.
 - Footer height: 200px
 - Social icons: 32px, accent color
 
@@ -528,30 +528,13 @@ A: Malay dan English. You boleh set default language, tetamu boleh switch kalau 
 ### 4.1 Color Palette
 
 **Primary Colors:**
-```css
---color-cream: #FFEFC2;      /* Backgrounds, gradients */
---color-magenta: #B43B8A;    /* Primary CTA, accents, headings */
---color-green: #4EA712;      /* Success states, secondary accents */
---color-yellow: #FFED18;     /* Highlights, badges */
---color-white: #FFFFFF;      /* Card backgrounds, text on dark */
-```
+Refer global.css for styling
 
 **Semantic Colors:**
-```css
---color-text-primary: #1A1A1A;
---color-text-secondary: #666666;
---color-border: #E0E0E0;
---color-background-alt: #F9F9F9;
---color-shadow: rgba(180, 59, 138, 0.15);
-```
+Refer global.css for styling
 
 **Gradient Definitions:**
-```css
---gradient-hero: linear-gradient(135deg, #FFEFC2 0%, #FFFFFF 100%);
---gradient-cta: linear-gradient(90deg, #B43B8A 0%, #4EA712 100%);
---gradient-mesh: radial-gradient(circle at 20% 50%, #FFEFC2 0%, transparent 50%),
-                 radial-gradient(circle at 80% 80%, #FFED18 0%, transparent 50%);
-```
+Refer global.css for styling and generate gradient from the colors.
 
 ### 4.2 Typography
 
@@ -588,34 +571,10 @@ A: Malay dan English. You boleh set default language, tetamu boleh switch kalau 
 - **Vibe:** Clean, modern, Malaysian-friendly (works well with Malay and English)
 
 **Type Scale:**
-```css
---font-size-h1: 64px;      /* Hero headline */
---font-size-h2: 48px;      /* Section headlines */
---font-size-h3: 32px;      /* Subsection headlines */
---font-size-h4: 24px;      /* Card titles */
---font-size-body-lg: 20px; /* Lead paragraphs */
---font-size-body: 16px;    /* Body text */
---font-size-sm: 14px;      /* Captions, labels */
-
---line-height-tight: 1.2;
---line-height-normal: 1.5;
---line-height-relaxed: 1.8;
-```
+Refer global.css for styling
 
 ### 4.3 Spacing System
-
-```css
---spacing-xs: 8px;
---spacing-sm: 16px;
---spacing-md: 24px;
---spacing-lg: 48px;
---spacing-xl: 80px;
---spacing-2xl: 120px;
-
-/* Section padding */
---section-padding-mobile: 60px 20px;
---section-padding-desktop: 120px 80px;
-```
+Refer global.css for styling
 
 ### 4.4 Animation Tokens
 
@@ -634,84 +593,8 @@ A: Malay dan English. You boleh set default language, tetamu boleh switch kalau 
 - **Scale In:** `transform: scale(0.9) → scale(1)` + fade in (400ms)
 - **Stagger Delay:** 100-150ms between elements
 
-### 4.5 Component Library
 
-**Buttons:**
 
-```css
-/* Primary CTA */
-.btn-primary {
-  background: var(--color-magenta);
-  color: var(--color-white);
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 18px;
-  box-shadow: 0 4px 16px var(--color-shadow);
-  transition: all var(--transition-normal);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--color-shadow);
-}
-
-/* Secondary CTA */
-.btn-secondary {
-  background: transparent;
-  color: var(--color-magenta);
-  border: 2px solid var(--color-magenta);
-  padding: 14px 30px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  transition: all var(--transition-normal);
-}
-
-.btn-secondary:hover {
-  background: var(--color-magenta);
-  color: var(--color-white);
-}
-```
-
-**Cards:**
-
-```css
-.card {
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all var(--transition-normal);
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px var(--color-shadow);
-}
-```
-
-**Form Inputs:**
-
-```css
-.input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 2px solid var(--color-border);
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color var(--transition-fast);
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--color-magenta);
-  box-shadow: 0 0 0 4px rgba(180, 59, 138, 0.1);
-}
-```
-
----
 
 ## 5. Technical Implementation
 
