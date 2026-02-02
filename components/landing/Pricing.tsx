@@ -1,23 +1,26 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useLandingStore } from "@/stores/landing-store";
 import { isWaitlistMode, siteConfig } from "@/lib/config";
 import { scaleIn, fadeIn } from "@/lib/animations";
 import { Check, Sparkles } from "lucide-react";
+import { trackPricingCTAClicked } from "@/lib/posthog-events";
+import { useSectionTracking } from "@/hooks/use-section-tracking";
 
 export function Pricing() {
   const { t } = useTranslation();
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const { sectionRef, isInView } = useSectionTracking("pricing");
   const { openWaitlistModal } = useLandingStore();
 
   const handleCTA = () => {
+    // Track pricing CTA click
+    trackPricingCTAClicked();
+
     if (isWaitlistMode) {
-      openWaitlistModal();
+      openWaitlistModal("secondary_cta");
     } else {
       window.location.href = "/login";
     }

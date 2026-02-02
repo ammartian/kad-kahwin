@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,10 @@ import { Input } from "@/components/ui/input";
 import { useLandingStore } from "@/stores/landing-store";
 import { scaleIn, fadeIn } from "@/lib/animations";
 import { Check, Sparkles, Loader2, AlertCircle, X } from "lucide-react";
+import {
+  trackWaitlistFormOpened,
+  trackWaitlistSubmitted,
+} from "@/lib/posthog-events";
 
 // Form validation schema
 const waitlistSchema = z.object({
@@ -29,7 +33,8 @@ type SubmitStatus = "idle" | "loading" | "success" | "error";
 
 export function WaitlistModal() {
   const { t } = useTranslation();
-  const { isWaitlistModalOpen, closeWaitlistModal } = useLandingStore();
+  const { isWaitlistModalOpen, closeWaitlistModal, waitlistModalTrigger } =
+    useLandingStore();
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
   const [submittedEmail, setSubmittedEmail] = useState("");
 
@@ -42,6 +47,13 @@ export function WaitlistModal() {
     resolver: zodResolver(waitlistSchema),
   });
 
+  // Track when modal opens
+  useEffect(() => {
+    if (isWaitlistModalOpen && waitlistModalTrigger) {
+      trackWaitlistFormOpened(waitlistModalTrigger);
+    }
+  }, [isWaitlistModalOpen, waitlistModalTrigger]);
+
   const onSubmit = async (data: WaitlistFormData) => {
     setSubmitStatus("loading");
     setSubmittedEmail(data.email);
@@ -49,6 +61,15 @@ export function WaitlistModal() {
     try {
       // Simulate API call - replace with actual Convex mutation later
       await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Extract email domain
+      const emailDomain = data.email.split("@")[1] || "unknown";
+
+      // Track successful submission
+      trackWaitlistSubmitted({
+        email_domain: emailDomain,
+        trigger: waitlistModalTrigger || "hero",
+      });
 
       // For now, always succeed (will integrate with Convex later)
       setSubmitStatus("success");

@@ -12,14 +12,24 @@ import {
   heroMockup,
 } from "@/lib/animations";
 import { ChevronDown } from "lucide-react";
+import { trackHeroCTAClicked } from "@/lib/posthog-events";
 
 export function Hero() {
   const { t } = useTranslation();
   const { openWaitlistModal } = useLandingStore();
 
   const handlePrimaryCTA = () => {
+    // Track CTA click
+    trackHeroCTAClicked({
+      button_text: isWaitlistMode
+        ? t("hero.cta_primary_waitlist")
+        : t("hero.cta_primary_live"),
+      section: "hero",
+      button_type: "primary",
+    });
+
     if (isWaitlistMode) {
-      openWaitlistModal();
+      openWaitlistModal("hero");
     } else {
       // Redirect to login - will be implemented later
       window.location.href = "/login";
@@ -27,6 +37,13 @@ export function Hero() {
   };
 
   const scrollToHowItWorks = () => {
+    // Track secondary CTA click
+    trackHeroCTAClicked({
+      button_text: t("hero.cta_secondary"),
+      section: "hero",
+      button_type: "secondary",
+    });
+
     document.getElementById("how-it-works")?.scrollIntoView({
       behavior: "smooth",
     });

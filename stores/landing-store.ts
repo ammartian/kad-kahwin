@@ -3,7 +3,8 @@ import { create } from "zustand";
 interface LandingStore {
   // Waitlist modal
   isWaitlistModalOpen: boolean;
-  openWaitlistModal: () => void;
+  waitlistModalTrigger: "hero" | "secondary_cta" | "footer" | null;
+  openWaitlistModal: (trigger: "hero" | "secondary_cta" | "footer") => void;
   closeWaitlistModal: () => void;
 
   // Language
@@ -15,8 +16,11 @@ interface LandingStore {
 export const useLandingStore = create<LandingStore>((set) => ({
   // Waitlist modal state
   isWaitlistModalOpen: false,
-  openWaitlistModal: () => set({ isWaitlistModalOpen: true }),
-  closeWaitlistModal: () => set({ isWaitlistModalOpen: false }),
+  waitlistModalTrigger: null,
+  openWaitlistModal: (trigger) =>
+    set({ isWaitlistModalOpen: true, waitlistModalTrigger: trigger }),
+  closeWaitlistModal: () =>
+    set({ isWaitlistModalOpen: false, waitlistModalTrigger: null }),
 
   // Language state - defaults to Malay
   language: "ms",

@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useLandingStore } from "@/stores/landing-store";
@@ -9,6 +8,8 @@ import { isWaitlistMode, siteConfig } from "@/lib/config";
 import { fadeIn } from "@/lib/animations";
 import { Instagram, Facebook } from "lucide-react";
 import Link from "next/link";
+import { trackSocialIconClicked } from "@/lib/posthog-events";
+import { useSectionTracking } from "@/hooks/use-section-tracking";
 
 // TikTok icon component (not in lucide-react)
 function TikTokIcon({ className }: { className?: string }) {
@@ -26,16 +27,19 @@ function TikTokIcon({ className }: { className?: string }) {
 
 export function FooterCTA() {
   const { t } = useTranslation();
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
+  const { sectionRef, isInView } = useSectionTracking("footer_cta");
   const { openWaitlistModal } = useLandingStore();
 
   const handleCTA = () => {
     if (isWaitlistMode) {
-      openWaitlistModal();
+      openWaitlistModal("footer");
     } else {
       window.location.href = "/login";
     }
+  };
+
+  const handleSocialClick = (platform: string) => {
+    trackSocialIconClicked(platform);
   };
 
   const footerLinks = [
@@ -89,6 +93,7 @@ export function FooterCTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
+                onClick={() => handleSocialClick(social.label.toLowerCase())}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"

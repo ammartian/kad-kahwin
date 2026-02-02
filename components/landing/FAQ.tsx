@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
   Accordion,
@@ -10,11 +9,19 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { staggerContainer, slideUp } from "@/lib/animations";
+import { trackFAQOpened } from "@/lib/posthog-events";
+import { useSectionTracking } from "@/hooks/use-section-tracking";
 
 export function FAQ() {
   const { t } = useTranslation();
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const { sectionRef, isInView } = useSectionTracking("faq");
+
+  const handleFAQOpen = (index: number, question: string) => {
+    trackFAQOpened({
+      question_number: index + 1,
+      question_text: question,
+    });
+  };
 
   const faqs = [
     {
@@ -86,7 +93,10 @@ export function FAQ() {
                     value={`item-${index}`}
                     className="bg-card rounded-xl px-6 overflow-hidden data-[state=open]:border-primary/30 transition-colors"
                   >
-                    <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:text-primary py-5 [&[data-state=open]]:text-primary">
+                    <AccordionTrigger
+                      className="text-left font-display font-semibold text-foreground hover:text-primary py-5 [&[data-state=open]]:text-primary"
+                      onClick={() => handleFAQOpen(index, faq.question)}
+                    >
                       {faq.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
@@ -107,7 +117,10 @@ export function FAQ() {
                     value={`item-${index + 4}`}
                     className="bg-card rounded-xl px-6 overflow-hidden data-[state=open]:border-primary/30 transition-colors"
                   >
-                    <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:text-primary py-5 [&[data-state=open]]:text-primary">
+                    <AccordionTrigger
+                      className="text-left font-display font-semibold text-foreground hover:text-primary py-5 [&[data-state=open]]:text-primary"
+                      onClick={() => handleFAQOpen(index + 4, faq.question)}
+                    >
                       {faq.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground leading-relaxed pb-5">

@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { fadeIn, staggerContainer } from "@/lib/animations";
+import { useSectionTracking } from "@/hooks/use-section-tracking";
 
 interface AnimatedCounterProps {
   end: number;
@@ -46,8 +47,7 @@ function AnimatedCounter({ end, suffix = "", duration = 2 }: AnimatedCounterProp
 
 export function SocialProof() {
   const { t } = useTranslation();
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const { sectionRef, isInView } = useSectionTracking("social_proof");
 
   const stats = [
     {

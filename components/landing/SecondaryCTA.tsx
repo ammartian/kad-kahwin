@@ -1,22 +1,31 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useLandingStore } from "@/stores/landing-store";
 import { isWaitlistMode } from "@/lib/config";
 import { fadeIn } from "@/lib/animations";
+import { useSectionTracking } from "@/hooks/use-section-tracking";
+import { trackHeroCTAClicked } from "@/lib/posthog-events";
 
 export function SecondaryCTA() {
   const { t } = useTranslation();
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const { sectionRef, isInView } = useSectionTracking("secondary_cta");
   const { openWaitlistModal } = useLandingStore();
 
   const handleCTA = () => {
+    // Track CTA click
+    trackHeroCTAClicked({
+      button_text: isWaitlistMode
+        ? t("hero.cta_primary_waitlist")
+        : t("secondary_cta.cta"),
+      section: "hero",
+      button_type: "secondary",
+    });
+
     if (isWaitlistMode) {
-      openWaitlistModal();
+      openWaitlistModal("secondary_cta");
     } else {
       window.location.href = "/login";
     }

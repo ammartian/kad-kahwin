@@ -1,15 +1,14 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { slideUp, staggerContainer, fadeIn } from "@/lib/animations";
 import { UserPlus, FileEdit, Share2 } from "lucide-react";
+import { useSectionTracking } from "@/hooks/use-section-tracking";
 
 export function HowItWorks() {
   const { t } = useTranslation();
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const { sectionRef, isInView } = useSectionTracking("how_it_works");
 
   const steps = [
     {
