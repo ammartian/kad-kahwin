@@ -53,7 +53,7 @@ export function Navbar() {
           <nav className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 rounded-full overflow-hidden">
-              <Image src="/logo.jpeg" alt="Kad Kahwin" width={36} height={36} />
+              <Image src="/logo.jpeg" alt="Jemputan Digital" width={36} height={36} />
             </Link>
 
             {/* Desktop nav */}

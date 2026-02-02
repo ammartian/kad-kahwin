@@ -26,7 +26,7 @@
     },
     "hook": {
       "title": "Majlis Yang Istimewa, Tanpa Stress",
-      "description": "Fokus pada apa yang penting. Raikan cinta anda. Biar Kad Kahwin uruskan tetamu. Lebih masa untuk memori, kurang masa untuk pengurusan."
+      "description": "Fokus pada apa yang penting. Raikan cinta anda. Biar Jemputan Digital uruskan tetamu. Lebih masa untuk memori, kurang masa untuk pengurusan."
     }
   },
   "features": {
@@ -72,11 +72,11 @@
     }
   },
   "why_you": {
-    "section_title": "Kenapa Kad Kahwin?",
+    "section_title": "Kenapa Jemputan Digital?",
     "comparison": {
       "feature": "Feature",
       "traditional": "Kad Tradisional",
-      "digital": "Kad Kahwin",
+      "digital": "Jemputan Digital",
       "cost": "Kos",
       "cost_traditional": "RM500-2000 untuk cetak",
       "cost_digital": "RM39 sekali bayar",
@@ -175,11 +175,11 @@
       "contact": "Hubungi Kami",
       "help": "Bantuan"
     },
-    "copyright": "© 2026 Kad Kahwin. Made with love in Malaysia."
+    "copyright": "© 2026 Jemputan Digital. Made with love in Malaysia."
   },
   "waitlist": {
-    "title": "Cipta Kad Kahwin Anda",
-    "description": "Kad Kahwin sedang dibina! Sertai senarai tunggu untuk mendapat:",
+    "title": "Cipta Jemputan Digital Anda",
+    "description": "Jemputan Digital sedang dibina! Sertai senarai tunggu untuk mendapat:",
     "benefit1": "Akses awal (sebelum public launch)",
     "benefit2": "PERCUMA untuk 50 pasangan pertama (Biasanya RM39)",
     "email_placeholder": "Masukkan email anda",

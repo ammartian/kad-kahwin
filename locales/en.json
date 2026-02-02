@@ -26,7 +26,7 @@
     },
     "hook": {
       "title": "A Wedding to Remember, Without the Stress",
-      "description": "Focus on what matters. Celebrate your love. Let Kad Kahwin handle the logistics. More time for memories, less time for admin."
+      "description": "Focus on what matters. Celebrate your love. Let Jemputan Digital handle the logistics. More time for memories, less time for admin."
     }
   },
   "features": {
@@ -72,11 +72,11 @@
     }
   },
   "why_you": {
-    "section_title": "Why Kad Kahwin?",
+    "section_title": "Why Jemputan Digital?",
     "comparison": {
       "feature": "Feature",
       "traditional": "Traditional Cards",
-      "digital": "Kad Kahwin",
+      "digital": "Jemputan Digital",
       "cost": "Cost",
       "cost_traditional": "RM500-2000 for printing",
       "cost_digital": "RM39 one-time",
@@ -175,11 +175,11 @@
       "contact": "Contact Us",
       "help": "Help Center"
     },
-    "copyright": "© 2026 Kad Kahwin. Made with love in Malaysia."
+    "copyright": "© 2026 Jemputan Digital. Made with love in Malaysia."
   },
   "waitlist": {
-    "title": "Be the First to Create Your Kad Kahwin",
-    "description": "Kad Kahwin launching soon! Join the waitlist to get:",
+    "title": "Be the First to Create Your Jemputan Digital",
+    "description": "Jemputan Digital launching soon! Join the waitlist to get:",
     "benefit1": "Early access (before public launch)",
     "benefit2": "FREE for first 50 couples (worth RM39)",
     "email_placeholder": "Enter your email",
@@ -188,7 +188,7 @@
     "success_title": "Success!",
     "success_message": "Your email is on the list. Watch your inbox—we'll email you when we launch.",
     "error_title": "Oops, something went wrong.",
-    "error_message": "Try again? If problem persists, email us at hello@kadkahwin.my",
+    "error_message": "Try again? If problem persists, email us at hello@jemputandigital.my",
     "error_email_required": "Email is required",
     "error_email_invalid": "Please enter a valid email",
     "error_email_exists": "This email is already registered. Check your inbox!"

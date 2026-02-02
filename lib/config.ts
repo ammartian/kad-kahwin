@@ -32,18 +32,18 @@ export const ctaConfig = {
 
 // Site metadata
 export const siteConfig = {
-  name: "Kad Kahwin",
+  name: "Jemputan Digital",
   description:
     "Modern digital wedding invitation platform for Malaysian couples",
-  url: "https://kadkahwin.my",
+  url: "https://jemputandigital.my",
   ogImage: "/og-image.png",
   links: {
-    instagram: "https://instagram.com/kadkahwin",
-    facebook: "https://facebook.com/kadkahwin",
-    tiktok: "https://tiktok.com/@kadkahwin",
+    instagram: "https://instagram.com/jemputandigital",
+    facebook: "https://facebook.com/jemputandigital",
+    tiktok: "https://tiktok.com/@jemputandigital",
   },
   contact: {
-    email: "hello@kadkahwin.my",
+    email: "hello@jemputandigital.my",
   },
   pricing: {
     amount: 39,

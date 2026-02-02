@@ -25,30 +25,30 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kadkahwin.my"),
-  title: "Kad Kahwin - Digital Wedding Invitations Malaysia | Create in 5 Minutes",
+  title: "Jemputan Digital - Digital Wedding Invitations Malaysia | Create in 5 Minutes",
   description:
     "Modern digital wedding invitation platform for Malaysian couples. Create, share, and manage beautiful invitations with RSVP, wishlist, and real-time wishes. RM39 one-time.",
   keywords:
     "kad kahwin digital, jemputan kahwin online, digital wedding invitation Malaysia, kad jemputan perkahwinan, e-invitation",
   openGraph: {
-    title: "Kad Kahwin - Wedding Invitations Your Guests Will Remember",
+    title: "Jemputan Digital - Wedding Invitations Your Guests Will Remember",
     description:
       "Create stunning digital wedding invitations in 5 minutes. RSVP management, wishlist, real-time wishes. RM39 one-time.",
     images: ["/og-image.png"],
     type: "website",
-    url: "https://kadkahwin.my",
-    siteName: "Kad Kahwin",
+    url: "https://jemputandigital.my",
+    siteName: "Jemputan Digital",
     locale: "ms_MY",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kad Kahwin - Digital Wedding Invitations",
+    title: "Jemputan Digital - Digital Wedding Invitations",
     description:
       "Modern wedding invitations for modern couples. Create in 5 minutes.",
     images: ["/og-image.png"],
   },
   alternates: {
-    canonical: "https://kadkahwin.my",
+    canonical: "https://jemputandigital.my",
   },
   robots: {
     index: true,
@@ -70,7 +70,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              name: "Kad Kahwin",
+              name: "Jemputan Digital",
               applicationCategory: "WebApplication",
               operatingSystem: "Web",
               offers: {
