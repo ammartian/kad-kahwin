@@ -52,8 +52,8 @@ export function SocialProof() {
   const { sectionRef, isInView } = useSectionTracking("social_proof");
   const waitlistCount = useQuery(api.waitlist.getWaitlistCount) ?? 0;
   
-  // Add 60 to the actual count (e.g., 1 user → 61, 10 users → 70)
-  const displayCount = waitlistCount + 60;
+  // Add 60 to the actual count (e.g., 1 user → 81, 10 users → 90)
+  const displayCount = waitlistCount + 80;
 
   const stats = [
     {
