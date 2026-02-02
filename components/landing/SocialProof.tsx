@@ -51,10 +51,13 @@ export function SocialProof() {
   const { t } = useTranslation();
   const { sectionRef, isInView } = useSectionTracking("social_proof");
   const waitlistCount = useQuery(api.waitlist.getWaitlistCount) ?? 0;
+  
+  // Display minimum of 58+ if count is less than 58
+  const displayCount = waitlistCount < 58 ? 58 : waitlistCount;
 
   const stats = [
     {
-      value: waitlistCount,
+      value: displayCount,
       suffix: "+",
       label: t("social_proof.couples_registered"),
     },
