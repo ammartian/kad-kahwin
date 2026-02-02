@@ -5,9 +5,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: Nunito, ui-sans-serif, sans-serif, system-ui;
-  --font-mono: Reddit Mono, ui-monospace, monospace;
-  --font-serif: Kreon, ui-serif, serif;
+  --font-sans: var(--font-nunito-sans), ui-sans-serif, sans-serif, system-ui;
+  --font-display: var(--font-poppins), ui-sans-serif, sans-serif, system-ui;
+  --font-accent: var(--font-montserrat), ui-sans-serif, sans-serif, system-ui;
+  --font-mono: ui-monospace, monospace;
   --radius: 0.5rem;
   --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
   --tracking-tight: calc(var(--tracking-normal) - 0.025em);
@@ -104,9 +105,6 @@
   --sidebar-accent-foreground: oklch(0.3394 0.0441 1.7583);
   --sidebar-border: oklch(0.8719 0.0198 302.1690);
   --sidebar-ring: oklch(0.6104 0.0767 299.7335);
-  --font-sans: Nunito, ui-sans-serif, sans-serif, system-ui;
-  --font-serif: Kreon, ui-serif, serif;
-  --font-mono: Reddit Mono, ui-monospace, monospace;
   --shadow-color: hsl(0 0% 0%);
   --shadow-opacity: 0.06;
   --shadow-blur: 5px;
@@ -160,9 +158,6 @@
   --sidebar-accent-foreground: oklch(0.8391 0.0692 2.6681);
   --sidebar-border: oklch(0.2847 0.0346 291.2726);
   --sidebar-ring: oklch(0.7058 0.0777 302.0489);
-  --font-sans: Nunito, ui-sans-serif, sans-serif, system-ui;
-  --font-serif: Kreon, ui-serif, serif;
-  --font-mono: Reddit Mono, ui-monospace, monospace;
   --shadow-color: hsl(0 0% 0%);
   --shadow-opacity: 0.06;
   --shadow-blur: 5px;

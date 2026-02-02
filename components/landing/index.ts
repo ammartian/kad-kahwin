@@ -1,0 +1,13 @@
+export { Navbar } from "./Navbar";
+export { Hero } from "./Hero";
+export { SocialProof } from "./SocialProof";
+export { ProblemSolution } from "./ProblemSolution";
+export { Features } from "./Features";
+export { HowItWorks } from "./HowItWorks";
+export { WhyYou } from "./WhyYou";
+export { Pricing } from "./Pricing";
+export { SecondaryCTA } from "./SecondaryCTA";
+export { FAQ } from "./FAQ";
+export { FooterCTA } from "./FooterCTA";
+export { WaitlistModal } from "./WaitlistModal";
+export { LanguageToggle } from "./LanguageToggle";

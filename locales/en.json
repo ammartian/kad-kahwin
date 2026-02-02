@@ -1,0 +1,201 @@
+{
+  "nav": {
+    "login": "Login",
+    "signup": "Sign Up"
+  },
+  "hero": {
+    "headline": "Wedding Invitations Your Guests Will Remember",
+    "subheadline": "The digital platform for couples. Create, share, and manage wedding invitations with ease.",
+    "cta_primary_waitlist": "Join Waitlist",
+    "cta_primary_live": "Try Free Now",
+    "cta_secondary": "Watch 1 Min Demo"
+  },
+  "social_proof": {
+    "couples_registered": "Couples Registered",
+    "guests_rsvp": "Guests Have RSVP'd",
+    "trust_text": "Trusted by couples across Malaysia"
+  },
+  "problem_solution": {
+    "problem": {
+      "title": "Traditional Wedding Cards? Troublesome.",
+      "description": "Print hundreds of cards, deliver one by one, last-minute updates? Waste of time, money, and energy. Guests forget to bring them, end up in trash."
+    },
+    "solution": {
+      "title": "Digital Cards? Super Easy.",
+      "description": "Create in 5 minutes, share with one link. Guests RSVP directly from their phone. All data in one dashboard."
+    },
+    "hook": {
+      "title": "A Wedding to Remember, Without the Stress.",
+      "description": "Focus on what matters—celebrate your love. Let Kad Kahwin handle the logistics. More time for memories, less time for admin."
+    }
+  },
+  "features": {
+    "section_title": "What You Get",
+    "live_preview": {
+      "title": "Edit & Preview Live",
+      "description": "Change colors, fonts, backgrounds—everything updates in real-time. No waiting, no guessing."
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "description": "Guests can choose & buy gifts from Shopee/Lazada/Tiktok Shop. No duplicate gifts. Win-win."
+    },
+    "rsvp": {
+      "title": "Auto RSVP Tracking",
+      "description": "Know who's coming, how many, dietary preferences. Export to Excel with one click."
+    },
+    "wishes": {
+      "title": "Live Wishes Chat",
+      "description": "Guests send congratulations, you read instantly. Like a WhatsApp group, but prettier."
+    },
+    "multi_manager": {
+      "title": "Bride & Groom Edit Together",
+      "description": "Both can edit at the same time. No more 'Honey, you handle it' drama."
+    },
+    "mobile_first": {
+      "title": "Perfect on Phone",
+      "description": "9:16 aspect ratio, optimized for Instagram story feel. Looks stunning on mobile."
+    }
+  },
+  "how_it_works": {
+    "section_title": "How It Works",
+    "step1": {
+      "title": "Sign Up & Set Up",
+      "description": "Login with Google, create event, pick your theme. 2 minutes max."
+    },
+    "step2": {
+      "title": "Add Details & Wishlist",
+      "description": "Upload couple photo, add event info, create wishlist from Shopee/Lazada/Tiktok Shop."
+    },
+    "step3": {
+      "title": "Share Link & Track RSVPs",
+      "description": "Copy your custom link, share via WhatsApp, watch RSVPs roll in."
+    }
+  },
+  "why_you": {
+    "section_title": "Why Kad Kahwin?",
+    "comparison": {
+      "feature": "Feature",
+      "traditional": "Traditional Cards",
+      "digital": "Kad Kahwin",
+      "cost": "Cost",
+      "cost_traditional": "RM500-2000 for printing",
+      "cost_digital": "RM39 one-time",
+      "time": "Time to create",
+      "time_traditional": "2-4 weeks",
+      "time_digital": "5 minutes",
+      "updates": "Updates",
+      "updates_traditional": "Impossible after print",
+      "updates_digital": "Edit anytime",
+      "rsvp_tracking": "RSVP tracking",
+      "rsvp_traditional": "Manual via calls/texts",
+      "rsvp_digital": "Automatic dashboard",
+      "eco": "Eco-friendly",
+      "eco_traditional": "Paper waste",
+      "eco_digital": "100% digital",
+      "wishlist": "Wishlist tracking",
+      "wishlist_traditional": "None",
+      "wishlist_digital": "No duplicate gifts"
+    },
+    "usps": {
+      "save_time": "Focus on wedding prep, not admin",
+      "save_money": "RM39 vs. RM2000 on cards",
+      "eco_friendly": "Zero paper, zero waste",
+      "earn_income": "Affiliate commissions from wishlist",
+      "real_time": "Change details anytime, guests see instantly",
+      "data_driven": "Know exactly who's coming, who's not"
+    }
+  },
+  "pricing": {
+    "headline": "One Price, All Features",
+    "price": "RM39",
+    "subtitle": "One-time payment",
+    "unlimited": "Unlimited guests • Unlimited wishlist items • Unlimited wishes",
+    "features": {
+      "custom_url": "Custom URL",
+      "live_preview": "Live preview builder",
+      "rsvp": "RSVP management + analytics",
+      "wishes": "Real-time wishes feed",
+      "wishlist": "Wishlist (Shopee/Lazada/Tiktok Shop)",
+      "multi_manager": "Multi-manager (bride + groom)",
+      "excel": "Excel import/export",
+      "donation": "Donation QR code",
+      "language": "Malay + English support",
+      "lifetime": "Lifetime access (no monthly fees)"
+    },
+    "cta": "Start Now",
+    "early_bird": "Early Bird: FREE for first 50 couples!",
+    "early_bird_note": "(Normally RM39)"
+  },
+  "secondary_cta": {
+    "headline": "Ready for an unforgettable celebration?",
+    "subheadline": "Join 100+ couples who've switched to digital.",
+    "cta": "Sign Up Now—It's Free to Start"
+  },
+  "faq": {
+    "section_title": "Frequently Asked Questions",
+    "q1": {
+      "question": "How long does it take to set up?",
+      "answer": "Just 5 minutes! Sign up with Google, choose a template, fill in details, done. If you want to customize more (colors, music, wishlist), it might take 10-15 minutes."
+    },
+    "q2": {
+      "question": "Can guests RSVP without an account?",
+      "answer": "Yes! Guests only need to click the link, fill the RSVP form, done. No sign up required for guests."
+    },
+    "q3": {
+      "question": "How does the wishlist work?",
+      "answer": "You add wishlist items from Shopee/Lazada/Tiktok Shop, our system tracks guest selections. When a guest picks an item, we disable it. No duplicate gifts!"
+    },
+    "q4": {
+      "question": "Where can I share the link?",
+      "answer": "Anywhere! WhatsApp, Instagram story, Facebook, email—wherever you want. The link is yours to share."
+    },
+    "q5": {
+      "question": "What if guests don't have smartphones?",
+      "answer": "The link works on desktop too. The design is responsive, so it looks good everywhere. But realistically, 95% of Malaysians have smartphones now."
+    },
+    "q6": {
+      "question": "Is guest data secure?",
+      "answer": "100%. We use Convex (enterprise-grade database), HTTPS encryption, and follow Malaysian data protection standards. Your data is safe."
+    },
+    "q7": {
+      "question": "Can I get a refund?",
+      "answer": "Since it's a digital product and you get instant access, no refunds. But we have a free preview/trial mode so you can test before paying."
+    },
+    "q8": {
+      "question": "What languages are available?",
+      "answer": "Malay and English. You can set the default language, and guests can switch if they want."
+    }
+  },
+  "footer": {
+    "headline": "Let's create your dream wedding invitation.",
+    "cta": "Sign Up Free",
+    "links": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "contact": "Contact Us",
+      "help": "Help Center"
+    },
+    "copyright": "© 2026 Kad Kahwin. Made with love in Malaysia."
+  },
+  "waitlist": {
+    "title": "Be the First to Create Your Kad Kahwin",
+    "description": "Kad Kahwin launching soon! Join the waitlist to get:",
+    "benefit1": "Early access (before public launch)",
+    "benefit2": "FREE for first 50 couples (worth RM39)",
+    "benefit3": "Exclusive wedding planning tips",
+    "email_placeholder": "Enter your email",
+    "cta": "Sign Up Now",
+    "fine_print": "We'll email you when we launch. No spam, promise.",
+    "success_title": "Success!",
+    "success_message": "Your email is on the list. Watch your inbox—we'll email you when we launch.",
+    "error_title": "Oops, something went wrong.",
+    "error_message": "Try again? If problem persists, email us at hello@kadkahwin.my",
+    "error_email_required": "Email is required",
+    "error_email_invalid": "Please enter a valid email",
+    "error_email_exists": "This email is already registered. Check your inbox!"
+  },
+  "language": {
+    "ms": "BM",
+    "en": "EN"
+  }
+}
