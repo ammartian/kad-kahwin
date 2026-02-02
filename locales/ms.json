@@ -17,58 +17,58 @@
   },
   "problem_solution": {
     "problem": {
-      "title": "Kad Kahwin Tradisional? Leceh.",
+      "title": "Kad Kahwin Tradisional? Leceh",
       "description": "Cetak ratusan kad, hantar satu-satu, kemas kini last-minute? Buang masa, buang duit, buang tenaga. Tetamu lupa bawa, terbuang dalam sampah."
     },
     "solution": {
-      "title": "Kad Digital? Senang.",
-      "description": "Cipta dalam 5 minit, kongsi dengan satu link. Tetamu RSVP terus dari phone. Semua data dalam satu dashboard."
+      "title": "Kad Digital? Senang",
+      "description": "Cipta dalam 5 minit, kongsi satu link. Tetamu RSVP terus dari phone. Semua data dalam satu dashboard."
     },
     "hook": {
-      "title": "Majlis Yang Diingati, Tanpa Stress.",
-      "description": "Fokus pada apa yang penting—celebrate your love. Biar Kad Kahwin handle logistics. More time for memories, less time for admin."
+      "title": "Majlis Yang Istimewa, Tanpa Stress",
+      "description": "Fokus pada apa yang penting. Raikan cinta anda. Biar Kad Kahwin uruskan tetamu. Lebih masa untuk memori, kurang masa untuk pengurusan."
     }
   },
   "features": {
-    "section_title": "Apa Yang You Dapat?",
+    "section_title": "Apa Yang Anda Dapat?",
     "live_preview": {
       "title": "Edit & Lihat Terus",
-      "description": "Ubah warna, font, background—semua update real-time. No waiting, no guessing."
+      "description": "Ubah warna, font, background. Semua update real-time. Tidak ada meneka atau agak-agak."
     },
     "wishlist": {
       "title": "Wishlist",
-      "description": "Tetamu boleh pilih & beli hadiah dari Shopee/Lazada/Tiktok Shop. Tak dapat hadiah yang sama. Win-win."
+      "description": "Tetamu boleh pilih & beli hadiah dari Shopee/Lazada. Tak dapat hadiah yang sama. Win-win."
     },
     "rsvp": {
-      "title": "RSVP Tracking Auto",
-      "description": "Tahu siapa datang, berapa orang, dietary preference. Export to Excel sekali click."
+      "title": "Rekod RSVP",
+      "description": "Tahu siapa datang, berapa orang. Export to Excel dengan satu click."
     },
     "wishes": {
-      "title": "Wishes Chat Live",
-      "description": "Tetamu ucap tahniah, you baca terus. Macam WhatsApp group, tapi prettier."
+      "title": "Ucapan Real-time",
+      "description": "Tetamu ucap tahniah, anda baca terus. Macam WhatsApp group, tapi lebih cantik."
     },
     "multi_manager": {
-      "title": "Bride & Groom Edit Together",
-      "description": "Both can edit at same time. No more 'Sayang, you handle la' drama."
+      "title": "Pasangan Edit Bersama",
+      "description": "Kedua-dua boleh edit bersama. Tidak ada lagi 'Sayang, you handle la' drama."
     },
     "mobile_first": {
-      "title": "Perfect Kat Phone",
-      "description": "9:16 aspect ratio, optimized for Instagram story feel. Looks stunning on mobile."
+      "title": "Sempurna untuk Phone",
+      "description": "9:16 aspect ratio, direka untuk feel Instagram story. Nampak cantik di telefon."
     }
   },
   "how_it_works": {
     "section_title": "Macam Mana Nak Guna?",
     "step1": {
-      "title": "Sign Up & Set Up",
-      "description": "Login with Google, create event, pick your theme. 2 minutes max."
+      "title": "Daftar & Setup",
+      "description": "Login dengan Google, cipta event, pilih tema. 2 minit max."
     },
     "step2": {
-      "title": "Add Details & Wishlist",
-      "description": "Upload couple photo, add event info, create wishlist dari Shopee/Lazada/Tiktok Shop."
+      "title": "Isi Info & Wishlist",
+      "description": "Upload couple photo, isi info event, cipta wishlist dari Shopee/Lazada"
     },
     "step3": {
-      "title": "Share Link & Track RSVPs",
-      "description": "Copy your custom link, share via WhatsApp, watch RSVPs roll in."
+      "title": "Kongsi Link & Rekod RSVP",
+      "description": "Copy custom link, kongsi via WhatsApp, rekod RSVP."
     }
   },
   "why_you": {
@@ -90,109 +90,108 @@
       "rsvp_traditional": "Manual via calls/texts",
       "rsvp_digital": "Automatic dashboard",
       "eco": "Mesra alam",
-      "eco_traditional": "Paper waste",
+      "eco_traditional": "Bazir kertas",
       "eco_digital": "100% digital",
       "wishlist": "Wishlist tracking",
       "wishlist_traditional": "Tiada",
-      "wishlist_digital": "No duplicate gifts"
+      "wishlist_digital": "Tidak ada hadiah yang sama"
     },
     "usps": {
-      "save_time": "Focus on wedding prep, not admin",
-      "save_money": "RM39 vs. RM2000 on cards",
-      "eco_friendly": "Zero paper, zero waste",
-      "earn_income": "Affiliate commissions from wishlist",
-      "real_time": "Change details anytime, guests see instantly",
-      "data_driven": "Know exactly who's coming, who's not"
+      "save_time": "Fokus pada persiapan majlis, bukan admin",
+      "save_money": "RM39 vs. RM2000 pada kad kahwin",
+      "eco_friendly": "Tidak membazir kertas, mesra alam",
+      "earn_income": "Smart wishlist, tidak ada hadiah yang sama",
+      "real_time": "Ubah details bila-bila masa, tetamu lihat secara langsung",
+      "data_driven": "Tahu siapa datang, siapa tak datang" 
     }
   },
   "pricing": {
-    "headline": "Satu Harga, Semua Feature",
+    "headline": "Satu Harga, Semua Fungsi",
     "price": "RM39",
-    "subtitle": "One-time payment",
-    "unlimited": "Unlimited guests • Unlimited wishlist items • Unlimited wishes",
+    "subtitle": "Satu-kali bayar",
+    "unlimited": "Tetamu tak terhad  • Wishlist tak terhad  • Ucapan tak terhad ",
     "features": {
-      "custom_url": "Custom URL",
-      "live_preview": "Live preview builder",
-      "rsvp": "RSVP management + analytics",
-      "wishes": "Real-time wishes feed",
-      "wishlist": "Wishlist (Shopee/Lazada/Tiktok Shop)",
-      "multi_manager": "Multi-manager (bride + groom)",
+      "custom_url": "Custom Link",
+      "live_preview": "Edit & Lihat Terus",
+      "rsvp": "Rekod RSVP + Analytics",
+      "wishes": "Ucapan Real-time",
+      "wishlist": "Wishlist (Shopee/Lazada)",
+      "multi_manager": "Pengurusan bersama (multiple users)",
       "excel": "Excel import/export",
-      "donation": "Donation QR code",
-      "language": "Malay + English support",
-      "lifetime": "Lifetime access (no monthly fees)"
+      "donation": "Dermaan QR code & Bank",
+      "language": "Bahasa Malaysia + English",
+      "lifetime": "Akses selama-lamanya (tiada bayaran bulanan)"
     },
     "cta": "Mula Sekarang",
-    "early_bird": "Early Bird: FREE for first 50 couples!",
-    "early_bird_note": "(Normally RM39)"
+    "early_bird": "Promosi: PERCUMA untuk 50 pasangan pertama!",
+    "early_bird_note": "(Biasanya RM39)"
   },
   "secondary_cta": {
-    "headline": "Ready untuk majlis yang unforgettable?",
-    "subheadline": "Join 100+ couples yang dah switch to digital.",
-    "cta": "Daftar Sekarang—It's Free to Start"
+    "headline": "Bersedia untuk majlis yang tidak akan dilupai?",
+    "subheadline": "Sertai 100+ pasangan yang sudah menggunaka kad kahwin digital.",
+    "cta": "Daftar Sekarang. Percuma untuk mula"
   },
   "faq": {
     "section_title": "Soalan Lazim",
     "q1": {
       "question": "Berapa lama ambil masa untuk setup?",
-      "answer": "5 minit je! Sign up dengan Google, pilih template, isi details, done. Kalau you nak customize lagi detail (warna, music, wishlist), boleh ambil 10-15 minit."
+      "answer": "5 minit je! Sign up dengan Google, pilih gambar background, isi details, done. Kalau you nak customize lagi detail (warna, music, wishlist), boleh ambil 10-15 minit."
     },
     "q2": {
       "question": "Boleh tetamu RSVP tanpa account?",
-      "answer": "Yes! Tetamu hanya perlu click link, isi form RSVP, done. No sign up required untuk guests."
+      "answer": "Boleh! Tetamu hanya perlu buka link, isi borang RSVP, siap. Tidak perlu daftar untuk tetamu."
     },
     "q3": {
-      "question": "Macam mana wishlist work?",
-      "answer": "You add wishlist items dari Shopee/Lazada/Tiktok Shop, our system track guest's options. Bila tetamu pilih, kita disable the item. No duplicated gifts!"
+      "question": "Macam mana wishlist berfungsi?",
+      "answer": "Copy link dari Shopee/Lazada, sistem akan rekod pilihan tetamu. Bila tetamu pilih, kita disable item tersebut. Tidak ada hadiah yang sama!"
     },
     "q4": {
       "question": "Boleh share link kat mana?",
-      "answer": "Anywhere! WhatsApp, Instagram story, Facebook, email—wherever you want. Link is yours to share."
+      "answer": "Mana mana sahaja! WhatsApp, Instagram story, Facebook, email. Link adalah untuk anda kongsi."
     },
     "q5": {
-      "question": "Kalau tetamu takde smartphone?",
-      "answer": "Link boleh bukak kat desktop juga. Design responsive, so it looks good everywhere. But realistically, 95% of Malaysians have smartphones now."
+      "question": "Kalau tetamu tak ada smartphone?",
+      "answer": "Link boleh buka kat desktop juga. Design responsive, nampak bagus di mana-mana. Tetapi secara realistik, 95% orang Malaysia ada smartphone sekarang."
     },
     "q6": {
-      "question": "Data tetamu secure tak?",
-      "answer": "100%. We use Convex (enterprise-grade database), HTTPS encryption, and follow Malaysian data protection standards. Your data is safe."
+      "question": "Data tetamu selamat tak?",
+      "answer": "100% selamat. Kami mengikuti standard perlindungan data Malaysia. Data anda selamat."
     },
     "q7": {
       "question": "Boleh refund?",
-      "answer": "Since it's digital product and you get instant access, no refunds. But we have free preview/trial mode so you can test before paying."
+      "answer": "Tidak boleh. Kerana ini adalah produk digital dan anda dapat akses segera, tidak ada refund. Tetapi kami ada mode preview/trial percuma jadi anda boleh cuba sebelum bayar."
     },
     "q8": {
-      "question": "Bahasa apa available?",
-      "answer": "Malay dan English. You boleh set default language, tetamu boleh switch kalau nak."
+      "question": "Bahasa apa yang tersedia?",
+      "answer": "Bahasa Malaysia dan English. Anda boleh set bahasa pilihan, tetamu boleh tukar."
     }
   },
   "footer": {
-    "headline": "Jom, mula cipta kad kahwin impian you.",
+    "headline": "Cipta kad kahwin impian anda.",
     "cta": "Daftar Percuma",
     "links": {
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Service",
-      "contact": "Contact Us",
-      "help": "Help Center"
+      "privacy": "Polisi Privasi",
+      "terms": "Syarat & Ketentuan",
+      "contact": "Hubungi Kami",
+      "help": "Bantuan"
     },
     "copyright": "© 2026 Kad Kahwin. Made with love in Malaysia."
   },
   "waitlist": {
-    "title": "Be the First to Create Your Kad Kahwin",
-    "description": "Kad Kahwin launching soon! Join the waitlist to get:",
-    "benefit1": "Early access (before public launch)",
-    "benefit2": "FREE for first 50 couples (worth RM39)",
-    "benefit3": "Exclusive wedding planning tips",
+    "title": "Cipta Kad Kahwin Anda",
+    "description": "Kad Kahwin sedang dibina! Sertai senarai tunggu untuk mendapat:",
+    "benefit1": "Akses awal (sebelum public launch)",
+    "benefit2": "PERCUMA untuk 50 pasangan pertama (Biasanya RM39)",
     "email_placeholder": "Masukkan email anda",
     "cta": "Daftar Sekarang",
-    "fine_print": "We'll email you when we launch. No spam, promise.",
+    "fine_print": "Kami akan email anda apabila kami melancarkan. Tiada spam, janji.",
     "success_title": "Berjaya!",
-    "success_message": "Your email is on the list. Watch your inbox—we'll email you when we launch.",
-    "error_title": "Oops, something went wrong.",
-    "error_message": "Try again? If problem persists, email us at hello@kadkahwin.my",
+    "success_message": "Email anda ada dalam senarai. Tengok inbox anda—kami akan email anda apabila tersedia.",
+    "error_title": "Oops, ada masalah.",
+    "error_message": "Cuba lagi? Jika masalah berterusan, email kami di hello@kadkahwin.my",
     "error_email_required": "Email diperlukan",
     "error_email_invalid": "Sila masukkan email yang sah",
-    "error_email_exists": "Email ini sudah berdaftar. Check your inbox!"
+    "error_email_exists": "Email ini sudah berdaftar. Tengok inbox anda!"
   },
   "language": {
     "ms": "BM",

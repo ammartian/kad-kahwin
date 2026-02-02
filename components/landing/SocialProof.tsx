@@ -55,10 +55,31 @@ export function SocialProof() {
       suffix: "+",
       label: t("social_proof.couples_registered"),
     },
+    // {
+    //   value: 5000,
+    //   suffix: "+",
+    //   label: t("social_proof.guests_rsvp"),
+    // },
+  ];
+
+  const avatarStack = [
     {
-      value: 5000,
-      suffix: "+",
-      label: t("social_proof.guests_rsvp"),
+      initials: "AH",
+    },
+    {
+      initials: "MAQ",
+    },
+    {
+      initials: "NSI",
+    },
+    {
+      initials: "DE",
+    },
+    {
+      initials: "QM",
+    },
+    {
+      initials: "ES",
     },
   ];
 
@@ -106,12 +127,12 @@ export function SocialProof() {
             variants={fadeIn}
             className="mt-6 flex -space-x-3"
           >
-            {[...Array(5)].map((_, i) => (
+            {avatarStack.map((avatar, i) => (
               <div
                 key={i}
                 className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 border-2 border-background flex items-center justify-center"
               >
-                <span className="text-xs">💑</span>
+                <span className="text-xs">{avatar.initials}</span>
               </div>
             ))}
             <div className="w-10 h-10 rounded-full bg-primary/10 border-2 border-background flex items-center justify-center">

@@ -10,6 +10,7 @@ import { isWaitlistMode } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function Navbar() {
   const { t } = useTranslation();
@@ -51,21 +52,16 @@ export function Navbar() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <span className="text-white font-bold text-sm">KK</span>
-              </div>
-              <span className="font-display font-bold text-xl text-foreground">
-                Kad Kahwin
-              </span>
+            <Link href="/" className="flex items-center gap-2 rounded-full overflow-hidden">
+              <Image src="/logo.jpeg" alt="Kad Kahwin" width={36} height={36} />
             </Link>
 
             {/* Desktop nav */}
             <div className="hidden lg:flex items-center gap-6">
               <LanguageToggle />
-              <Button variant="ghost" asChild>
+              {/* <Button variant="ghost" asChild>
                 <Link href="/login">{t("nav.login")}</Link>
-              </Button>
+              </Button> */}
               <Button onClick={handleCTA}>
                 {isWaitlistMode
                   ? t("hero.cta_primary_waitlist")
@@ -105,7 +101,7 @@ export function Navbar() {
                   <LanguageToggle />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Button
+                  {/* <Button
                     variant="ghost"
                     className="w-full justify-center"
                     asChild
@@ -113,7 +109,7 @@ export function Navbar() {
                     <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
                       {t("nav.login")}
                     </Link>
-                  </Button>
+                  </Button> */}
                   <Button className="w-full" onClick={handleCTA}>
                     {isWaitlistMode
                       ? t("hero.cta_primary_waitlist")

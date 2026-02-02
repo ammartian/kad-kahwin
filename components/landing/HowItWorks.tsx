@@ -92,23 +92,23 @@ export function HowItWorks() {
                 </p>
 
                 {/* Mobile connector line */}
-                {index < steps.length - 1 && (
+                {/* {index < steps.length - 1 && (
                   <div className="lg:hidden absolute left-1/2 -translate-x-1/2 top-16 w-0.5 h-8 bg-gradient-to-b from-primary to-accent" />
-                )}
+                )} */}
               </motion.div>
             ))}
           </div>
         </motion.div>
 
         {/* Demo video placeholder */}
-        <motion.div
+        {/* <motion.div
           variants={fadeIn}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="mt-16 lg:mt-20"
         >
           <div className="relative max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-muted to-secondary/30 shadow-xl border">
-            {/* Placeholder content */}
+            
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
               <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                 <motion.div
@@ -132,14 +132,14 @@ export function HowItWorks() {
               </p>
             </div>
 
-            {/* Decorative elements */}
+            
             <div className="absolute top-4 left-4 flex gap-2">
               <div className="w-3 h-3 rounded-full bg-destructive/50" />
               <div className="w-3 h-3 rounded-full bg-chart-4/50" />
               <div className="w-3 h-3 rounded-full bg-chart-3/50" />
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

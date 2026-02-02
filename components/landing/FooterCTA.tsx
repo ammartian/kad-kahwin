@@ -81,7 +81,7 @@ export function FooterCTA() {
           </motion.div>
 
           {/* Social icons */}
-          <div className="flex justify-center gap-4 mb-8">
+          {/* <div className="flex justify-center gap-4 mb-8">
             {socialLinks.map((social, index) => (
               <motion.a
                 key={index}
@@ -96,10 +96,10 @@ export function FooterCTA() {
                 <social.icon className="w-5 h-5" />
               </motion.a>
             ))}
-          </div>
+          </div> */}
 
           {/* Footer links */}
-          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
+          {/* <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
             {footerLinks.map((link, index) => (
               <Link
                 key={index}
@@ -110,7 +110,7 @@ export function FooterCTA() {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
               </Link>
             ))}
-          </nav>
+          </nav> */}
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">

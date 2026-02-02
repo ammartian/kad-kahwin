@@ -17,27 +17,27 @@
   },
   "problem_solution": {
     "problem": {
-      "title": "Traditional Wedding Cards? Troublesome.",
+      "title": "Traditional Wedding Cards? Troublesome",
       "description": "Print hundreds of cards, deliver one by one, last-minute updates? Waste of time, money, and energy. Guests forget to bring them, end up in trash."
     },
     "solution": {
-      "title": "Digital Cards? Super Easy.",
+      "title": "Digital Cards? Super Easy",
       "description": "Create in 5 minutes, share with one link. Guests RSVP directly from their phone. All data in one dashboard."
     },
     "hook": {
-      "title": "A Wedding to Remember, Without the Stress.",
-      "description": "Focus on what matters—celebrate your love. Let Kad Kahwin handle the logistics. More time for memories, less time for admin."
+      "title": "A Wedding to Remember, Without the Stress",
+      "description": "Focus on what matters. Celebrate your love. Let Kad Kahwin handle the logistics. More time for memories, less time for admin."
     }
   },
   "features": {
     "section_title": "What You Get",
     "live_preview": {
       "title": "Edit & Preview Live",
-      "description": "Change colors, fonts, backgrounds—everything updates in real-time. No waiting, no guessing."
+      "description": "Change colors, fonts, backgrounds. Everything updates in real-time. No waiting, no guessing."
     },
     "wishlist": {
       "title": "Wishlist",
-      "description": "Guests can choose & buy gifts from Shopee/Lazada/Tiktok Shop. No duplicate gifts. Win-win."
+      "description": "Guests can choose & buy gifts from Shopee/Lazada. No duplicate gifts. Win-win."
     },
     "rsvp": {
       "title": "Auto RSVP Tracking",
@@ -64,7 +64,7 @@
     },
     "step2": {
       "title": "Add Details & Wishlist",
-      "description": "Upload couple photo, add event info, create wishlist from Shopee/Lazada/Tiktok Shop."
+      "description": "Upload couple photo, add event info, create wishlist from Shopee/Lazada."
     },
     "step3": {
       "title": "Share Link & Track RSVPs",
@@ -100,7 +100,7 @@
       "save_time": "Focus on wedding prep, not admin",
       "save_money": "RM39 vs. RM2000 on cards",
       "eco_friendly": "Zero paper, zero waste",
-      "earn_income": "Affiliate commissions from wishlist",
+      "earn_income": "Smart wishlist, no duplicate gifts",
       "real_time": "Change details anytime, guests see instantly",
       "data_driven": "Know exactly who's coming, who's not"
     }
@@ -115,7 +115,7 @@
       "live_preview": "Live preview builder",
       "rsvp": "RSVP management + analytics",
       "wishes": "Real-time wishes feed",
-      "wishlist": "Wishlist (Shopee/Lazada/Tiktok Shop)",
+      "wishlist": "Wishlist (Shopee/Lazada)",
       "multi_manager": "Multi-manager (bride + groom)",
       "excel": "Excel import/export",
       "donation": "Donation QR code",
@@ -129,7 +129,7 @@
   "secondary_cta": {
     "headline": "Ready for an unforgettable celebration?",
     "subheadline": "Join 100+ couples who've switched to digital.",
-    "cta": "Sign Up Now—It's Free to Start"
+    "cta": "Sign Up Now. It's Free to Start"
   },
   "faq": {
     "section_title": "Frequently Asked Questions",
@@ -143,11 +143,11 @@
     },
     "q3": {
       "question": "How does the wishlist work?",
-      "answer": "You add wishlist items from Shopee/Lazada/Tiktok Shop, our system tracks guest selections. When a guest picks an item, we disable it. No duplicate gifts!"
+      "answer": "You add wishlist items from Shopee/Lazada, our system tracks guest selections. When a guest picks an item, we disable it. No duplicate gifts!"
     },
     "q4": {
       "question": "Where can I share the link?",
-      "answer": "Anywhere! WhatsApp, Instagram story, Facebook, email—wherever you want. The link is yours to share."
+      "answer": "Anywhere! WhatsApp, Instagram story, Facebook, email. Wherever you want. The link is yours to share."
     },
     "q5": {
       "question": "What if guests don't have smartphones?",
@@ -155,7 +155,7 @@
     },
     "q6": {
       "question": "Is guest data secure?",
-      "answer": "100%. We use Convex (enterprise-grade database), HTTPS encryption, and follow Malaysian data protection standards. Your data is safe."
+      "answer": "100%. We follow Malaysian data protection standards. Your data is safe."
     },
     "q7": {
       "question": "Can I get a refund?",
@@ -182,7 +182,6 @@
     "description": "Kad Kahwin launching soon! Join the waitlist to get:",
     "benefit1": "Early access (before public launch)",
     "benefit2": "FREE for first 50 couples (worth RM39)",
-    "benefit3": "Exclusive wedding planning tips",
     "email_placeholder": "Enter your email",
     "cta": "Sign Up Now",
     "fine_print": "We'll email you when we launch. No spam, promise.",

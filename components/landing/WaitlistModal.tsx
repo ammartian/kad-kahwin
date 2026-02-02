@@ -172,7 +172,6 @@ export function WaitlistModal() {
                   {[
                     t("waitlist.benefit1"),
                     t("waitlist.benefit2"),
-                    t("waitlist.benefit3"),
                   ].map((benefit, index) => (
                     <motion.li
                       key={index}
