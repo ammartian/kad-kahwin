@@ -59,7 +59,7 @@ export function HowItWorks() {
           className="relative"
         >
           {/* Desktop timeline line */}
-          <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-accent to-primary" />
+          {/* <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-accent to-primary" /> */}
 
           <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
             {steps.map((step, index) => (
@@ -77,9 +77,9 @@ export function HowItWorks() {
                 </motion.div>
 
                 {/* Icon */}
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-4">
+                {/* <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-4">
                   <step.icon className="w-6 h-6 text-primary" />
-                </div>
+                </div> */}
 
                 {/* Title */}
                 <h3 className="font-display text-xl lg:text-2xl font-bold text-foreground mb-3">

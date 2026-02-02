@@ -65,7 +65,7 @@ export function Pricing() {
                 initial={{ x: 100, rotate: 45 }}
                 animate={isInView ? { x: 0, rotate: 0 } : { x: 100, rotate: 45 }}
                 transition={{ delay: 0.5, type: "spring" }}
-                className="absolute top-4 right-4"
+                className="absolute top-4 right-8"
               >
                 <div className="bg-chart-4 text-foreground px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg">
                   <Sparkles className="w-4 h-4" />
@@ -76,12 +76,12 @@ export function Pricing() {
 
             <div className="p-8 lg:p-10">
               {/* Price */}
-              <div className="text-center mb-8">
+              <div className="text-center mt-4 mb-8">
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={isInView ? { scale: 1 } : { scale: 0 }}
                   transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                  className="font-display text-6xl lg:text-7xl font-bold text-primary mb-2"
+                  className="font-display text-6xl lg:text-7xl font-bold text-primary mb-2 line-through"
                 >
                   {t("pricing.price")}
                 </motion.div>

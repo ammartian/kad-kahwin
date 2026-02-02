@@ -97,7 +97,7 @@ export function Hero() {
           >
             <div className="relative">
               {/* Phone frame */}
-              <div className="relative w-[280px] sm:w-[320px] aspect-[9/16] bg-gradient-to-br from-card to-secondary/20 rounded-[2.5rem] shadow-2xl border-8 border-foreground/10 overflow-hidden">
+              <div className="relative w-[280px] sm:w-[320px] aspect-[9/16] bg-gradient-to-br from-card to-secondary/20 rounded-[2.5rem] shadow-2xl border-8 border-foreground/10 overflow-hidden mt-10">
                 {/* Phone notch */}
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-6 bg-foreground/10 rounded-full" />
                 
