@@ -2,6 +2,7 @@
 
 import { I18nProvider } from "@/components/providers/I18nProvider";
 import { PostHogProvider } from "@/components/providers/PostHogProvider";
+import { ConvexClientProvider } from "@/components/providers/ConvexProvider";
 import {
   Navbar,
   Hero,
@@ -19,8 +20,9 @@ import {
 
 export default function Home() {
   return (
-    <PostHogProvider>
-      <I18nProvider>
+    <ConvexClientProvider>
+      <PostHogProvider>
+        <I18nProvider>
         <div className="min-h-screen bg-background">
           {/* Navigation */}
           <Navbar />
@@ -61,7 +63,8 @@ export default function Home() {
           {/* Waitlist Modal */}
           <WaitlistModal />
         </div>
-      </I18nProvider>
-    </PostHogProvider>
+        </I18nProvider>
+      </PostHogProvider>
+    </ConvexClientProvider>
   );
 }

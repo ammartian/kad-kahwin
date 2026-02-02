@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import {
   Dialog,
   DialogContent,
@@ -37,6 +39,9 @@ export function WaitlistModal() {
     useLandingStore();
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
   const [submittedEmail, setSubmittedEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const addToWaitlist = useMutation(api.waitlist.addToWaitlist);
 
   const {
     register,
@@ -57,10 +62,13 @@ export function WaitlistModal() {
   const onSubmit = async (data: WaitlistFormData) => {
     setSubmitStatus("loading");
     setSubmittedEmail(data.email);
+    setErrorMessage("");
 
     try {
-      // Simulate API call - replace with actual Convex mutation later
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await addToWaitlist({
+        email: data.email,
+        source: waitlistModalTrigger || "landing-page",
+      });
 
       // Extract email domain
       const emailDomain = data.email.split("@")[1] || "unknown";
@@ -71,10 +79,22 @@ export function WaitlistModal() {
         trigger: waitlistModalTrigger || "hero",
       });
 
-      // For now, always succeed (will integrate with Convex later)
+      // Success!
       setSubmitStatus("success");
       reset();
-    } catch {
+    } catch (error) {
+      const errorMsg =
+        error instanceof Error ? error.message : "Something went wrong";
+
+      // Handle specific error messages
+      if (errorMsg.includes("already subscribed")) {
+        setErrorMessage(t("waitlist.error_already_subscribed") || "Email already subscribed");
+      } else if (errorMsg.includes("Invalid email")) {
+        setErrorMessage(t("waitlist.error_email_invalid") || "Invalid email format");
+      } else {
+        setErrorMessage(errorMsg);
+      }
+
       setSubmitStatus("error");
     }
   };
@@ -84,6 +104,7 @@ export function WaitlistModal() {
     // Reset form state after modal closes
     setTimeout(() => {
       setSubmitStatus("idle");
+      setErrorMessage("");
       reset();
     }, 300);
   };
@@ -119,9 +140,6 @@ export function WaitlistModal() {
               <h3 className="font-display text-2xl font-bold text-foreground mb-2">
                 {t("waitlist.success_title")}
               </h3>
-              <p className="text-muted-foreground mb-2">
-                Your email ({submittedEmail}) is on the list.
-              </p>
               <p className="text-sm text-muted-foreground mb-6">
                 {t("waitlist.success_message")}
               </p>
@@ -151,7 +169,7 @@ export function WaitlistModal() {
                 {t("waitlist.error_title")}
               </h3>
               <p className="text-muted-foreground mb-6">
-                {t("waitlist.error_message")}
+                {errorMessage || t("waitlist.error_message")}
               </p>
               <div className="flex gap-3 justify-center">
                 <Button

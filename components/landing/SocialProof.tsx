@@ -3,6 +3,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import { fadeIn, staggerContainer } from "@/lib/animations";
 import { useSectionTracking } from "@/hooks/use-section-tracking";
 
@@ -48,10 +50,11 @@ function AnimatedCounter({ end, suffix = "", duration = 2 }: AnimatedCounterProp
 export function SocialProof() {
   const { t } = useTranslation();
   const { sectionRef, isInView } = useSectionTracking("social_proof");
+  const waitlistCount = useQuery(api.waitlist.getWaitlistCount) ?? 0;
 
   const stats = [
     {
-      value: 100,
+      value: waitlistCount,
       suffix: "+",
       label: t("social_proof.couples_registered"),
     },
