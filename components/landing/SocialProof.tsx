@@ -52,8 +52,8 @@ export function SocialProof() {
   const { sectionRef, isInView } = useSectionTracking("social_proof");
   const waitlistCount = useQuery(api.waitlist.getWaitlistCount) ?? 0;
   
-  // Display minimum of 58+ if count is less than 58
-  const displayCount = waitlistCount < 58 ? 58 : waitlistCount;
+  // Add 60 to the actual count (e.g., 1 user → 61, 10 users → 70)
+  const displayCount = waitlistCount + 60;
 
   const stats = [
     {
