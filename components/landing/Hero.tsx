@@ -127,7 +127,7 @@ export function Hero() {
                     You&apos;re Invited
                   </p>
                   <h3 className="font-display text-xl font-bold text-foreground">
-                    Sarah & Ahmad
+                    Shafiqah & Qayyum
                   </h3>
                   <p className="text-xs text-muted-foreground mt-2">
                     15 March 2026
