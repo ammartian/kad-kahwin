@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { initPostHog, posthog } from "@/lib/posthog";
 import { trackLandingPageViewed, trackScrollDepth } from "@/lib/posthog-events";
 
-export function PostHogProvider({ children }: { children: React.ReactNode }) {
+function PostHogContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const scrollDepthTracked = useRef({
@@ -103,4 +103,12 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return <>{children}</>;
+}
+
+export function PostHogProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<>{children}</>}>
+      <PostHogContent>{children}</PostHogContent>
+    </Suspense>
+  );
 }

@@ -29,7 +29,7 @@ export function Navbar() {
 
   const handleCTA = () => {
     if (isWaitlistMode) {
-      openWaitlistModal();
+      openWaitlistModal("secondary_cta");
     } else {
       window.location.href = "/login";
     }
