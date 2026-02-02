@@ -24,7 +24,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kadkahwin.my"),
+  metadataBase: new URL("https://jemputandigital.my"),
   title: "Jemputan Digital - Digital Wedding Invitations Malaysia | Create in 5 Minutes",
   description:
     "Modern digital wedding invitation platform for Malaysian couples. Create, share, and manage beautiful invitations with RSVP, wishlist, and real-time wishes. RM39 one-time.",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Jemputan Digital - Wedding Invitations Your Guests Will Remember",
     description:
       "Create stunning digital wedding invitations in 5 minutes. RSVP management, wishlist, real-time wishes. RM39 one-time.",
-    images: ["/og-image.png"],
+    images: ["/logo.jpeg"],
     type: "website",
     url: "https://jemputandigital.my",
     siteName: "Jemputan Digital",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Jemputan Digital - Digital Wedding Invitations",
     description:
       "Modern wedding invitations for modern couples. Create in 5 minutes.",
-    images: ["/og-image.png"],
+    images: ["/logo.jpeg"],
   },
   alternates: {
     canonical: "https://jemputandigital.my",
