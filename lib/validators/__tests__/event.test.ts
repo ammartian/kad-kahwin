@@ -76,8 +76,57 @@ describe("createEventSchema", () => {
     });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toMatch(/future/i);
+      expect(result.error.issues.some((i) => i.message?.match(/future/i))).toBe(true);
     }
+  });
+
+  it("rejects wedding date and time combined in the past", () => {
+    const result = createEventSchema.safeParse({
+      coupleName: "John & Jane",
+      weddingDate: "2020-01-01",
+      weddingTime: "14:00",
+      slug: VALID_SLUG,
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues.some((i) => i.message?.match(/future/i))).toBe(true);
+    }
+  });
+
+  it("rejects rsvp deadline in the past", () => {
+    const result = createEventSchema.safeParse({
+      coupleName: "John & Jane",
+      weddingDate: FUTURE_DATE,
+      slug: VALID_SLUG,
+      rsvpDeadline: "2020-01-01",
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues.some((i) => i.message?.match(/RSVP.*future/i))).toBe(true);
+    }
+  });
+
+  it("rejects rsvp deadline after wedding date", () => {
+    const result = createEventSchema.safeParse({
+      coupleName: "John & Jane",
+      weddingDate: FUTURE_DATE,
+      slug: VALID_SLUG,
+      rsvpDeadline: "2030-07-01",
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues.some((i) => i.message?.match(/before the wedding/i))).toBe(true);
+    }
+  });
+
+  it("accepts valid rsvp deadline before wedding date", () => {
+    const result = createEventSchema.safeParse({
+      coupleName: "John & Jane",
+      weddingDate: FUTURE_DATE,
+      slug: VALID_SLUG,
+      rsvpDeadline: "2030-06-01",
+    });
+    expect(result.success).toBe(true);
   });
 
   it("rejects empty couple name", () => {

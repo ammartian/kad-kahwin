@@ -82,8 +82,17 @@ async function createEventLogic(
   }
   if (!SLUG_PATTERN.test(slug)) throw new Error("Slug must be alphanumeric and hyphens only");
 
-  const weddingDate = new Date(args.weddingDate);
-  if (weddingDate <= new Date()) throw new Error("Wedding date must be in the future");
+  const weddingDateTime = args.weddingTime
+    ? new Date(`${args.weddingDate}T${args.weddingTime}`)
+    : new Date(args.weddingDate);
+  const nowDate = new Date();
+  if (weddingDateTime <= nowDate) throw new Error("Wedding date and time must be in the future");
+
+  if (args.rsvpDeadline) {
+    const rsvpDate = new Date(args.rsvpDeadline);
+    if (rsvpDate <= nowDate) throw new Error("RSVP deadline must be in the future");
+    if (rsvpDate >= weddingDateTime) throw new Error("RSVP deadline must be before the wedding date");
+  }
 
   const existing = await db.queryEventBySlug(slug);
   if (existing) throw new Error("This URL is already taken");
@@ -308,7 +317,43 @@ describe("events: createEvent business logic", () => {
         weddingDate: "2020-01-01",
         slug: "john-jane",
       })
-    ).rejects.toThrow("Wedding date must be in the future");
+    ).rejects.toThrow("Wedding date and time must be in the future");
+    expect(db.insertEvent).not.toHaveBeenCalled();
+  });
+
+  it("throws when wedding date and time combined are in the past", async () => {
+    await expect(
+      createEventLogic(db, authUser, {
+        coupleName: "John & Jane",
+        weddingDate: "2020-01-01",
+        weddingTime: "14:00",
+        slug: "john-jane",
+      })
+    ).rejects.toThrow("Wedding date and time must be in the future");
+    expect(db.insertEvent).not.toHaveBeenCalled();
+  });
+
+  it("throws when rsvp deadline is in the past", async () => {
+    await expect(
+      createEventLogic(db, authUser, {
+        coupleName: "John & Jane",
+        weddingDate: futureDate,
+        slug: "john-jane",
+        rsvpDeadline: "2020-01-01",
+      })
+    ).rejects.toThrow("RSVP deadline must be in the future");
+    expect(db.insertEvent).not.toHaveBeenCalled();
+  });
+
+  it("throws when rsvp deadline is after wedding date", async () => {
+    await expect(
+      createEventLogic(db, authUser, {
+        coupleName: "John & Jane",
+        weddingDate: futureDate,
+        slug: "john-jane",
+        rsvpDeadline: "2030-07-01",
+      })
+    ).rejects.toThrow("RSVP deadline must be before the wedding date");
     expect(db.insertEvent).not.toHaveBeenCalled();
   });
 

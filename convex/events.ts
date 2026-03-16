@@ -47,8 +47,17 @@ export const createEvent = mutation({
     }
     if (!SLUG_PATTERN.test(slug)) throw new Error("Slug must be alphanumeric and hyphens only");
 
-    const weddingDate = new Date(args.weddingDate);
-    if (weddingDate <= new Date()) throw new Error("Wedding date must be in the future");
+    const weddingDateTime = args.weddingTime
+      ? new Date(`${args.weddingDate}T${args.weddingTime}`)
+      : new Date(args.weddingDate);
+    const nowDate = new Date();
+    if (weddingDateTime <= nowDate) throw new Error("Wedding date and time must be in the future");
+
+    if (args.rsvpDeadline) {
+      const rsvpDate = new Date(args.rsvpDeadline);
+      if (rsvpDate <= nowDate) throw new Error("RSVP deadline must be in the future");
+      if (rsvpDate >= weddingDateTime) throw new Error("RSVP deadline must be before the wedding date");
+    }
 
     const existing = await ctx.db
       .query("events")
