@@ -105,6 +105,7 @@ export const listMyEvents = query({
       .map((m) => m.eventId)
       .slice(0, 50);
 
+    // Capped at 50; each db.get is O(1) by _id — acceptable for MVP
     const events = await Promise.all(
       eventIds.map((id) => ctx.db.get(id))
     );
@@ -126,6 +127,91 @@ export const listMyEvents = query({
   },
 });
 
+export const getEvent = query({
+  args: { eventId: v.id("events") },
+  handler: async (ctx, args) => {
+    const user = await authComponent.getAuthUser(ctx);
+    if (!user) return null;
+
+    const manager = await ctx.db
+      .query("managers")
+      .withIndex("by_event_user", (q) =>
+        q.eq("eventId", args.eventId).eq("userId", user._id as string)
+      )
+      .first();
+
+    if (!manager) return null;
+
+    const event = await ctx.db.get(args.eventId);
+    if (!event) return null;
+
+    const backgroundImageUrl = event.backgroundImageId
+      ? await ctx.storage.getUrl(event.backgroundImageId)
+      : null;
+
+    return {
+      ...event,
+      backgroundImageUrl,
+    };
+  },
+});
+
+export const updateEvent = mutation({
+  args: {
+    eventId: v.id("events"),
+    coupleName: v.optional(v.string()),
+    weddingDate: v.optional(v.string()),
+    weddingTime: v.optional(v.string()),
+    locationWaze: v.optional(v.string()),
+    locationGoogle: v.optional(v.string()),
+    locationApple: v.optional(v.string()),
+    backgroundImageId: v.optional(v.id("_storage")),
+    clearBackgroundImage: v.optional(v.boolean()),
+    backgroundColor: v.optional(v.string()),
+    colorPrimary: v.optional(v.string()),
+    colorSecondary: v.optional(v.string()),
+    colorAccent: v.optional(v.string()),
+    musicYoutubeUrl: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const user = await authComponent.getAuthUser(ctx);
+    if (!user) throw new Error("Unauthorized");
+
+    const manager = await ctx.db
+      .query("managers")
+      .withIndex("by_event_user", (q) =>
+        q.eq("eventId", args.eventId).eq("userId", user._id as string)
+      )
+      .first();
+
+    if (!manager) throw new Error("Unauthorized: not a manager of this event");
+
+    const { eventId, clearBackgroundImage, ...updates } = args;
+    const patch: Record<string, unknown> = {};
+    if (updates.coupleName !== undefined) patch.coupleName = updates.coupleName;
+    if (updates.weddingDate !== undefined) patch.weddingDate = updates.weddingDate;
+    if (updates.weddingTime !== undefined) patch.weddingTime = updates.weddingTime;
+    if (updates.locationWaze !== undefined) patch.locationWaze = updates.locationWaze;
+    if (updates.locationGoogle !== undefined) patch.locationGoogle = updates.locationGoogle;
+    if (updates.locationApple !== undefined) patch.locationApple = updates.locationApple;
+    if (updates.backgroundColor !== undefined) patch.backgroundColor = updates.backgroundColor;
+    if (updates.colorPrimary !== undefined) patch.colorPrimary = updates.colorPrimary;
+    if (updates.colorSecondary !== undefined) patch.colorSecondary = updates.colorSecondary;
+    if (updates.colorAccent !== undefined) patch.colorAccent = updates.colorAccent;
+    if (updates.musicYoutubeUrl !== undefined) patch.musicYoutubeUrl = updates.musicYoutubeUrl;
+    if (updates.backgroundImageId !== undefined) patch.backgroundImageId = updates.backgroundImageId;
+    if (clearBackgroundImage) patch.backgroundImageId = undefined;
+    if (Object.keys(patch).length === 0) return;
+
+    await ctx.db.patch(eventId, patch as Record<string, unknown>);
+
+    if (updates.backgroundImageId) {
+      const url = await ctx.storage.getUrl(updates.backgroundImageId);
+      return { backgroundImageUrl: url };
+    }
+  },
+});
+
 export const inviteCoManager = mutation({
   args: {
     eventId: v.id("events"),
@@ -137,8 +223,9 @@ export const inviteCoManager = mutation({
 
     const manager = await ctx.db
       .query("managers")
-      .withIndex("by_event", (q) => q.eq("eventId", args.eventId))
-      .filter((q) => q.eq(q.field("userId"), user._id as string))
+      .withIndex("by_event_user", (q) =>
+        q.eq("eventId", args.eventId).eq("userId", user._id as string)
+      )
       .first();
 
     if (!manager) throw new Error("Unauthorized: not a manager of this event");

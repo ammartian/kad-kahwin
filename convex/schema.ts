@@ -57,5 +57,6 @@ export default defineSchema({
     createdAt: v.number(),
   })
     .index("by_event", ["eventId"])
+    .index("by_event_user", ["eventId", "userId"])
     .index("by_user", ["userId"]),
 });

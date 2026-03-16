@@ -526,3 +526,160 @@ describe("events: inviteCoManager business logic", () => {
     expect(inserted.invitedEmail).toBe("partner@example.com");
   });
 });
+
+// --------------------------------------------------------------------------
+// Inline replication of updateEvent handler logic
+// --------------------------------------------------------------------------
+
+type UpdateEventArgs = {
+  eventId: string;
+  coupleName?: string;
+  weddingDate?: string;
+  weddingTime?: string;
+  locationWaze?: string;
+  locationGoogle?: string;
+  locationApple?: string;
+  backgroundImageId?: string;
+  clearBackgroundImage?: boolean;
+  backgroundColor?: string;
+  colorPrimary?: string;
+  colorSecondary?: string;
+  colorAccent?: string;
+  musicYoutubeUrl?: string;
+};
+
+async function updateEventLogic(
+  db: {
+    queryManagerByEventAndUser: (eventId: string, userId: string) => Promise<{ userId: string } | null>;
+    patchEvent: (eventId: string, patch: Record<string, unknown>) => Promise<void>;
+    getStorageUrl?: (storageId: string) => Promise<string | null>;
+  },
+  authUser: AuthUser | null,
+  args: UpdateEventArgs
+): Promise<{ backgroundImageUrl?: string } | void> {
+  if (!authUser) throw new Error("Unauthorized");
+
+  const manager = await db.queryManagerByEventAndUser(args.eventId, authUser._id);
+  if (!manager) throw new Error("Unauthorized: not a manager of this event");
+
+  const { eventId, clearBackgroundImage, ...updates } = args;
+  const patch: Record<string, unknown> = {};
+  if (updates.coupleName !== undefined) patch.coupleName = updates.coupleName;
+  if (updates.weddingDate !== undefined) patch.weddingDate = updates.weddingDate;
+  if (updates.weddingTime !== undefined) patch.weddingTime = updates.weddingTime;
+  if (updates.locationWaze !== undefined) patch.locationWaze = updates.locationWaze;
+  if (updates.locationGoogle !== undefined) patch.locationGoogle = updates.locationGoogle;
+  if (updates.locationApple !== undefined) patch.locationApple = updates.locationApple;
+  if (updates.backgroundColor !== undefined) patch.backgroundColor = updates.backgroundColor;
+  if (updates.colorPrimary !== undefined) patch.colorPrimary = updates.colorPrimary;
+  if (updates.colorSecondary !== undefined) patch.colorSecondary = updates.colorSecondary;
+  if (updates.colorAccent !== undefined) patch.colorAccent = updates.colorAccent;
+  if (updates.musicYoutubeUrl !== undefined) patch.musicYoutubeUrl = updates.musicYoutubeUrl;
+  if (updates.backgroundImageId !== undefined) patch.backgroundImageId = updates.backgroundImageId;
+  if (clearBackgroundImage) patch.backgroundImageId = undefined;
+  if (Object.keys(patch).length === 0) return;
+
+  await db.patchEvent(eventId, patch);
+
+  if (updates.backgroundImageId && db.getStorageUrl) {
+    const url = await db.getStorageUrl(updates.backgroundImageId);
+    return { backgroundImageUrl: url ?? null };
+  }
+}
+
+describe("events: updateEvent business logic", () => {
+  const authUser: AuthUser = { _id: "user-123" };
+  const eventId = "event-456";
+
+  let db: {
+    queryManagerByEventAndUser: ReturnType<
+      typeof vi.fn<(eventId: string, userId: string) => Promise<{ userId: string } | null>>
+    >;
+    patchEvent: ReturnType<
+      typeof vi.fn<(eventId: string, patch: Record<string, unknown>) => Promise<void>>
+    >;
+    getStorageUrl?: ReturnType<typeof vi.fn<(id: string) => Promise<string | null>>>;
+  };
+
+  beforeEach(() => {
+    db = {
+      queryManagerByEventAndUser: vi.fn().mockResolvedValue({ userId: "user-123" }),
+      patchEvent: vi.fn().mockResolvedValue(undefined),
+    };
+  });
+
+  it("throws when unauthenticated", async () => {
+    await expect(
+      updateEventLogic(db, null, { eventId, coupleName: "New Name" })
+    ).rejects.toThrow("Unauthorized");
+    expect(db.patchEvent).not.toHaveBeenCalled();
+  });
+
+  it("throws when caller is not a manager of the event", async () => {
+    db.queryManagerByEventAndUser.mockResolvedValue(null);
+    await expect(
+      updateEventLogic(db, authUser, { eventId, coupleName: "New Name" })
+    ).rejects.toThrow("Unauthorized: not a manager of this event");
+    expect(db.patchEvent).not.toHaveBeenCalled();
+  });
+
+  it("returns early when no fields to update", async () => {
+    const result = await updateEventLogic(db, authUser, { eventId });
+    expect(result).toBeUndefined();
+    expect(db.patchEvent).not.toHaveBeenCalled();
+  });
+
+  it("clears backgroundImageId when clearBackgroundImage is true", async () => {
+    await updateEventLogic(db, authUser, { eventId, clearBackgroundImage: true });
+
+    expect(db.patchEvent).toHaveBeenCalledOnce();
+    const patch = db.patchEvent.mock.calls[0][1];
+    expect(patch.backgroundImageId).toBeUndefined();
+  });
+
+  it("patches only provided fields", async () => {
+    await updateEventLogic(db, authUser, {
+      eventId,
+      coupleName: "John & Jane",
+      colorPrimary: "#1a1a1a",
+    });
+
+    expect(db.patchEvent).toHaveBeenCalledOnce();
+    const patch = db.patchEvent.mock.calls[0][1];
+    expect(patch).toEqual({
+      coupleName: "John & Jane",
+      colorPrimary: "#1a1a1a",
+    });
+  });
+
+  it("patches all Feature 3 fields when provided", async () => {
+    await updateEventLogic(db, authUser, {
+      eventId,
+      coupleName: "Ahmad & Siti",
+      weddingDate: "2030-06-15",
+      weddingTime: "14:00",
+      locationWaze: "https://waze.com/ul/...",
+      locationGoogle: "https://maps.google.com/...",
+      locationApple: "https://maps.apple.com/...",
+      backgroundColor: "#f8f4f0",
+      colorPrimary: "#1a1a1a",
+      colorSecondary: "#4a4a4a",
+      colorAccent: "#c9a86c",
+      musicYoutubeUrl: "https://youtube.com/watch?v=abc",
+    });
+
+    expect(db.patchEvent).toHaveBeenCalledOnce();
+    const patch = db.patchEvent.mock.calls[0][1];
+    expect(patch.coupleName).toBe("Ahmad & Siti");
+    expect(patch.weddingDate).toBe("2030-06-15");
+    expect(patch.weddingTime).toBe("14:00");
+    expect(patch.locationWaze).toBe("https://waze.com/ul/...");
+    expect(patch.locationGoogle).toBe("https://maps.google.com/...");
+    expect(patch.locationApple).toBe("https://maps.apple.com/...");
+    expect(patch.backgroundColor).toBe("#f8f4f0");
+    expect(patch.colorPrimary).toBe("#1a1a1a");
+    expect(patch.colorSecondary).toBe("#4a4a4a");
+    expect(patch.colorAccent).toBe("#c9a86c");
+    expect(patch.musicYoutubeUrl).toBe("https://youtube.com/watch?v=abc");
+  });
+});
