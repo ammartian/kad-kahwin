@@ -58,12 +58,12 @@ export function Navbar() {
 
             {/* Desktop nav */}
             <div className="hidden lg:flex items-center gap-6">
-              <LanguageToggle />
               <Button onClick={handleCTA} className="rounded-full px-6 font-semibold">
                 {isWaitlistMode
                   ? t("hero.cta_primary_waitlist")
                   : t("nav.signup")}
               </Button>
+              <LanguageToggle />
             </div>
 
             {/* Mobile menu button */}

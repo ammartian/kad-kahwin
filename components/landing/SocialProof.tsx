@@ -142,7 +142,7 @@ export function SocialProof() {
               </div>
             ))}
             <div className="w-10 h-10 rounded-full bg-primary/10 border-2 border-background flex items-center justify-center">
-              <span className="text-[10px] font-semibold text-primary">+95</span>
+              <span className="text-[10px] font-semibold text-primary">+{displayCount - 6}</span>
             </div>
           </motion.div>
         </motion.div>

@@ -77,16 +77,6 @@ export function Hero() {
               {t("hero.subheadline")}
             </motion.p>
 
-            {/* Free for first 50 couples note */}
-            <motion.p
-              variants={heroSubheadline}
-              initial="hidden"
-              animate="visible"
-              className="mt-3 text-sm font-medium text-primary max-w-xl mx-auto lg:mx-0"
-            >
-              {t("hero.free_note", { defaultValue: "Free for first 50 couples. Join the waitlist." })}
-            </motion.p>
-
             <motion.div
               variants={heroCTA}
               initial="hidden"
@@ -104,46 +94,14 @@ export function Hero() {
               </Button>
             </motion.div>
 
-            {/* Inline social proof strip */}
-            <motion.div
-              variants={heroCTA}
+            {/* Free for first 50 couples note */}
+            <motion.p
+              variants={heroSubheadline}
               initial="hidden"
               animate="visible"
-              className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
+              className="mt-3 text-sm font-medium text-primary max-w-xl mx-auto lg:mx-0"
             >
-              {/* Avatar stack */}
-              <div className="flex -space-x-2.5">
-                {avatarStack.map((avatar, i) => (
-                  <div
-                    key={i}
-                    className="w-9 h-9 rounded-full bg-gradient-to-br from-primary/30 to-accent/50 border-2 border-background flex items-center justify-center"
-                  >
-                    <span className="text-[10px] font-semibold text-foreground">{avatar.initials}</span>
-                  </div>
-                ))}
-                <div className="w-9 h-9 rounded-full bg-primary/10 border-2 border-background flex items-center justify-center">
-                  <span className="text-[10px] font-semibold text-primary">+{Math.max(0, displayCount - avatarStack.length)}</span>
-                </div>
-              </div>
-
-              {/* Count + label */}
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-display text-2xl font-bold text-primary">
-                  {displayCount}+
-                </span>
-                <span className="text-sm text-muted-foreground">
-                  {t("social_proof.couples_registered")}
-                </span>
-              </div>
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-              className="mt-2 text-xs text-muted-foreground text-center lg:text-left"
-            >
-              {t("social_proof.trust_text")}
+              {t("hero.free_note")}
             </motion.p>
           </div>
 

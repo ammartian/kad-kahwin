@@ -8,7 +8,8 @@
     "subheadline": "The digital platform for couples. Create, share, and manage wedding invitations with ease.",
     "cta_primary_waitlist": "Join Waitlist",
     "cta_primary_live": "Try Free Now",
-    "cta_secondary": "Watch 1 Min Demo"
+    "cta_secondary": "Watch 1 Min Demo",
+    "free_note": "Free for first 50 couples. Join the waitlist."
   },
   "social_proof": {
     "couples_registered": "Couples Registered",
@@ -18,15 +19,18 @@
   "problem_solution": {
     "problem": {
       "title": "Traditional Wedding Cards? Troublesome",
-      "description": "Print hundreds of cards, deliver one by one, last-minute updates? Waste of time, money, and energy. Guests forget to bring them, end up in trash."
+      "description": "Print hundreds of cards, deliver one by one, last-minute updates? Waste of time, money, and energy. Guests forget to bring them, end up in trash.",
+      "badge": "Traditional Wedding Cards?"
     },
     "solution": {
       "title": "Digital Cards? Super Easy",
-      "description": "Create in 5 minutes, share with one link. Guests RSVP directly from their phone. All data in one dashboard."
+      "description": "Create in 5 minutes, share with one link. Guests RSVP directly from their phone. All data in one dashboard.",
+      "badge": "Digital Cards?"
     },
     "hook": {
       "title": "A Wedding to Remember, Without the Stress",
-      "description": "Focus on what matters. Celebrate your love. Let Jemputan Digital handle the logistics. More time for memories, less time for admin."
+      "description": "Focus on what matters. Celebrate your love. Let Jemputan Digital handle the logistics. More time for memories, less time for admin.",
+      "badge": "A Wedding to Remember"
     }
   },
   "features": {

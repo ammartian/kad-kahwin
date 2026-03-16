@@ -8,7 +8,8 @@
     "subheadline": "Platform digital untuk pasangan. Cipta, kongsi, dan urus jemputan kahwin dengan mudah.",
     "cta_primary_waitlist": "Sertai Senarai Tunggu",
     "cta_primary_live": "Cuba Percuma Sekarang",
-    "cta_secondary": "Tonton Demo 1 Minit"
+    "cta_secondary": "Tonton Demo 1 Minit",
+    "free_note": "Percuma untuk 50 pasangan pertama. Sertai senarai tunggu."
   },
   "social_proof": {
     "couples_registered": "Pasangan Berdaftar",
@@ -18,15 +19,18 @@
   "problem_solution": {
     "problem": {
       "title": "Kad Kahwin Tradisional? Leceh",
-      "description": "Cetak ratusan kad, hantar satu-satu, kemas kini last-minute? Buang masa, buang duit, buang tenaga. Tetamu lupa bawa, terbuang dalam sampah."
+      "description": "Cetak ratusan kad, hantar satu-satu, kemas kini last-minute? Buang masa, buang duit, buang tenaga. Tetamu lupa bawa, terbuang dalam sampah.",
+      "badge": "Kad Kahwin Tradisional?"
     },
     "solution": {
       "title": "Kad Digital? Senang",
-      "description": "Cipta dalam 5 minit, kongsi satu link. Tetamu RSVP terus dari phone. Semua data dalam satu dashboard."
+      "description": "Cipta dalam 5 minit, kongsi satu link. Tetamu RSVP terus dari phone. Semua data dalam satu dashboard.",
+      "badge": "Kad Digital?"
     },
     "hook": {
       "title": "Majlis Yang Istimewa, Tanpa Stress",
-      "description": "Fokus pada apa yang penting. Raikan cinta anda. Biar Jemputan Digital uruskan tetamu. Lebih masa untuk memori, kurang masa untuk pengurusan."
+      "description": "Fokus pada apa yang penting. Raikan cinta anda. Biar Jemputan Digital uruskan tetamu. Lebih masa untuk memori, kurang masa untuk pengurusan.",
+      "badge": "Majlis Yang Istimewa"
     }
   },
   "features": {

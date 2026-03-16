@@ -91,7 +91,7 @@ export function FAQ() {
                 <motion.div key={index} variants={slideUp}>
                   <AccordionItem
                     value={`item-${index}`}
-                    className="bg-card rounded-xl px-6 overflow-hidden border border-border data-[state=open]:border-primary/40 transition-colors"
+                    className="bg-card rounded-xl px-6 overflow-hidden data-[state=open]:border-primary/40 transition-colors"
                   >
                     <AccordionTrigger
                       className="text-left font-display font-semibold text-foreground hover:text-primary py-5 [&[data-state=open]]:text-primary"
@@ -115,7 +115,7 @@ export function FAQ() {
                 <motion.div key={index + 4} variants={slideUp}>
                   <AccordionItem
                     value={`item-${index + 4}`}
-                    className="bg-card rounded-xl px-6 overflow-hidden border border-border data-[state=open]:border-primary/40 transition-colors"
+                    className="bg-card rounded-xl px-6 overflow-hidden data-[state=open]:border-primary/40 transition-colors"
                   >
                     <AccordionTrigger
                       className="text-left font-display font-semibold text-foreground hover:text-primary py-5 [&[data-state=open]]:text-primary"

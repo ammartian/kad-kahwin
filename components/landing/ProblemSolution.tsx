@@ -11,19 +11,19 @@ export function ProblemSolution() {
 
   const columns = [
     {
-      badge: t("problem_solution.problem.badge", { defaultValue: "Traditional Wedding Card?" }),
+      badge: t("problem_solution.problem.badge"),
       title: t("problem_solution.problem.title"),
       description: t("problem_solution.problem.description"),
       badgeClass: "bg-destructive/10 text-destructive",
     },
     {
-      badge: t("problem_solution.solution.badge", { defaultValue: "Digital Cards?" }),
+      badge: t("problem_solution.solution.badge"),
       title: t("problem_solution.solution.title"),
       description: t("problem_solution.solution.description"),
       badgeClass: "bg-primary/10 text-primary",
     },
     {
-      badge: t("problem_solution.hook.badge", { defaultValue: "A Wedding to Remember" }),
+      badge: t("problem_solution.hook.badge"),
       title: t("problem_solution.hook.title"),
       description: t("problem_solution.hook.description"),
       badgeClass: "bg-accent/40 text-accent-foreground",
