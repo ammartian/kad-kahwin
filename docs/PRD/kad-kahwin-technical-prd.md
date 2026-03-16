@@ -95,7 +95,7 @@ Kad Kahwin is a Malaysian digital wedding invitation platform that enables coupl
 | US-26 | Guest | Add new items to the wishlist | I can suggest gifts | Must | - [ ] Add item form<br>- [ ] Include title, link<br>- [ ] Appears immediately (no approval) |
 | US-27 | Guest | Click wishlist links | I'm directed to purchase with affiliate link | Must | - [ ] Links converted to Shopee/Lazada affiliate<br>- [ ] Opens in new tab<br>- [ ] Tracking for analytics |
 | US-28 | Guest | View location on map apps | I can navigate to the venue | Must | - [ ] Waze link button<br>- [ ] Google Maps link button<br>- [ ] Apple Maps link button |
-| US-29 | Guest | Switch between Malay and English | I can read in my preferred language | Must | - [ ] Language toggle<br>- [ ] All text translates<br>- [ ] Preference not persisted (per-session) |
+| US-29 | Guest | Switch between Malay and English | I can read in my preferred language | Must | - [ ] Language toggle<br>- [ ] All text translates<br>- [ ] Preference persisted in localStorage (across visits) |
 | US-30 | Guest | See the invitation on desktop | I can view even if not on mobile | Must | - [ ] Desktop renders at 9:16 aspect ratio<br>- [ ] Centered on screen<br>- [ ] Scrollable if needed |
 
 ### 2.2 Feature Breakdown
@@ -440,15 +440,15 @@ wishes:
 3. Sees language toggle (🇲🇾 / 🇬🇧)
 4. Clicks to switch to English
 5. All UI text translates
-6. Preference stored in session (not persisted)
+6. Preference persisted in localStorage (across visits)
 
 **Business Rules:**
 - Event-level default language (Malay)
-- Guest can override per session
+- Guest can override; preference persists across visits via localStorage
 - Manager sets default in event settings
 - All static text translated (labels, buttons, placeholders)
 - User-generated content (wishes, wishlist) not translated
-- Language persists in browser session only (resets on new visit)
+- Language preference persisted in localStorage (survives refresh, new tab, logout)
 
 **UI/UX Considerations:**
 - Flag icons for language toggle

@@ -230,6 +230,15 @@
     "ms": "BM",
     "en": "EN"
   },
+  "dashboard": {
+    "app_name": "Jemputan Digital",
+    "sign_out": "Sign Out",
+    "welcome": "Welcome",
+    "no_events": "No events yet",
+    "create_first": "Create your first wedding event to start making digital invitations.",
+    "create_event": "+ Create New Event",
+    "coming_soon": "This feature will be available soon"
+  },
   "sign_in": {
     "title": "Jemputan Digital",
     "subtitle": "Sign in to start creating your digital wedding invitation",

@@ -230,6 +230,15 @@
     "ms": "BM",
     "en": "EN"
   },
+  "dashboard": {
+    "app_name": "Jemputan Digital",
+    "sign_out": "Log Keluar",
+    "welcome": "Selamat datang",
+    "no_events": "Tiada acara lagi",
+    "create_first": "Cipta acara perkahwinan pertama anda untuk mula membuat kad jemputan digital.",
+    "create_event": "+ Cipta Acara Baru",
+    "coming_soon": "Ciri ini akan tersedia sebentar lagi"
+  },
   "sign_in": {
     "title": "Jemputan Digital",
     "subtitle": "Log masuk untuk mula membuat kad kahwin digital anda",

@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { isAuthenticated } from "@/lib/auth-server";
+import { I18nProvider } from "@/components/providers/I18nProvider";
 
 export default async function DashboardLayout({
   children,
@@ -13,5 +14,5 @@ export default async function DashboardLayout({
     redirect("/sign-in");
   }
 
-  return <>{children}</>;
+  return <I18nProvider>{children}</I18nProvider>;
 }

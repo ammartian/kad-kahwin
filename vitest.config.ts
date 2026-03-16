@@ -8,6 +8,7 @@ export default defineConfig({
     include: [
       "convex/functions/__tests__/**/*.test.ts",
       "lib/utils/__tests__/**/*.test.ts",
+      "stores/__tests__/**/*.test.ts",
     ],
   },
   resolve: {

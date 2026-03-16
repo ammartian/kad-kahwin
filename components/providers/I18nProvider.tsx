@@ -14,6 +14,7 @@ export function I18nProvider({ children }: I18nProviderProps) {
 
   useEffect(() => {
     i18n.changeLanguage(language);
+    document.documentElement.lang = language;
   }, [language]);
 
   return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;

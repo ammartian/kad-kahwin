@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import { useQuery } from "convex/react";
 import { Authenticated, AuthLoading, Unauthenticated } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { api } from "@/convex/_generated/api";
 import { authClient } from "@/lib/auth-client";
+import { LanguageToggle } from "@/components/landing/LanguageToggle";
 
 export default function DashboardPage() {
   return (
@@ -40,6 +42,7 @@ function RedirectToSignIn() {
 }
 
 function DashboardContent() {
+  const { t } = useTranslation();
   const user = useQuery(api.auth.getCurrentUser);
 
   if (user === undefined) return <DashboardSkeleton />;
@@ -50,7 +53,7 @@ function DashboardContent() {
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Selamat datang
+            {t("dashboard.welcome")}
             {user?.name ? `, ${user.name}` : ""}!
           </h2>
           <p className="text-gray-500 text-sm mb-8">
@@ -64,6 +67,7 @@ function DashboardContent() {
 }
 
 function DashboardHeader() {
+  const { t } = useTranslation();
   const router = useRouter();
 
   async function handleSignOut() {
@@ -79,37 +83,41 @@ function DashboardHeader() {
   return (
     <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
       <h1 className="text-xl font-bold text-gray-900 font-poppins">
-        Jemputan Digital
+        {t("dashboard.app_name")}
       </h1>
-      <button
-        onClick={handleSignOut}
-        className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-      >
-        Log Keluar
-      </button>
+      <div className="flex items-center gap-4">
+        <LanguageToggle />
+        <button
+          onClick={handleSignOut}
+          className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+        >
+          {t("dashboard.sign_out")}
+        </button>
+      </div>
     </header>
   );
 }
 
 function EventsEmptyState() {
+  const { t } = useTranslation();
+
   return (
     <div className="rounded-xl bg-gray-50 border border-dashed border-gray-300 p-12 flex flex-col items-center justify-center gap-4 text-center">
       <div className="text-4xl">💌</div>
       <h3 className="text-lg font-semibold text-gray-700">
-        Tiada acara lagi
+        {t("dashboard.no_events")}
       </h3>
       <p className="text-sm text-gray-500 max-w-xs">
-        Cipta acara perkahwinan pertama anda untuk mula membuat kad
-        jemputan digital.
+        {t("dashboard.create_first")}
       </p>
       <button
         disabled
         className="mt-2 rounded-xl bg-gray-900 px-6 py-2.5 text-sm font-medium text-white opacity-40 cursor-not-allowed"
       >
-        + Cipta Acara Baru
+        {t("dashboard.create_event")}
       </button>
       <p className="text-xs text-gray-400">
-        Ciri ini akan tersedia sebentar lagi
+        {t("dashboard.coming_soon")}
       </p>
     </div>
   );
