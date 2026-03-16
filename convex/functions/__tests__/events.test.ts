@@ -583,7 +583,7 @@ async function updateEventLogic(
 
   if (updates.backgroundImageId && db.getStorageUrl) {
     const url = await db.getStorageUrl(updates.backgroundImageId);
-    return { backgroundImageUrl: url ?? null };
+    return { backgroundImageUrl: url ?? undefined };
   }
 }
 

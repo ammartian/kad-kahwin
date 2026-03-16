@@ -309,6 +309,15 @@
     "uploading": "Uploading...",
     "remove_image": "Remove image"
   },
+  "guest": {
+    "open_in_waze": "Open in Waze",
+    "open_in_google_maps": "Open in Google Maps",
+    "open_in_apple_maps": "Open in Apple Maps",
+    "not_found": "Invitation not found or not yet published.",
+    "play_music": "Play music",
+    "wedding_music": "Wedding music",
+    "couple_name_placeholder": "Couple Names"
+  },
   "sign_in": {
     "title": "Jemputan Digital",
     "subtitle": "Sign in to start creating your digital wedding invitation",

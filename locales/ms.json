@@ -309,6 +309,15 @@
     "uploading": "Memuat naik...",
     "remove_image": "Buang gambar"
   },
+  "guest": {
+    "open_in_waze": "Buka di Waze",
+    "open_in_google_maps": "Buka di Google Maps",
+    "open_in_apple_maps": "Buka di Apple Maps",
+    "not_found": "Jemputan tidak dijumpai atau belum diterbitkan.",
+    "play_music": "Main muzik",
+    "wedding_music": "Muzik majlis",
+    "couple_name_placeholder": "Nama Pasangan"
+  },
   "sign_in": {
     "title": "Jemputan Digital",
     "subtitle": "Log masuk untuk mula membuat kad kahwin digital anda",

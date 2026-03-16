@@ -10,6 +10,7 @@
 
 import type * as auth from "../auth.js";
 import type * as events from "../events.js";
+import type * as guest from "../guest.js";
 import type * as http from "../http.js";
 import type * as storage from "../storage.js";
 import type * as waitlist from "../waitlist.js";
@@ -23,6 +24,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   events: typeof events;
+  guest: typeof guest;
   http: typeof http;
   storage: typeof storage;
   waitlist: typeof waitlist;
