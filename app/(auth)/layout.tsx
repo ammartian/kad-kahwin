@@ -1,5 +1,3 @@
-"use client";
-
 import { ReactNode } from "react";
 import { Navbar } from "@/components/landing/Navbar";
 import { I18nProvider } from "@/components/providers/I18nProvider";

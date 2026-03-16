@@ -1,5 +1,11 @@
 import { convexBetterAuthNextJs } from "@convex-dev/better-auth/nextjs";
 
+const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+if (!convexUrl) throw new Error("Missing required env var: NEXT_PUBLIC_CONVEX_URL");
+
+const convexSiteUrl = process.env.NEXT_PUBLIC_CONVEX_SITE_URL;
+if (!convexSiteUrl) throw new Error("Missing required env var: NEXT_PUBLIC_CONVEX_SITE_URL");
+
 export const {
   handler,
   preloadAuthQuery,
@@ -8,7 +14,4 @@ export const {
   fetchAuthQuery,
   fetchAuthMutation,
   fetchAuthAction,
-} = convexBetterAuthNextJs({
-  convexUrl: process.env.NEXT_PUBLIC_CONVEX_URL!,
-  convexSiteUrl: process.env.NEXT_PUBLIC_CONVEX_SITE_URL!,
-});
+} = convexBetterAuthNextJs({ convexUrl, convexSiteUrl });

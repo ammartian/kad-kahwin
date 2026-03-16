@@ -21,6 +21,7 @@ export default function SignInPage() {
       });
     } catch {
       setError(t("sign_in.error"));
+    } finally {
       setIsLoading(false);
     }
   }

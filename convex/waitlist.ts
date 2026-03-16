@@ -1,39 +1,49 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { isValidEmail, normaliseEmail } from "../lib/utils/validateEmail";
 
 /**
- * Get total count of waitlist subscribers
- * Used for social proof on landing page
+ * Get total count of waitlist subscribers.
+ * Convex has no native COUNT — we paginate up to 10,000 entries.
+ * At MVP scale this is safe; revisit with a counter document if count exceeds 10k.
  */
 export const getWaitlistCount = query({
   args: {},
   handler: async (ctx) => {
-    const waitlist = await ctx.db.query("waitlist").collect();
-    return waitlist.length;
+    const { page, isDone, continueCursor } = await ctx.db
+      .query("waitlist")
+      .withIndex("by_subscribed_at")
+      .paginate({ numItems: 10000, cursor: null });
+
+    // Warn in dev if count is at the ceiling — indicates counter doc is needed
+    if (!isDone && continueCursor) {
+      console.warn("getWaitlistCount: waitlist exceeds 10k — count is approximate");
+    }
+
+    return page.length;
   },
 });
 
 /**
- * Get all waitlist entries
- * Future: Add authentication check for admin panel
+ * Get all waitlist entries — admin only.
+ * Requires authentication to prevent PII exposure.
  */
 export const getWaitlist = query({
   args: {
     limit: v.optional(v.number()),
-    cursor: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const limit = args.limit || 100;
-    const allEntries = await ctx.db
-      .query("waitlist")
-      .order("desc")
-      .collect();
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
 
-    // Simple pagination without cursor for MVP
-    return {
-      entries: allEntries.slice(0, limit),
-      total: allEntries.length,
-    };
+    const limit = args.limit ?? 100;
+    const entries = await ctx.db
+      .query("waitlist")
+      .withIndex("by_subscribed_at")
+      .order("desc")
+      .take(limit);
+
+    return { entries, total: entries.length };
   },
 });
 
@@ -47,7 +57,7 @@ export const checkEmailExists = query({
   handler: async (ctx, args) => {
     const existing = await ctx.db
       .query("waitlist")
-      .withIndex("by_email", (q) => q.eq("email", args.email.toLowerCase()))
+      .withIndex("by_email", (q) => q.eq("email", normaliseEmail(args.email)))
       .first();
 
     return existing !== null;
@@ -64,11 +74,9 @@ export const addToWaitlist = mutation({
     source: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const email = args.email.toLowerCase().trim();
+    const email = normaliseEmail(args.email);
 
-    // Validate email format with basic regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!isValidEmail(email)) {
       throw new Error("Invalid email format");
     }
 
@@ -86,7 +94,7 @@ export const addToWaitlist = mutation({
     const id = await ctx.db.insert("waitlist", {
       email,
       subscribedAt: Date.now(),
-      source: args.source || "landing-page",
+      source: args.source ?? "landing-page",
       status: "pending",
     });
 
