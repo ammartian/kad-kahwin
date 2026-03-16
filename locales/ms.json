@@ -102,7 +102,34 @@
       "eco_friendly": "Tidak membazir kertas, mesra alam",
       "earn_income": "Smart wishlist, tidak ada hadiah yang sama",
       "real_time": "Ubah details bila-bila masa, tetamu lihat secara langsung",
-      "data_driven": "Tahu siapa datang, siapa tak datang" 
+      "data_driven": "Tahu siapa datang, siapa tak datang"
+    },
+    "col1": {
+      "header": "Jimat Wang",
+      "item1": "RM39 sekali bayar vs RM500–2000 untuk cetak",
+      "item2": "Tiada kos penghantaran",
+      "item3": "Tiada kos cetak semula untuk kemaskini",
+      "item4": "Wishlist affiliate — tiada hadiah yang sama",
+      "item5": "Satu pautan untuk semua tetamu",
+      "item6": "Akses seumur hidup, tiada pembaharuan"
+    },
+    "col2": {
+      "header": "Jimat Masa",
+      "item1": "Set up dalam 5 minit",
+      "item2": "Tidak perlu penghantaran pos",
+      "item3": "Edit maklumat majlis bila-bila masa",
+      "item4": "RSVP dikesan secara automatik",
+      "item5": "Import senarai tetamu via Excel",
+      "item6": "Kemaskini masa nyata untuk tetamu"
+    },
+    "col3": {
+      "header": "Kurang Tekanan",
+      "item1": "Tahu siapa yang datang dengan tepat",
+      "item2": "Pengurusan RSVP terbina dalam",
+      "item3": "Ucapan masa nyata dari tetamu",
+      "item4": "Kongsi via WhatsApp dalam satu ketuk",
+      "item5": "Tiada pembaziran kertas, mesra alam",
+      "item6": "Pengantin lelaki & perempuan boleh urus sama"
     }
   },
   "pricing": {

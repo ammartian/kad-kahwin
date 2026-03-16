@@ -59,10 +59,7 @@ export function Navbar() {
             {/* Desktop nav */}
             <div className="hidden lg:flex items-center gap-6">
               <LanguageToggle />
-              {/* <Button variant="ghost" asChild>
-                <Link href="/login">{t("nav.login")}</Link>
-              </Button> */}
-              <Button onClick={handleCTA}>
+              <Button onClick={handleCTA} className="rounded-full px-6 font-semibold">
                 {isWaitlistMode
                   ? t("hero.cta_primary_waitlist")
                   : t("nav.signup")}
@@ -110,7 +107,7 @@ export function Navbar() {
                       {t("nav.login")}
                     </Link>
                   </Button> */}
-                  <Button className="w-full" onClick={handleCTA}>
+                  <Button className="w-full rounded-full font-semibold" onClick={handleCTA}>
                     {isWaitlistMode
                       ? t("hero.cta_primary_waitlist")
                       : t("nav.signup")}

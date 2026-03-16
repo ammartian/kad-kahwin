@@ -34,7 +34,7 @@ export function SecondaryCTA() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 lg:py-28 overflow-hidden"
+      className="relative py-20 lg:py-28 overflow-hidden bg-background"
     >
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-secondary/50 via-background to-primary/10">
@@ -85,7 +85,7 @@ export function SecondaryCTA() {
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+            className="font-landing text-3xl sm:text-4xl lg:text-5xl text-foreground mb-6"
           >
             {t("secondary_cta.headline")}
           </motion.h2>
@@ -114,7 +114,7 @@ export function SecondaryCTA() {
             <Button
               size="lg"
               onClick={handleCTA}
-              className="h-16 px-10 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              className="h-14 px-10 text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               {t("secondary_cta.cta")}
             </Button>

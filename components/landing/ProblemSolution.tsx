@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { slideUp, staggerContainer } from "@/lib/animations";
-import { AlertTriangle, Sparkles, Heart } from "lucide-react";
 import { useSectionTracking } from "@/hooks/use-section-tracking";
 
 export function ProblemSolution() {
@@ -12,25 +11,22 @@ export function ProblemSolution() {
 
   const columns = [
     {
-      icon: AlertTriangle,
-      iconColor: "text-destructive",
-      bgColor: "bg-destructive/10",
+      badge: t("problem_solution.problem.badge", { defaultValue: "Traditional Wedding Card?" }),
       title: t("problem_solution.problem.title"),
       description: t("problem_solution.problem.description"),
+      badgeClass: "bg-destructive/10 text-destructive",
     },
     {
-      icon: Sparkles,
-      iconColor: "text-primary",
-      bgColor: "bg-primary/10",
+      badge: t("problem_solution.solution.badge", { defaultValue: "Digital Cards?" }),
       title: t("problem_solution.solution.title"),
       description: t("problem_solution.solution.description"),
+      badgeClass: "bg-primary/10 text-primary",
     },
     {
-      icon: Heart,
-      iconColor: "text-accent",
-      bgColor: "bg-accent/10",
+      badge: t("problem_solution.hook.badge", { defaultValue: "A Wedding to Remember" }),
       title: t("problem_solution.hook.title"),
       description: t("problem_solution.hook.description"),
+      badgeClass: "bg-accent/40 text-accent-foreground",
     },
   ];
 
@@ -49,21 +45,20 @@ export function ProblemSolution() {
               variants={slideUp}
               className="text-center md:text-left"
             >
-              {/* Icon */}
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl ${column.bgColor} mb-6`}
+              {/* Badge label */}
+              <span
+                className={`inline-block text-sm font-semibold px-3 py-1 rounded-full mb-4 ${column.badgeClass}`}
               >
-                <column.icon className={`w-8 h-8 ${column.iconColor}`} />
-              </motion.div>
+                {column.badge}
+              </span>
 
               {/* Title */}
-              <h3 className="font-display text-2xl lg:text-3xl font-bold text-foreground mb-4">
+              <h3 className="font-landing text-2xl lg:text-3xl text-foreground mb-4">
                 {column.title}
               </h3>
 
               {/* Description */}
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 {column.description}
               </p>
             </motion.div>

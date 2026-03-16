@@ -13,13 +13,24 @@ import {
 } from "@/lib/animations";
 import { ChevronDown } from "lucide-react";
 import { trackHeroCTAClicked } from "@/lib/posthog-events";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+
+const avatarStack = [
+  { initials: "AH" },
+  { initials: "MAQ" },
+  { initials: "NSI" },
+  { initials: "DE" },
+  { initials: "QM" },
+];
 
 export function Hero() {
   const { t } = useTranslation();
   const { openWaitlistModal } = useLandingStore();
+  const waitlistCount = useQuery(api.waitlist.getWaitlistCount) ?? 0;
+  const displayCount = waitlistCount + 80;
 
   const handlePrimaryCTA = () => {
-    // Track CTA click
     trackHeroCTAClicked({
       button_text: isWaitlistMode
         ? t("hero.cta_primary_waitlist")
@@ -31,30 +42,17 @@ export function Hero() {
     if (isWaitlistMode) {
       openWaitlistModal("hero");
     } else {
-      // Redirect to login - will be implemented later
       window.location.href = "/login";
     }
   };
 
-  const scrollToHowItWorks = () => {
-    // Track secondary CTA click
-    trackHeroCTAClicked({
-      button_text: t("hero.cta_secondary"),
-      section: "hero",
-      button_type: "secondary",
-    });
-
-    document.getElementById("how-it-works")?.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-background via-background to-secondary/30">
-      {/* Background decorative elements */}
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-background">
+      {/* Subtle background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-0">
@@ -65,7 +63,7 @@ export function Hero() {
               variants={heroHeadline}
               initial="hidden"
               animate="visible"
-              className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight"
+              className="font-landing text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground leading-tight"
             >
               {t("hero.headline")}
             </motion.h1>
@@ -74,38 +72,82 @@ export function Hero() {
               variants={heroSubheadline}
               initial="hidden"
               animate="visible"
-              className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0"
+              className="mt-5 text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0"
             >
               {t("hero.subheadline")}
+            </motion.p>
+
+            {/* Free for first 50 couples note */}
+            <motion.p
+              variants={heroSubheadline}
+              initial="hidden"
+              animate="visible"
+              className="mt-3 text-sm font-medium text-primary max-w-xl mx-auto lg:mx-0"
+            >
+              {t("hero.free_note", { defaultValue: "Free for first 50 couples. Join the waitlist." })}
             </motion.p>
 
             <motion.div
               variants={heroCTA}
               initial="hidden"
               animate="visible"
-              className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <Button
                 size="lg"
                 onClick={handlePrimaryCTA}
-                className="h-14 px-8 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="h-13 px-8 text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 {isWaitlistMode
                   ? t("hero.cta_primary_waitlist")
                   : t("hero.cta_primary_live")}
               </Button>
-              {/* <Button
-                variant="outline"
-                size="lg"
-                onClick={scrollToHowItWorks}
-                className="h-14 px-8 text-lg font-medium rounded-full"
-              >
-                {t("hero.cta_secondary")}
-              </Button> */}
             </motion.div>
+
+            {/* Inline social proof strip */}
+            <motion.div
+              variants={heroCTA}
+              initial="hidden"
+              animate="visible"
+              className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
+            >
+              {/* Avatar stack */}
+              <div className="flex -space-x-2.5">
+                {avatarStack.map((avatar, i) => (
+                  <div
+                    key={i}
+                    className="w-9 h-9 rounded-full bg-gradient-to-br from-primary/30 to-accent/50 border-2 border-background flex items-center justify-center"
+                  >
+                    <span className="text-[10px] font-semibold text-foreground">{avatar.initials}</span>
+                  </div>
+                ))}
+                <div className="w-9 h-9 rounded-full bg-primary/10 border-2 border-background flex items-center justify-center">
+                  <span className="text-[10px] font-semibold text-primary">+{Math.max(0, displayCount - avatarStack.length)}</span>
+                </div>
+              </div>
+
+              {/* Count + label */}
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-display text-2xl font-bold text-primary">
+                  {displayCount}+
+                </span>
+                <span className="text-sm text-muted-foreground">
+                  {t("social_proof.couples_registered")}
+                </span>
+              </div>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="mt-2 text-xs text-muted-foreground text-center lg:text-left"
+            >
+              {t("social_proof.trust_text")}
+            </motion.p>
           </div>
 
-          {/* Visual section - Phone mockup */}
+          {/* Visual section — Phone mockup */}
           <motion.div
             variants={heroMockup}
             initial="hidden"
@@ -114,62 +156,63 @@ export function Hero() {
           >
             <div className="relative">
               {/* Phone frame */}
-              <div className="relative w-[280px] sm:w-[320px] aspect-[9/16] bg-gradient-to-br from-card to-secondary/20 rounded-[2.5rem] shadow-2xl border-8 border-foreground overflow-hidden mt-10">
+              <div className="relative w-[260px] sm:w-[300px] aspect-[9/16] bg-gradient-to-br from-card to-secondary/20 rounded-[2.5rem] shadow-2xl border-8 border-foreground overflow-hidden mt-10">
                 {/* Phone notch */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-6 bg-foreground rounded-full" />
-                
-                {/* Placeholder content - Wedding invitation preview */}
-                <div className="absolute inset-4 top-10 flex flex-col items-center justify-center text-center p-4">
-                  <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4">
-                    <span className="text-2xl">💍</span>
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-foreground rounded-full" />
+
+                {/* Invitation preview */}
+                <div className="absolute inset-4 top-10 flex flex-col items-center justify-center text-center p-3">
+                  <div className="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center mb-3">
+                    <span className="text-xl">💍</span>
                   </div>
-                  <p className="font-display text-sm text-muted-foreground mb-2">
+                  <p className="font-landing text-xs text-muted-foreground mb-1">
                     You&apos;re Invited
                   </p>
-                  <h3 className="font-display text-xl font-bold text-foreground">
+                  <h3 className="font-landing text-lg text-foreground">
                     Shafiqah & Qayyum
                   </h3>
-                  <p className="text-xs text-muted-foreground mt-2">
+                  <p className="text-xs text-muted-foreground mt-1.5">
                     15 March 2026
                   </p>
-                  <div className="mt-6 w-full space-y-2">
-                    <div className="h-8 bg-primary/10 rounded-lg animate-pulse" />
-                    <div className="h-8 bg-accent/10 rounded-lg animate-pulse" />
+                  <div className="mt-5 w-full space-y-2">
+                    <div className="h-7 bg-primary/10 rounded-lg animate-pulse" />
+                    <div className="h-7 bg-accent/20 rounded-lg animate-pulse" />
+                    <div className="h-7 bg-secondary/10 rounded-lg animate-pulse" />
                   </div>
                 </div>
               </div>
 
-              {/* Floating elements */}
+              {/* Floating chips */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -right-4 top-20 bg-card rounded-xl shadow-lg p-3 border"
+                className="absolute -right-4 top-20 bg-card rounded-xl shadow-lg p-2.5 border border-border"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">✅</span>
-                  <span className="text-sm font-medium">RSVP: 150</span>
+                  <span className="text-lg">✅</span>
+                  <span className="text-xs font-semibold">RSVP: 150</span>
                 </div>
               </motion.div>
 
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute -left-4 bottom-32 bg-card rounded-xl shadow-lg p-3 border"
+                className="absolute -left-4 bottom-32 bg-card rounded-xl shadow-lg p-2.5 border border-border"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">💬</span>
-                  <span className="text-sm font-medium">New wish!</span>
+                  <span className="text-lg">💬</span>
+                  <span className="text-xs font-semibold">New wish!</span>
                 </div>
               </motion.div>
 
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -right-8 bottom-20 bg-card rounded-xl shadow-lg p-3 border"
+                className="absolute -right-8 bottom-20 bg-card rounded-xl shadow-lg p-2.5 border border-border"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">🎁</span>
-                  <span className="text-sm font-medium">Gift claimed</span>
+                  <span className="text-lg">🎁</span>
+                  <span className="text-xs font-semibold">Gift claimed</span>
                 </div>
               </motion.div>
             </div>
@@ -188,7 +231,11 @@ export function Hero() {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
           className="flex flex-col items-center text-muted-foreground cursor-pointer"
-          onClick={() => document.getElementById("social-proof")?.scrollIntoView({ behavior: "smooth" })}
+          onClick={() =>
+            document
+              .getElementById("social-proof")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
         >
           <ChevronDown className="w-6 h-6" />
         </motion.div>

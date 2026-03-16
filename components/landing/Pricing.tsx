@@ -49,7 +49,7 @@ export function Pricing() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="font-landing text-3xl sm:text-4xl lg:text-5xl text-foreground">
             {t("pricing.headline")}
           </h2>
         </motion.div>
@@ -61,7 +61,7 @@ export function Pricing() {
           animate={isInView ? "visible" : "hidden"}
           className="max-w-lg mx-auto"
         >
-          <div className="relative bg-card rounded-3xl shadow-xl border-2 border-primary/20 overflow-hidden">
+          <div className="relative bg-card rounded-3xl shadow-xl border-2 border-border overflow-hidden">
             {/* Early bird badge */}
             {siteConfig.pricing.earlyBirdFree && (
               <motion.div
@@ -84,7 +84,7 @@ export function Pricing() {
                   initial={{ scale: 0 }}
                   animate={isInView ? { scale: 1 } : { scale: 0 }}
                   transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                  className="font-display text-6xl lg:text-7xl font-bold text-primary mb-2 line-through"
+                  className="font-landing text-6xl lg:text-7xl text-primary mb-2 line-through"
                 >
                   {t("pricing.price")}
                 </motion.div>
@@ -119,8 +119,8 @@ export function Pricing() {
                     transition={{ delay: 0.4 + index * 0.05 }}
                     className="flex items-center gap-3"
                   >
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-chart-3/10 flex items-center justify-center">
-                      <Check className="w-4 h-4 text-chart-3" />
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Check className="w-4 h-4 text-primary" />
                     </div>
                     <span className="text-foreground">{feature}</span>
                   </motion.li>

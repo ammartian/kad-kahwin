@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Nunito_Sans, Montserrat } from "next/font/google";
+import { Poppins, Nunito_Sans, Montserrat, Pavanam } from "next/font/google";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -20,6 +20,13 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const pavanam = Pavanam({
+  variable: "--font-pavanam",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -90,7 +97,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} ${nunitoSans.variable} ${montserrat.variable} font-sans antialiased`}
+        className={`${poppins.variable} ${nunitoSans.variable} ${montserrat.variable} ${pavanam.variable} font-sans antialiased`}
       >
         {children}
       </body>

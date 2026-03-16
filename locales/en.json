@@ -103,6 +103,33 @@
       "earn_income": "Smart wishlist, no duplicate gifts",
       "real_time": "Change details anytime, guests see instantly",
       "data_driven": "Know exactly who's coming, who's not"
+    },
+    "col1": {
+      "header": "Save Money",
+      "item1": "RM39 one-time vs RM500–2000 printing costs",
+      "item2": "No delivery expenses",
+      "item3": "No reprinting fees for updates",
+      "item4": "Affiliate wishlist — no duplicate gifts",
+      "item5": "One link for all guests",
+      "item6": "Lifetime access, no renewal"
+    },
+    "col2": {
+      "header": "Save Time",
+      "item1": "Set up in 5 minutes",
+      "item2": "No postal delivery needed",
+      "item3": "Edit event details anytime",
+      "item4": "RSVP tracked automatically",
+      "item5": "Guest list import via Excel",
+      "item6": "Real-time updates for guests"
+    },
+    "col3": {
+      "header": "Less Stress",
+      "item1": "Know exactly who's coming",
+      "item2": "Built-in RSVP management",
+      "item3": "Real-time wishes from guests",
+      "item4": "Share via WhatsApp in one tap",
+      "item5": "Zero paper waste, eco-friendly",
+      "item6": "Both bride & groom can manage"
     }
   },
   "pricing": {

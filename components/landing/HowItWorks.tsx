@@ -45,7 +45,7 @@ export function HowItWorks() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="font-landing text-3xl sm:text-4xl lg:text-5xl text-foreground">
             {t("how_it_works.section_title")}
           </h2>
         </motion.div>
@@ -69,31 +69,21 @@ export function HowItWorks() {
               >
                 {/* Step number badge */}
                 <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent text-white font-display text-xl font-bold mb-6 shadow-lg"
+                  whileHover={{ scale: 1.05 }}
+                  className="relative z-10 inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground font-landing text-xl mb-6 shadow-md"
                 >
                   {step.number}
                 </motion.div>
 
-                {/* Icon */}
-                {/* <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-4">
-                  <step.icon className="w-6 h-6 text-primary" />
-                </div> */}
-
                 {/* Title */}
-                <h3 className="font-display text-xl lg:text-2xl font-bold text-foreground mb-3">
+                <h3 className="font-landing text-xl lg:text-2xl text-foreground mb-3">
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto">
+                <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
                   {step.description}
                 </p>
-
-                {/* Mobile connector line */}
-                {/* {index < steps.length - 1 && (
-                  <div className="lg:hidden absolute left-1/2 -translate-x-1/2 top-16 w-0.5 h-8 bg-gradient-to-b from-primary to-accent" />
-                )} */}
               </motion.div>
             ))}
           </div>

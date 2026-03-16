@@ -110,10 +110,10 @@ export function SocialProof() {
                 variants={fadeIn}
                 className="text-center"
               >
-                <div className="font-display text-4xl sm:text-5xl font-bold text-primary">
+                <div className="font-landing text-4xl sm:text-5xl text-primary">
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                 </div>
-                <p className="mt-2 text-muted-foreground font-medium">
+                <p className="mt-2 text-muted-foreground text-sm font-medium">
                   {stat.label}
                 </p>
               </motion.div>
@@ -136,13 +136,13 @@ export function SocialProof() {
             {avatarStack.map((avatar, i) => (
               <div
                 key={i}
-                className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 border-2 border-background flex items-center justify-center"
+                className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-accent/40 border-2 border-background flex items-center justify-center"
               >
-                <span className="text-xs">{avatar.initials}</span>
+                <span className="text-[10px] font-semibold text-foreground">{avatar.initials}</span>
               </div>
             ))}
             <div className="w-10 h-10 rounded-full bg-primary/10 border-2 border-background flex items-center justify-center">
-              <span className="text-xs font-medium text-primary">+95</span>
+              <span className="text-[10px] font-semibold text-primary">+95</span>
             </div>
           </motion.div>
         </motion.div>

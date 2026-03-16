@@ -29,29 +29,29 @@ export function Features() {
       icon: Gift,
       title: t("features.wishlist.title"),
       description: t("features.wishlist.description"),
-      color: "text-accent",
-      bgColor: "bg-accent/10",
+      color: "text-primary",
+      bgColor: "bg-primary/10",
     },
     {
       icon: CheckCircle,
       title: t("features.rsvp.title"),
       description: t("features.rsvp.description"),
-      color: "text-chart-3",
-      bgColor: "bg-chart-3/10",
+      color: "text-primary",
+      bgColor: "bg-primary/10",
     },
     {
       icon: MessageCircle,
       title: t("features.wishes.title"),
       description: t("features.wishes.description"),
-      color: "text-chart-4",
-      bgColor: "bg-chart-4/10",
+      color: "text-secondary",
+      bgColor: "bg-secondary/10",
     },
     {
       icon: Users,
       title: t("features.multi_manager.title"),
       description: t("features.multi_manager.description"),
-      color: "text-chart-5",
-      bgColor: "bg-chart-5/10",
+      color: "text-secondary",
+      bgColor: "bg-secondary/10",
     },
     {
       icon: Smartphone,
@@ -72,7 +72,7 @@ export function Features() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="font-landing text-3xl sm:text-4xl lg:text-5xl text-foreground">
             {t("features.section_title")}
           </h2>
         </motion.div>
@@ -88,25 +88,23 @@ export function Features() {
             <motion.div
               key={index}
               variants={slideUp}
-              whileHover={{ y: -8, transition: { duration: 0.2 } }}
-              className="group bg-card rounded-2xl p-6 lg:p-8 shadow-sm border hover:shadow-lg hover:border-primary/20 transition-all duration-300"
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+              className="group bg-card rounded-2xl p-6 lg:p-8 shadow-sm border border-border hover:shadow-md hover:border-primary/40 transition-all duration-300"
             >
               {/* Icon */}
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-                className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${feature.bgColor} mb-4`}
+              <div
+                className={`inline-flex items-center justify-center w-11 h-11 rounded-xl ${feature.bgColor} mb-4`}
               >
-                <feature.icon className={`w-6 h-6 ${feature.color}`} />
-              </motion.div>
+                <feature.icon className={`w-5 h-5 ${feature.color}`} />
+              </div>
 
               {/* Title */}
-              <h3 className="font-display text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+              <h3 className="font-landing text-xl text-foreground mb-3 group-hover:text-primary transition-colors">
                 {feature.title}
               </h3>
 
               {/* Description */}
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 {feature.description}
               </p>
             </motion.div>

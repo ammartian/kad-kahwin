@@ -65,7 +65,7 @@ export function FooterCTA() {
           className="max-w-2xl mx-auto text-center"
         >
           {/* Headline */}
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6">
+          <h2 className="font-landing text-2xl sm:text-3xl lg:text-4xl text-foreground mb-6">
             {t("footer.headline")}
           </h2>
 
@@ -78,7 +78,7 @@ export function FooterCTA() {
             <Button
               size="lg"
               onClick={handleCTA}
-              className="h-14 px-8 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all"
+              className="h-13 px-8 text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-all"
             >
               {t("footer.cta")}
             </Button>
