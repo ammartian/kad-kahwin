@@ -237,7 +237,42 @@
     "no_events": "Tiada acara lagi",
     "create_first": "Cipta acara perkahwinan pertama anda untuk mula membuat kad jemputan digital.",
     "create_event": "+ Cipta Acara Baru",
-    "coming_soon": "Ciri ini akan tersedia sebentar lagi"
+    "coming_soon": "Ciri ini akan tersedia sebentar lagi",
+    "event_count": "{{count}} acara",
+    "event_count_plural": "{{count}} acara",
+    "copy_link": "Salin pautan",
+    "manage": "Urus"
+  },
+  "event_creation": {
+    "title": "Cipta Acara Baru",
+    "couple_name": "Nama pasangan",
+    "couple_name_placeholder": "cth. Aminah & Razak",
+    "wedding_date": "Tarikh majlis",
+    "wedding_time": "Masa majlis",
+    "wedding_time_placeholder": "cth. 14:00",
+    "slug": "Pautan tersuai",
+    "slug_placeholder": "aminah-razak",
+    "url_preview": "Pautan jemputan anda",
+    "rsvp_deadline": "Tarikh tutup RSVP (pilihan)",
+    "co_manager_email": "Jemput pasangan (pilihan)",
+    "co_manager_email_placeholder": "Emel pasangan",
+    "submit": "Cipta Acara",
+    "submitting": "Sedang mencipta...",
+    "success_title": "Acara berjaya dicipta!",
+    "success_message": "Jemputan kahwin anda sudah sedia. Anda boleh menyesuaikannya dan kongsi pautan.",
+    "invitation_sent": "Jemputan dihantar ke {{email}}",
+    "slug_checking": "Memeriksa...",
+    "slug_available": "Tersedia",
+    "slug_taken": "Sudah digunakan",
+    "slug_suggest": "Cuba",
+    "slug_invalid": "Guna huruf kecil, nombor dan sempang sahaja",
+    "error_slug_taken": "Pautan ini sudah digunakan",
+    "error_generic": "Ada masalah. Sila cuba lagi."
+  },
+  "event_card": {
+    "draft": "Draf",
+    "published": "Diterbitkan",
+    "copied": "Disalin!"
   },
   "sign_in": {
     "title": "Jemputan Digital",
