@@ -148,7 +148,7 @@ export function WaitlistModal() {
                   onClick={handleClose}
                   className="px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
                 >
-                  {t("waitlist.close") || "Close"}
+                  {t("waitlist.close")}
                 </Button>
               </motion.div>
             ) : submitStatus === "error" ? (
@@ -179,14 +179,14 @@ export function WaitlistModal() {
                     onClick={() => setSubmitStatus("idle")}
                     className="px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
                   >
-                    {t("waitlist.try_again") || "Try Again"}
+                    {t("waitlist.try_again")}
                   </Button>
                   <Button
                     onClick={handleClose}
                     variant="ghost"
                     className="px-6 rounded-full"
                   >
-                    {t("waitlist.close") || "Close"}
+                    {t("waitlist.close")}
                   </Button>
                 </div>
               </motion.div>

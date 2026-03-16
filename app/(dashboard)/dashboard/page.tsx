@@ -67,8 +67,13 @@ function DashboardHeader() {
   const router = useRouter();
 
   async function handleSignOut() {
-    await authClient.signOut();
-    router.replace("/sign-in");
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.replace("/sign-in");
+        },
+      },
+    });
   }
 
   return (

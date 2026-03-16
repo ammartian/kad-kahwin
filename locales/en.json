@@ -222,7 +222,9 @@
     "error_message": "Try again? If problem persists, email us at hello@jemputandigital.my",
     "error_email_required": "Email is required",
     "error_email_invalid": "Please enter a valid email",
-    "error_email_exists": "This email is already registered. Check your inbox!"
+    "error_email_exists": "This email is already registered. Check your inbox!",
+    "try_again": "Try Again",
+    "close": "Close"
   },
   "language": {
     "ms": "BM",

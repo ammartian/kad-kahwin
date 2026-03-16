@@ -222,7 +222,9 @@
     "error_message": "Cuba lagi? Jika masalah berterusan, email kami di hello@kadkahwin.my",
     "error_email_required": "Email diperlukan",
     "error_email_invalid": "Sila masukkan email yang sah",
-    "error_email_exists": "Email ini sudah berdaftar. Tengok inbox anda!"
+    "error_email_exists": "Email ini sudah berdaftar. Tengok inbox anda!",
+    "try_again": "Cuba Lagi",
+    "close": "Tutup"
   },
   "language": {
     "ms": "BM",
