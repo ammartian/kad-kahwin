@@ -227,5 +227,16 @@
   "language": {
     "ms": "BM",
     "en": "EN"
+  },
+  "sign_in": {
+    "title": "Jemputan Digital",
+    "subtitle": "Sign in to start creating your digital wedding invitation",
+    "google_btn": "Continue with Google",
+    "google_btn_loading": "Signing in...",
+    "error": "Sign in failed. Please try again.",
+    "terms_prefix": "By signing in, you agree to our",
+    "terms_link": "Terms of Service",
+    "terms_and": "and",
+    "privacy_link": "Privacy Policy"
   }
 }

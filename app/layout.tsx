@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins, Nunito_Sans, Montserrat, Pavanam } from "next/font/google";
 import "./globals.css";
+import { ConvexClientProvider } from "./ConvexClientProvider";
+import { getToken } from "@/lib/auth-server";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -63,11 +65,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialToken = await getToken();
+
   return (
     <html lang="ms" className="scroll-smooth">
       <head>
@@ -99,7 +103,9 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${nunitoSans.variable} ${montserrat.variable} ${pavanam.variable} font-sans antialiased`}
       >
-        {children}
+        <ConvexClientProvider initialToken={initialToken}>
+          {children}
+        </ConvexClientProvider>
       </body>
     </html>
   );

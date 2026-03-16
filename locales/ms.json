@@ -227,5 +227,16 @@
   "language": {
     "ms": "BM",
     "en": "EN"
+  },
+  "sign_in": {
+    "title": "Jemputan Digital",
+    "subtitle": "Log masuk untuk mula membuat kad kahwin digital anda",
+    "google_btn": "Teruskan dengan Google",
+    "google_btn_loading": "Sedang log masuk...",
+    "error": "Gagal log masuk. Sila cuba lagi.",
+    "terms_prefix": "Dengan log masuk, anda bersetuju dengan",
+    "terms_link": "Terma Perkhidmatan",
+    "terms_and": "dan",
+    "privacy_link": "Dasar Privasi"
   }
 }
