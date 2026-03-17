@@ -3,9 +3,9 @@
 ## Document Information
 
 - **Product Name:** Kad Kahwin
-- **Version:** 2.0 (Finalized)
+- **Version:** 2.1 (Updated)
 - **Author:** ammartian
-- **Date:** March 17, 2026
+- **Date:** March 18, 2026
 - **Status:** Finalized
 - **Supersedes:** `kad-kahwin-technical-prd.md` v1.0, `kad-kahwin-landing-page-prd.md` v1.0
 - **References:** `docs/dev-progress.md`, kadkahwinmy.com invitation reference
@@ -18,9 +18,9 @@
 
 Kad Kahwin is a Malaysian digital wedding invitation platform that enables couples to create, customize, and share cinematic mobile-first wedding invitations with integrated RSVP management, real-time wishes, wishlists, and donation features. The platform generates affiliate revenue through Shopee/Lazada wishlist links.
 
-### 1.2 Current Build Status (as of March 17, 2026)
+### 1.2 Current Build Status (as of March 18, 2026)
 
-**Completed (Phase 1 Backend & Core UI):**
+**Completed (Phase 1 — Full Invitation View + Code Quality Pass):**
 - Project setup: Next.js App Router, Convex, BetterAuth, TailwindCSS, Shadcn/ui
 - Authentication: Google OAuth via BetterAuth
 - Event creation with custom slug validation
@@ -41,18 +41,22 @@ Kad Kahwin is a Malaysian digital wedding invitation platform that enables coupl
 - Desktop 9:16 invitation view (centered frame) — basic implementation
 - Publish/draft toggle for events
 - Dual-language setup (Malay/English translation files)
-- Unit tests for events, RSVP, wishlist claim/unclaim, affiliate converter, Zustand stores
+- **Invitation view full redesign** — cinematic, mobile-locked, bottom navbar + 6 modals
+- **Photo carousel** — upload up to 10 images, drag-to-reorder, auto-advance on guest page
+- **Calendar integration** — Google Calendar URL + Apple/Outlook `.ics` download
+- **Venue name + address** — new schema fields, builder UI, displayed in EventDetails section
+- **Security fix** — `getEventBySlug` uses explicit field allowlist; raw storage IDs not in public response
+- **Zustand anti-pattern fix** — `carouselImageUrls` removed from editorStore; flows as props
+- **`updateEvent` simplified** — SCALAR_FIELDS loop replaces 20-line repeated patch block
+- **Parallel uploads** — `PhotosSection` uses `Promise.all` for concurrent carousel uploads
+- **i18n complete** — all invitation sections, modals, and relative time strings translated
+- **Test suite** — 17 files, 233 tests passing (events, guest, rsvp, wishlist, wishes, editorStore, generateIcs, affiliateConverter, slug, youtube, hex, email, date)
 
 **Remaining for MVP Completion:**
-- Invitation view full redesign (this PRD — primary focus)
-- Bottom Navbar modal system
-- Framer Motion animation layer
-- Image carousel section for couple photos
-- Calendar integration (add to Google/iCal)
 - Co-manager invite acceptance flow + UI
-- SEO meta tags, sitemap, structured data
-- Language switcher on guest page
-- PostHog events wired
+- Language switcher on guest page + dashboard
+- SEO meta tags, sitemap, structured data (PRD §7.8)
+- PostHog events wired — all remaining events (PRD §7.9)
 - Sentry monitoring verified
 - Production Vercel deployment
 
@@ -488,14 +492,15 @@ carouselImageIds: v.optional(v.array(v.id("_storage"))), // New: photo carousel
 
 ### 5.2 New Convex Functions
 
-**query: getCarouselImages**
+**query: getStorageUrl** *(implemented)*
 ```typescript
-args: { eventId: v.id("events") }
-returns: string[] // array of CDN URLs for carousel images
+args: { storageId: v.id("_storage") }
+returns: string | null // CDN URL for a single storage object
 auth: Public
+description: Used by BackgroundSection to resolve URL reactively after upload
 ```
 
-**mutation: updateCarouselImages**
+**mutation: updateCarouselImages** *(implemented)*
 ```typescript
 args: {
   eventId: v.id("events"),
@@ -506,12 +511,12 @@ auth: Manager
 description: Replace carousel image list (ordered array)
 ```
 
-**action: generateIcsFile**
+**utility: generateIcs** *(implemented — client-side, no Convex action needed)*
 ```typescript
-args: { eventId: v.id("events") }
-returns: string // .ics file content as string
-auth: Public
-description: Generate iCal file content for calendar download
+// lib/utils/generateIcs.ts
+generateIcsContent(event): string  // RFC 5545 .ics blob content
+buildGoogleCalendarUrl(event): string  // pre-filled Google Calendar URL
+downloadIcsFile(event): void  // triggers browser download
 ```
 
 ### 5.3 Existing Functions (Unchanged)
@@ -616,7 +621,7 @@ This provides:
 - Guest claim/unclaim (atomic) — **Done**
 - Guest add items — **Done**
 - Manager hide/show — **Done**
-- Wishlist in Bottom Navbar modal — **Remaining** (UI redesign)
+- Wishlist in Bottom Navbar modal (`WishlistModal.tsx`) — **Done**
 
 ### 7.4 Guest Management & RSVP
 
@@ -624,24 +629,25 @@ This provides:
 - Excel import/export — **Done**
 - RSVP form + deadline — **Done**
 - RSVP analytics — **Done**
-- RSVP in Bottom Navbar modal — **Remaining** (UI move)
+- RSVP in Bottom Navbar modal (`RSVPModal.tsx`) — **Done**
 
 ### 7.5 Wishes
 
 - Real-time chat feed — **Done**
 - Manager delete — **Done**
-- Wishes as invitation section — **Remaining** (UI redesign to match new layout)
+- Wishes as invitation section (`WishesSection.tsx`) — **Done** (timeline layout, AnimatePresence, i18n relative time)
 
 ### 7.6 Donation
 
 - QR upload, bank info, clipboard — **Done**
-- Accessible via Bottom Navbar modal only (removed as inline section) — **Remaining** (UI move)
+- Accessible via Bottom Navbar modal (`DonationModal.tsx`) — **Done**
 
 ### 7.7 Multi-Language
 
 - Translation files (Malay/English) — **Done**
+- All invitation section strings translated (hero tagline, event details title, relative time, cancel, etc.) — **Done**
+- Language detection hook (`useEventLanguage`) — **Done**
 - Language switcher on guest page — **Remaining**
-- i18n: all new invitation section strings must have translations in both `ms.json` and `en.json`
 
 ### 7.8 SEO
 
@@ -707,31 +713,15 @@ All edge cases from original PRD apply. New additions:
 
 **Priority order:**
 
-1. **Invitation view redesign** — full rebuild of `GuestInvitationPage.tsx` per §3
-   - Hero section with animations
-   - Event Details section
-   - Image Carousel section
-   - Wishes Timeline section
-   - RSVP Attendance section
-   - Bottom Navbar with 6 modals
-   - Framer Motion animation layer
-
-2. **Schema additions** — `venueName`, `venueAddress`, `carouselImageIds`
-
-3. **New Convex functions** — `getCarouselImages`, `updateCarouselImages`, `generateIcsFile`
-
-4. **Builder updates** — Photos tab, venue name/address fields
-
-5. **URL route update** — `invite/[eventId]/[slug]` + redirect from old route
-
+1. ~~**Invitation view redesign**~~ — **Done** ✓
+2. ~~**Schema additions** — `venueName`, `venueAddress`, `carouselImageIds`~~ — **Done** ✓
+3. ~~**New Convex functions** — `updateCarouselImages`, `getStorageUrl`, `generateIcs` (client-side)~~ — **Done** ✓
+4. ~~**Builder updates** — Photos tab, venue name/address fields~~ — **Done** ✓
+5. **URL route update** — `invite/[eventId]/[slug]` + redirect from old route — **Deferred**
 6. **Co-manager invite acceptance flow**
-
 7. **Language switcher** on guest page
-
 8. **SEO** — meta tags per event, sitemap, JSON-LD
-
 9. **PostHog events** — all remaining events wired
-
 10. **Production Vercel deployment**
 
 ### 10.2 Phase 2 (Post-MVP)
@@ -778,12 +768,15 @@ All edge cases from original PRD apply. New additions:
 
 ### 11.3 Current Test Coverage
 
-- [x] Unit tests for Convex `events` mutations/queries
-- [x] Unit tests for editor/builder Zustand stores
+**17 test files — 233 tests passing (as of March 18, 2026)**
+
+- [x] Unit tests for Convex `events` mutations/queries (incl. `updateEvent` SCALAR_FIELDS loop, all new fields)
+- [x] Unit tests for Convex `guest` queries (`getEventBySlug` field allowlist, no raw storage IDs, `updateCarouselImages`)
+- [x] Unit tests for editor/builder Zustand stores (`editorStore` — `carouselImageUrls` absent, new venue fields)
 - [x] Unit tests for RSVP logic (duplicate, deadline, pax validation)
 - [x] Unit tests for wishlist claim/unclaim and affiliate converter
+- [x] Unit tests for ICS file generation (`generateIcsContent`, `buildGoogleCalendarUrl`, RFC 5545 escaping)
 - [ ] Unit tests for guest import (Excel parsing/validation)
-- [ ] Unit tests for ICS file generation
 - [ ] Manual end-to-end flows (auth → create event → customize → share → guest actions)
 - [ ] Manual verification of SEO tags, PostHog events, and Sentry reporting
 
@@ -857,13 +850,13 @@ All security measures from original PRD apply. No new security surface area adde
 
 ## 15. Open Questions
 
-| Question | Decision Needed By |
-|----------|--------------------|
-| Should the RSVP section in the main page scroll area remain, or only in the bottom navbar? | Before invitation view implementation |
-| Should wishes show in both the inline section AND a modal, or only inline? | Before invitation view implementation |
-| Should the URL structure change to `/invite/[eventId]/[slug]` be done in MVP or deferred? | Before routing implementation |
-| Should photo carousel images be stored separately or as a JSON array of storage IDs in the events table? | Before schema migration |
-| Should the first template ("Classic") use Google Fonts loaded at runtime or statically bundled? | Before animation implementation |
+| Question | Decision | Status |
+|----------|----------|--------|
+| Should the RSVP section in the main page scroll area remain, or only in the bottom navbar? | Modal only (bottom navbar `RSVPModal`) | **Resolved** |
+| Should wishes show in both the inline section AND a modal, or only inline? | Inline section only (`WishesSection`) | **Resolved** |
+| Should the URL structure change to `/invite/[eventId]/[slug]` be done in MVP or deferred? | Deferred — existing `(guest)/[slug]` route kept | **Resolved** |
+| Should photo carousel images be stored separately or as a JSON array of storage IDs in the events table? | `carouselImageIds: v.array(v.id("_storage"))` on `events` table | **Resolved** |
+| Should the first template ("Classic") use Google Fonts loaded at runtime or statically bundled? | Runtime (Google Fonts CDN) | **Resolved** |
 
 ---
 
@@ -942,6 +935,7 @@ All new invitation view strings require entries in both `/locales/ms.json` and `
 | 1.0 | Jan 31, 2026 | Initial Technical PRD |
 | 1.1 | Feb 1, 2026 | Landing Page PRD added |
 | 2.0 | Mar 17, 2026 | Finalized PRD: consolidated, added invitation view redesign spec, bottom navbar, photo carousel, venue fields, calendar integration, template system, updated dev status |
+| 2.1 | Mar 18, 2026 | Status update: invitation view redesign complete; code quality pass (security fix on `getEventBySlug`, Zustand anti-pattern, `updateEvent` SCALAR_FIELDS loop, parallel uploads, i18n fixes); test suite at 233 passing across 17 files; all Phase 1 open questions resolved; `generateIcs` implemented client-side (no Convex action); `getStorageUrl` query added; `getCarouselImages` query removed (redundant) |
 
 ---
 

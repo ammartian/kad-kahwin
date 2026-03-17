@@ -1,6 +1,6 @@
 ## Kad Kahwin MVP – Dev Progress
 
-> **Reference PRD:** `docs/PRD/finalized-prd.md` (v2.0, March 17, 2026)
+> **Reference PRD:** `docs/PRD/finalized-prd.md` (v2.1, March 18, 2026)
 
 ---
 
@@ -11,6 +11,8 @@
 - Builder UI (event editor + live preview)
 - Authentication (Google via BetterAuth)
 - Invitation view redesign (cinematic, mobile-locked, bottom navbar)
+- Code review pass — all critical/warning findings resolved
+- Test suite: 17 files, 233 tests passing
 
 ---
 
@@ -56,18 +58,21 @@
 
 - `venueName` and `venueAddress` fields added to `events` schema (PRD §6.1)
 - `carouselImageIds` field added to `events` schema (PRD §6.2)
-- Convex query: `getCarouselImages(eventId)` → returns CDN URLs (PRD §5.2)
-- Convex mutation: `updateCarouselImages(eventId, imageIds[])` (PRD §5.2)
+- Convex mutation: `updateCarouselImages(eventId, imageIds[])` with auth + max-10 enforcement (PRD §5.2)
 - ICS generation implemented client-side in `lib/utils/generateIcs.ts` (PRD §5.2)
-- `getEvent` and `getEventBySlug` updated to resolve `carouselImageUrls`
+- `getEvent` updated to resolve `carouselImageUrls` via `ctx.storage.getUrl`
+- `getEventBySlug` updated with explicit field allowlist — raw storage IDs not exposed to public (security)
+- `convex/storage.ts` — added `getStorageUrl` query for client-side URL resolution after upload
+- `updateEvent` mutation — simplified patch builder using `SCALAR_FIELDS` loop; removed dead return values
 
 #### Builder Updates ✓
 
 - Builder "Details" section — venue name + venue address fields added (PRD §4.2)
-- Builder "Photos" section — upload up to 10 carousel photos (PRD §4.2, §6.2)
+- Builder "Photos" section — upload up to 10 carousel photos, parallel upload via `Promise.all` (PRD §4.2, §6.2)
 - Drag-to-reorder photos, per-photo delete (PRD §6.2)
 - `useAutoSave` extended with `venueName` + `venueAddress` debounced save
-- `editorStore` extended with `venueName`, `venueAddress`, `carouselImageUrls` fields
+- `editorStore` — `carouselImageUrls` removed (was server state in Zustand, anti-pattern); now flows as prop from `BuilderPage` through `BuilderLayout` → `EditorPanel` → `PhotosSection`
+- `BackgroundSection` — resolved background image URL via new `getStorageUrl` query after upload
 
 #### URL Route Update
 
@@ -76,22 +81,22 @@
 #### Invitation View — Sections ✓
 
 - `InvitationContainer.tsx` — mobile-locked 390px frame, blurred desktop bg (PRD §3.2)
-- `HeroSection.tsx` — couple names, date, Ken Burns background, entrance animations (PRD §3.3 §1)
-- `EventDetailsSection.tsx` — venue name, date, time styled cards with scroll animations (PRD §3.3 §2)
+- `HeroSection.tsx` — couple names, date, Ken Burns background, entrance animations, i18n tagline (PRD §3.3 §1)
+- `EventDetailsSection.tsx` — venue name, date, time styled cards with scroll animations, i18n section title (PRD §3.3 §2)
 - `CarouselSection.tsx` — swipeable photo carousel, auto-advance, dots indicator (PRD §3.3 §3)
-- `WishesSection.tsx` — new timeline layout with AnimatePresence (PRD §3.3 §4)
+- `WishesSection.tsx` — new timeline layout with `AnimatePresence`, `getRelativeTime` i18n-aware and memoized (PRD §3.3 §4)
 - RSVP: modal only (moved to RSVPModal in bottom navbar) (PRD §3.3 §5)
 
 #### Bottom Navbar ✓
 
 - `BottomNavbar.tsx` — 6-icon fixed bottom bar, semi-transparent, themed (PRD §3.4)
 - `BottomSheet.tsx` — reusable bottom sheet, spring animation, drag-to-dismiss (PRD §3.4)
-- `MusicModal.tsx` — play/pause toggle, music note animation, postMessage to iframe (PRD §3.4 Modal 1)
+- `MusicModal.tsx` — play/pause toggle, postMessage to hidden YouTube iframe (PRD §3.4 Modal 1)
 - `CalendarModal.tsx` — Google Calendar URL, Apple/Outlook `.ics` download (PRD §3.4 Modal 2)
 - `DonationModal.tsx` — QR code image, bank details, copy-to-clipboard (PRD §3.4 Modal 3)
 - `LocationModal.tsx` — Waze/Google Maps/Apple Maps buttons (PRD §3.4 Modal 4)
-- `RSVPModal.tsx` — RSVP form, pax stepper, success state, deadline display (PRD §3.4 Modal 5)
-- `WishlistModal.tsx` — wishlist items, claim/unclaim, inline name prompt, add item form (PRD §3.4 Modal 6)
+- `RSVPModal.tsx` — RSVP form, pax stepper, success state; deadline-passed banner only shown when deadline is actually past (PRD §3.4 Modal 5)
+- `WishlistModal.tsx` — wishlist items, claim/unclaim, inline name prompt, add item form; hardcoded "Batal" replaced with i18n key (PRD §3.4 Modal 6)
 
 #### Animations (Framer Motion) ✓
 
@@ -103,9 +108,24 @@
 - New wish entrance animation (`AnimatePresence`) (PRD §3.5)
 - `useReducedMotion()` support — all animations disabled if set (PRD §3.5)
 
-#### i18n — New Keys ✓
+#### i18n ✓
 
-- All new navbar/modal translation keys added to `ms.json` and `en.json` (PRD Appendix B)
+- All navbar/modal keys in `ms.json` and `en.json` (PRD Appendix B)
+- New keys added: `guest.hero_tagline`, `guest.event_details_title`, `wishlist.cancel`
+- New relative-time keys: `wishes.just_now`, `wishes.minutes_ago`, `wishes.hours_ago`, `wishes.days_ago`
+- Language detection extracted into `hooks/useEventLanguage.ts` hook (SRP)
+
+#### Code Quality Fixes (March 18, 2026) ✓
+
+- `getEventBySlug` — explicit field allowlist; raw storage IDs (`backgroundImageId`, `donationQrId`, `carouselImageIds`) no longer in public response
+- `editorStore` — `carouselImageUrls` removed; server-derived state stays out of Zustand
+- `getCarouselImages` query deleted (dead code — carousel URLs resolved inside `getEvent`/`getEventBySlug`)
+- `updateEvent` — 20-line repeated patch block replaced with `SCALAR_FIELDS` loop
+- `updateEvent` — removed dead conditional return of `backgroundImageUrl`/`donationQrUrl`
+- `PhotosSection` — uploads parallelised with `Promise.all` (was serial `for` loop)
+- `WishesSection` — `getRelativeTime` wrapped in `useMemo` (was re-running on every Convex re-render)
+- `RSVPModal` — deadline-passed copy now only shows when `isDeadlinePassed` is true
+- Hardcoded strings (`"Walimatul Urus"`, `"Butiran Majlis"`, `"Batal"`) replaced with i18n keys
 
 ---
 
@@ -152,18 +172,35 @@
 
 ---
 
-### Testing Checklist (PRD §11)
+### Testing Status (PRD §11)
 
-- Unit tests for Convex `events` mutations/queries
-- Unit tests for editor/builder Zustand stores
-- Unit tests for RSVP logic (duplicate, deadline, pax validation)
-- Unit tests for wishlist claim/unclaim and affiliate converter
-- Unit tests for guest import (Excel parsing/validation)
-- Unit tests for ICS file generation (PRD §11.4)
-- Unit tests for carousel image management (max 10, empty state)
+**17 test files — 233 tests passing**
+
+| File | Tests | Coverage |
+|------|-------|----------|
+| `convex/functions/__tests__/events.test.ts` | Updated | `checkSlugAvailable`, `createEvent`, `inviteCoManager`, `updateEvent` (all fields incl. venue, bank, carousel, YOUTUBE validation, clearDonationQr) |
+| `convex/functions/__tests__/guest.test.ts` | Updated | `getEventBySlug` field allowlist (no storage IDs exposed), URL resolution for bg/qr/carousel, `updateCarouselImages` (auth, max-10, empty array) |
+| `convex/functions/__tests__/rsvp.test.ts` | — | `submitRSVP` (duplicate, deadline, pax 1–10, not-attending) |
+| `convex/functions/__tests__/wishlist.test.ts` | — | `claimWishlistItem`, `unclaimWishlistItem`, `addWishlistItem` validation |
+| `convex/functions/__tests__/wishes.test.ts` | — | `addWish`, `deleteWish` |
+| `convex/functions/__tests__/guests.test.ts` | — | Guest import validation |
+| `convex/functions/__tests__/waitlist.test.ts` | — | Waitlist join |
+| `stores/__tests__/editorStore.test.ts` | Updated | `initFromEvent` (all fields incl. venue, `carouselImageUrls` absent assertion), `setField`, `reset`, initialized flag |
+| `lib/utils/__tests__/generateIcs.test.ts` | New | ICS structure, SUMMARY, DTSTART/DTEND, LOCATION, DESCRIPTION, RFC 5545 escaping, CRLF, `buildGoogleCalendarUrl` |
+| `lib/utils/__tests__/affiliateConverter.test.ts` | — | Shopee/Lazada URL conversion, unknown platform fallback |
+| `lib/utils/__tests__/slug.test.ts` | — | Slug uniqueness, invalid chars, length bounds |
+| `lib/utils/__tests__/youtube.test.ts` | — | YouTube URL extraction |
+| `lib/utils/__tests__/isValidHex.test.ts` | — | Hex color validation |
+| `lib/utils/__tests__/validateEmail.test.ts` | — | Email validation |
+| `lib/utils/__tests__/eventDateFormat.test.ts` | — | Date/time formatting |
+| `lib/validators/__tests__/event.test.ts` | — | Event creation Zod schema |
+| `stores/__tests__/landing-store.test.ts` | — | Landing page store |
+
+**Skipped (intentional):**
+- UI rendering tests (no Playwright for MVP)
+- `downloadIcsFile` — browser DOM (`document.createElement`, `URL.createObjectURL`)
 - Manual end-to-end flows (auth → create event → customize → share → guest actions)
-- Manual verification of SEO tags, PostHog events, and Sentry reporting
+- Manual verification of SEO tags, PostHog events, Sentry reporting
 - Manual test: bottom navbar — all 6 modals open/close, drag-to-dismiss
 - Manual test: wishlist modal — claim conflict handled correctly
 - Manual test: calendar modal — Google URL pre-filled, `.ics` downloads correctly
-
