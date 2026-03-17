@@ -26,6 +26,8 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
   const colorSecondary = useEditorStore((s) => s.colorSecondary);
   const colorAccent = useEditorStore((s) => s.colorAccent);
   const musicYoutubeUrl = useEditorStore((s) => s.musicYoutubeUrl);
+  const venueName = useEditorStore((s) => s.venueName);
+  const venueAddress = useEditorStore((s) => s.venueAddress);
   const initialized = useEditorStore((s) => s.initialized);
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -46,6 +48,8 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
         colorSecondary: colorSecondary && isValidHex(colorSecondary) ? colorSecondary : undefined,
         colorAccent: colorAccent && isValidHex(colorAccent) ? colorAccent : undefined,
         musicYoutubeUrl: musicYoutubeUrl || undefined,
+        venueName: venueName || undefined,
+        venueAddress: venueAddress || undefined,
       });
       setSaveStatus("idle");
     } catch {
@@ -65,6 +69,8 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
     colorSecondary,
     colorAccent,
     musicYoutubeUrl,
+    venueName,
+    venueAddress,
   ]);
 
   useEffect(() => {
@@ -90,6 +96,8 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
     colorSecondary,
     colorAccent,
     musicYoutubeUrl,
+    venueName,
+    venueAddress,
     persist,
   ]);
 

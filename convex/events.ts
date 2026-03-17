@@ -152,10 +152,21 @@ export const getEvent = query({
       event.donationQrId ? ctx.storage.getUrl(event.donationQrId) : null,
     ]);
 
+    const carouselImageUrls: string[] = [];
+    if (event.carouselImageIds && event.carouselImageIds.length > 0) {
+      const urls = await Promise.all(
+        event.carouselImageIds.map((id) => ctx.storage.getUrl(id))
+      );
+      for (const url of urls) {
+        if (url) carouselImageUrls.push(url);
+      }
+    }
+
     return {
       ...event,
       backgroundImageUrl,
       donationQrUrl,
+      carouselImageUrls,
     };
   },
 });
@@ -183,6 +194,9 @@ export const updateEvent = mutation({
     colorSecondary: v.optional(v.string()),
     colorAccent: v.optional(v.string()),
     musicYoutubeUrl: v.optional(v.string()),
+    venueName: v.optional(v.string()),
+    venueAddress: v.optional(v.string()),
+    carouselImageIds: v.optional(v.array(v.id("_storage"))),
   },
   handler: async (ctx, args) => {
     const user = await authComponent.getAuthUser(ctx);
@@ -227,6 +241,9 @@ export const updateEvent = mutation({
     if (updates.bankHolder !== undefined) patch.bankHolder = updates.bankHolder;
     if (updates.rsvpDeadline !== undefined) patch.rsvpDeadline = updates.rsvpDeadline;
     if (updates.published !== undefined) patch.published = updates.published;
+    if (updates.venueName !== undefined) patch.venueName = updates.venueName;
+    if (updates.venueAddress !== undefined) patch.venueAddress = updates.venueAddress;
+    if (updates.carouselImageIds !== undefined) patch.carouselImageIds = updates.carouselImageIds;
     if (Object.keys(patch).length === 0) return;
 
     await ctx.db.patch(eventId, patch as Record<string, unknown>);

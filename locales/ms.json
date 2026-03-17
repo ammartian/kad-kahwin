@@ -314,7 +314,16 @@
     "bank_holder": "Nama pemegang akaun",
     "error_hex_color": "Guna kod hex 6 digit (cth. #ff0000)",
     "uploading": "Memuat naik...",
-    "remove_image": "Buang gambar"
+    "remove_image": "Buang gambar",
+    "venue_name": "Nama tempat majlis",
+    "venue_name_placeholder": "cth. Dewan Besar Tuanku Canselor",
+    "venue_address": "Alamat tempat majlis",
+    "venue_address_placeholder": "cth. Jalan Universiti, 50603 Kuala Lumpur",
+    "photos": "Foto Pasangan",
+    "photos_hint": "Muat naik sehingga 10 foto (JPG, PNG, WEBP, max 5MB setiap satu)",
+    "photos_add": "Tambah Foto",
+    "photos_count": "{{count}}/10 foto",
+    "photos_max_reached": "Had 10 foto telah dicapai"
   },
   "guest": {
     "open_in_waze": "Buka di Waze",
@@ -323,7 +332,22 @@
     "not_found": "Jemputan tidak dijumpai atau belum diterbitkan.",
     "play_music": "Main muzik",
     "wedding_music": "Muzik majlis",
-    "couple_name_placeholder": "Nama Pasangan"
+    "couple_name_placeholder": "Nama Pasangan",
+    "scroll_down": "Tatal ke bawah"
+  },
+  "navbar": {
+    "music": "Muzik",
+    "calendar": "Tarikh",
+    "donation": "Bayar",
+    "location": "Lokasi",
+    "rsvp": "RSVP",
+    "wishlist": "Hadiah"
+  },
+  "calendar": {
+    "title": "Tambah ke Kalendar",
+    "add_google": "Tambah ke Google Calendar",
+    "add_apple": "Tambah ke Apple Calendar",
+    "add_outlook": "Tambah ke Outlook"
   },
   "event_nav": {
     "builder": "Edit",
@@ -364,28 +388,28 @@
     "export_preparing": "Menyediakan export..."
   },
   "wishlist": {
-    "title": "Wishlist",
+    "title": "Senarai Hadiah",
     "add_item": "Tambah Item",
+    "add_gift": "Tambah Hadiah",
     "item_title": "Nama item",
     "item_url": "Pautan produk (Shopee/Lazada)",
     "claimed": "Dituntut",
     "claimed_by": "Dituntut oleh {{name}}",
+    "claim_button": "Saya akan beli",
+    "unclaim_button": "Batalkan",
+    "claimed_badge": "Dituntut",
+    "buy_button": "Beli",
     "hidden": "Tersembunyi",
     "visible": "Tunjuk",
     "hide": "Sembunyi",
     "delete": "Padam",
     "edit": "Edit",
-    "no_items": "Tiada item wishlist. Tambah item dari Shopee atau Lazada."
-  },
-  "rsvp": {
-    "title": "RSVP",
-    "attending": "Saya hadir",
-    "not_attending": "Saya tidak hadir",
-    "pax_label": "Bilangan tetamu (1-10)",
-    "name_placeholder": "Nama anda",
-    "submit": "Hantar",
-    "submitted": "Terima kasih, respons anda telah direkodkan.",
-    "deadline_passed": "Tarikh tutup RSVP telah berlalu"
+    "no_items": "Tiada item dalam senarai hadiah",
+    "already_claimed": "Item ini telah dituntut oleh orang lain",
+    "enter_name": "Masukkan nama anda",
+    "platform_shopee": "Shopee",
+    "platform_lazada": "Lazada",
+    "platform_other": "Lain-lain"
   },
   "wishes": {
     "title": "Ucapan",
@@ -395,12 +419,40 @@
     "char_count": "{{count}}/255"
   },
   "donation": {
-    "title": "Derma",
+    "title": "Sumbangan",
     "bank_name": "Nama bank",
     "account_number": "Nombor akaun",
     "account_holder": "Pemegang akaun",
     "copy": "Salin",
-    "copied": "Disalin!"
+    "copied": "Disalin!",
+    "empty": "Tiada maklumat pembayaran"
+  },
+  "location": {
+    "title": "Lokasi Majlis",
+    "empty": "Tiada maklumat lokasi",
+    "open_waze": "Buka di Waze",
+    "open_google": "Google Maps",
+    "open_apple": "Apple Maps"
+  },
+  "music_modal": {
+    "title": "Muzik Majlis",
+    "now_playing": "Sedang dimainkan",
+    "play": "Main",
+    "pause": "Jeda",
+    "powered_by": "Dikuasakan oleh YouTube"
+  },
+  "rsvp": {
+    "title": "RSVP",
+    "attending": "Saya hadir",
+    "not_attending": "Saya tidak hadir",
+    "pax_label": "Bilangan tetamu (1-10)",
+    "name_placeholder": "Nama anda",
+    "submit": "Hantar",
+    "submitting": "Menghantar...",
+    "submitted": "Terima kasih! Kami menantikan kehadiran anda.",
+    "deadline_passed": "Tarikh tutup RSVP telah berlalu",
+    "already_submitted": "Anda telah RSVP",
+    "already_submitted_detail": "Anda telah RSVP sebagai {{status}}, {{pax}} orang"
   },
   "sign_in": {
     "title": "Jemputan Digital",

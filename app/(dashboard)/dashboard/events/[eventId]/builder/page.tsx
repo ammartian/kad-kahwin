@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -15,10 +15,12 @@ export default function BuilderPage() {
   const initialized = useEditorStore((s) => s.initialized);
   const initFromEvent = useEditorStore((s) => s.initFromEvent);
   const reset = useEditorStore((s) => s.reset);
+  const [carouselImageIds, setCarouselImageIds] = useState<Id<"_storage">[]>([]);
 
   // Init store from event when data is ready
   useEffect(() => {
     if (event && event._id === eventId && !initialized) {
+      setCarouselImageIds((event.carouselImageIds ?? []) as Id<"_storage">[]);
       initFromEvent({
         _id: event._id,
         coupleName: event.coupleName,
@@ -33,6 +35,9 @@ export default function BuilderPage() {
         colorAccent: event.colorAccent,
         backgroundImageUrl: event.backgroundImageUrl ?? null,
         musicYoutubeUrl: event.musicYoutubeUrl,
+        venueName: event.venueName,
+        venueAddress: event.venueAddress,
+        carouselImageUrls: event.carouselImageUrls ?? [],
       });
     }
   }, [event, eventId, initialized, initFromEvent]);
@@ -58,5 +63,11 @@ export default function BuilderPage() {
     );
   }
 
-  return <BuilderLayout eventId={eventId} />;
+  return (
+    <BuilderLayout
+      eventId={eventId}
+      carouselImageIds={carouselImageIds}
+      onCarouselIdsChange={setCarouselImageIds}
+    />
+  );
 }

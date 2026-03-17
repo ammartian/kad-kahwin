@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
+import type { Id } from "@/convex/_generated/dataModel";
 import {
   BackgroundSection,
   ColorsSection,
@@ -9,8 +10,15 @@ import {
   LocationSection,
   DonationSection,
 } from "./sections";
+import { PhotosSection } from "./sections/PhotosSection";
 
-export function EditorPanel() {
+interface EditorPanelProps {
+  eventId: Id<"events">;
+  carouselImageIds: Id<"_storage">[];
+  onCarouselIdsChange: (ids: Id<"_storage">[]) => void;
+}
+
+export function EditorPanel({ eventId, carouselImageIds, onCarouselIdsChange }: EditorPanelProps) {
   const { t } = useTranslation();
 
   return (
@@ -25,6 +33,11 @@ export function EditorPanel() {
           <MusicSection />
           <EventDetailsSection />
           <LocationSection />
+          <PhotosSection
+            eventId={eventId}
+            carouselImageIds={carouselImageIds}
+            onIdsChange={onCarouselIdsChange}
+          />
           <DonationSection />
         </div>
       </div>

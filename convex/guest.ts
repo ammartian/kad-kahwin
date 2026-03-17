@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { query } from "./_generated/server";
+import { query, mutation } from "./_generated/server";
 import { authComponent } from "./auth";
 
 export const getEventBySlug = query({
@@ -20,11 +20,59 @@ export const getEventBySlug = query({
       event.donationQrId ? ctx.storage.getUrl(event.donationQrId) : null,
     ]);
 
+    const carouselImageUrls: string[] = [];
+    if (event.carouselImageIds && event.carouselImageIds.length > 0) {
+      const urls = await Promise.all(
+        event.carouselImageIds.map((id) => ctx.storage.getUrl(id))
+      );
+      for (const url of urls) {
+        if (url) carouselImageUrls.push(url);
+      }
+    }
+
     return {
       ...event,
       backgroundImageUrl,
       donationQrUrl,
+      carouselImageUrls,
     };
+  },
+});
+
+export const getCarouselImages = query({
+  args: { eventId: v.id("events") },
+  handler: async (ctx, args) => {
+    const event = await ctx.db.get(args.eventId);
+    if (!event || !event.carouselImageIds || event.carouselImageIds.length === 0) {
+      return [];
+    }
+    const urls = await Promise.all(
+      event.carouselImageIds.map((id) => ctx.storage.getUrl(id))
+    );
+    return urls.filter((url): url is string => url !== null);
+  },
+});
+
+export const updateCarouselImages = mutation({
+  args: {
+    eventId: v.id("events"),
+    imageIds: v.array(v.id("_storage")),
+  },
+  handler: async (ctx, args) => {
+    const user = await authComponent.getAuthUser(ctx);
+    if (!user) throw new Error("Unauthorized");
+
+    const manager = await ctx.db
+      .query("managers")
+      .withIndex("by_event_user", (q) =>
+        q.eq("eventId", args.eventId).eq("userId", user._id as string)
+      )
+      .first();
+
+    if (!manager) throw new Error("Unauthorized: not a manager of this event");
+    if (args.imageIds.length > 10) throw new Error("Maximum 10 carousel images allowed");
+
+    await ctx.db.patch(args.eventId, { carouselImageIds: args.imageIds });
   },
 });
 

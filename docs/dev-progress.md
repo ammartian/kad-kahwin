@@ -50,60 +50,62 @@
 
 ---
 
-### Phase 1 – Invitation View Redesign (PRD §3) — Remaining
+### Phase 1 – Invitation View Redesign (PRD §3) — Done ✓
 
-#### Schema & Backend
+#### Schema & Backend ✓
 
-- Add `venueName` and `venueAddress` fields to `events` schema (PRD §6.1)
-- Add `carouselImageIds` field to `events` schema (PRD §6.2)
+- `venueName` and `venueAddress` fields added to `events` schema (PRD §6.1)
+- `carouselImageIds` field added to `events` schema (PRD §6.2)
 - Convex query: `getCarouselImages(eventId)` → returns CDN URLs (PRD §5.2)
 - Convex mutation: `updateCarouselImages(eventId, imageIds[])` (PRD §5.2)
-- Convex action: `generateIcsFile(eventId)` → returns `.ics` string (PRD §5.2)
+- ICS generation implemented client-side in `lib/utils/generateIcs.ts` (PRD §5.2)
+- `getEvent` and `getEventBySlug` updated to resolve `carouselImageUrls`
 
-#### Builder Updates
+#### Builder Updates ✓
 
-- Builder: "Details" tab — add venue name + venue address fields (PRD §4.2)
-- Builder: "Photos" tab — upload up to 10 carousel photos (PRD §4.2, §6.2)
-- Builder: drag-to-reorder photos, per-photo delete (PRD §6.2)
+- Builder "Details" section — venue name + venue address fields added (PRD §4.2)
+- Builder "Photos" section — upload up to 10 carousel photos (PRD §4.2, §6.2)
+- Drag-to-reorder photos, per-photo delete (PRD §6.2)
+- `useAutoSave` extended with `venueName` + `venueAddress` debounced save
+- `editorStore` extended with `venueName`, `venueAddress`, `carouselImageUrls` fields
 
 #### URL Route Update
 
-- New route: `app/(guest)/invite/[eventId]/[slug]/page.tsx` (PRD §6.3)
-- Redirect: old `app/(guest)/[slug]` → new URL format (PRD §6.3)
+- Deferred (keep existing `app/(guest)/[slug]` route for now)
 
-#### Invitation View — Sections
+#### Invitation View — Sections ✓
 
-- `InvitationContainer.tsx` — mobile-locked frame (max-width 390px, blurred desktop bg) (PRD §3.2)
+- `InvitationContainer.tsx` — mobile-locked 390px frame, blurred desktop bg (PRD §3.2)
 - `HeroSection.tsx` — couple names, date, Ken Burns background, entrance animations (PRD §3.3 §1)
 - `EventDetailsSection.tsx` — venue name, date, time styled cards with scroll animations (PRD §3.3 §2)
 - `CarouselSection.tsx` — swipeable photo carousel, auto-advance, dots indicator (PRD §3.3 §3)
-- `WishesSection.tsx` — refactor existing into new timeline layout with AnimatePresence (PRD §3.3 §4)
-- `RSVPSection.tsx` — refactor existing into new styled card with success animation (PRD §3.3 §5)
+- `WishesSection.tsx` — new timeline layout with AnimatePresence (PRD §3.3 §4)
+- RSVP: modal only (moved to RSVPModal in bottom navbar) (PRD §3.3 §5)
 
-#### Bottom Navbar
+#### Bottom Navbar ✓
 
 - `BottomNavbar.tsx` — 6-icon fixed bottom bar, semi-transparent, themed (PRD §3.4)
-- Bottom sheet modal system — slide-up with spring animation, drag-to-dismiss (PRD §3.4)
-- `MusicModal.tsx` — play/pause toggle, now playing, controls hidden YouTube iframe (PRD §3.4 Modal 1)
+- `BottomSheet.tsx` — reusable bottom sheet, spring animation, drag-to-dismiss (PRD §3.4)
+- `MusicModal.tsx` — play/pause toggle, music note animation, postMessage to iframe (PRD §3.4 Modal 1)
 - `CalendarModal.tsx` — Google Calendar URL, Apple/Outlook `.ics` download (PRD §3.4 Modal 2)
 - `DonationModal.tsx` — QR code image, bank details, copy-to-clipboard (PRD §3.4 Modal 3)
 - `LocationModal.tsx` — Waze/Google Maps/Apple Maps buttons (PRD §3.4 Modal 4)
-- `RSVPModal.tsx` — RSVP form, submission state, deadline display (PRD §3.4 Modal 5)
-- `WishlistModal.tsx` — wishlist items, claim/unclaim, add item form (PRD §3.4 Modal 6)
+- `RSVPModal.tsx` — RSVP form, pax stepper, success state, deadline display (PRD §3.4 Modal 5)
+- `WishlistModal.tsx` — wishlist items, claim/unclaim, inline name prompt, add item form (PRD §3.4 Modal 6)
 
-#### Animations (Framer Motion)
+#### Animations (Framer Motion) ✓
 
-- Install / configure Framer Motion (PRD §3.5)
+- Framer Motion already installed (^12.29.2)
 - Scroll-triggered section animations (`whileInView`, `once: true`) (PRD §3.5)
-- Stagger children on all section entries (PRD §3.5)
+- Stagger children on section entries (PRD §3.5)
 - Ken Burns effect on hero background (PRD §3.5)
 - Floating scroll indicator animation (PRD §3.5)
 - New wish entrance animation (`AnimatePresence`) (PRD §3.5)
-- `prefers-reduced-motion` support — disable all animations if set (PRD §3.5)
+- `useReducedMotion()` support — all animations disabled if set (PRD §3.5)
 
-#### i18n — New Keys
+#### i18n — New Keys ✓
 
-- Add all new navbar/modal translation keys to `ms.json` and `en.json` (PRD Appendix B)
+- All new navbar/modal translation keys added to `ms.json` and `en.json` (PRD Appendix B)
 
 ---
 

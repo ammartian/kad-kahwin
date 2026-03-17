@@ -13,7 +13,10 @@ export type EditorField =
   | "colorSecondary"
   | "colorAccent"
   | "backgroundImageUrl"
-  | "musicYoutubeUrl";
+  | "musicYoutubeUrl"
+  | "venueName"
+  | "venueAddress"
+  | "carouselImageUrls";
 
 export interface EditorState {
   eventId: Id<"events"> | null;
@@ -30,6 +33,9 @@ export interface EditorState {
   colorAccent: string;
   backgroundImageUrl: string | null;
   musicYoutubeUrl: string;
+  venueName: string;
+  venueAddress: string;
+  carouselImageUrls: string[];
 }
 
 const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
@@ -46,6 +52,9 @@ const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
   colorAccent: "#c9a86c",
   backgroundImageUrl: null,
   musicYoutubeUrl: "",
+  venueName: "",
+  venueAddress: "",
+  carouselImageUrls: [],
 };
 
 interface EditorStore extends EditorState {
@@ -64,6 +73,9 @@ interface EditorStore extends EditorState {
     colorAccent?: string;
     backgroundImageUrl?: string | null;
     musicYoutubeUrl?: string;
+    venueName?: string;
+    venueAddress?: string;
+    carouselImageUrls?: string[];
   }) => void;
   reset: () => void;
 }
@@ -94,6 +106,9 @@ export const useEditorStore = create<EditorStore>((set) => ({
       colorAccent: event.colorAccent ?? DEFAULT_STATE.colorAccent,
       backgroundImageUrl: event.backgroundImageUrl ?? null,
       musicYoutubeUrl: event.musicYoutubeUrl ?? "",
+      venueName: event.venueName ?? "",
+      venueAddress: event.venueAddress ?? "",
+      carouselImageUrls: event.carouselImageUrls ?? [],
     }),
 
   reset: () =>

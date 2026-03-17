@@ -314,7 +314,16 @@
     "bank_holder": "Account holder name",
     "error_hex_color": "Use 6-digit hex code (e.g. #ff0000)",
     "uploading": "Uploading...",
-    "remove_image": "Remove image"
+    "remove_image": "Remove image",
+    "venue_name": "Venue name",
+    "venue_name_placeholder": "e.g. Grand Ballroom KLCC",
+    "venue_address": "Venue address",
+    "venue_address_placeholder": "e.g. Kuala Lumpur City Centre, 50088 Kuala Lumpur",
+    "photos": "Couple Photos",
+    "photos_hint": "Upload up to 10 photos (JPG, PNG, WEBP, max 5MB each)",
+    "photos_add": "Add Photo",
+    "photos_count": "{{count}}/10 photos",
+    "photos_max_reached": "Maximum 10 photos reached"
   },
   "guest": {
     "open_in_waze": "Open in Waze",
@@ -323,7 +332,22 @@
     "not_found": "Invitation not found or not yet published.",
     "play_music": "Play music",
     "wedding_music": "Wedding music",
-    "couple_name_placeholder": "Couple Names"
+    "couple_name_placeholder": "Couple Names",
+    "scroll_down": "Scroll down"
+  },
+  "navbar": {
+    "music": "Music",
+    "calendar": "Date",
+    "donation": "Pay",
+    "location": "Location",
+    "rsvp": "RSVP",
+    "wishlist": "Gifts"
+  },
+  "calendar": {
+    "title": "Add to Calendar",
+    "add_google": "Add to Google Calendar",
+    "add_apple": "Add to Apple Calendar",
+    "add_outlook": "Add to Outlook"
   },
   "event_nav": {
     "builder": "Edit",
@@ -364,18 +388,28 @@
     "export_preparing": "Preparing export..."
   },
   "wishlist": {
-    "title": "Wishlist",
+    "title": "Gift List",
     "add_item": "Add Item",
+    "add_gift": "Add Gift",
     "item_title": "Item name",
     "item_url": "Product link (Shopee/Lazada)",
     "claimed": "Claimed",
     "claimed_by": "Claimed by {{name}}",
+    "claim_button": "I'll buy this",
+    "unclaim_button": "Cancel",
+    "claimed_badge": "Claimed",
+    "buy_button": "Buy",
     "hidden": "Hidden",
     "visible": "Visible",
     "hide": "Hide",
     "delete": "Delete",
     "edit": "Edit",
-    "no_items": "No wishlist items. Add items from Shopee or Lazada."
+    "no_items": "No items in gift list",
+    "already_claimed": "This item has already been claimed by someone else",
+    "enter_name": "Enter your name",
+    "platform_shopee": "Shopee",
+    "platform_lazada": "Lazada",
+    "platform_other": "Other"
   },
   "rsvp": {
     "title": "RSVP",
@@ -384,8 +418,11 @@
     "pax_label": "Number of guests (1-10)",
     "name_placeholder": "Your name",
     "submit": "Submit",
-    "submitted": "Thank you, your response has been recorded.",
-    "deadline_passed": "RSVP deadline has passed"
+    "submitting": "Submitting...",
+    "submitted": "Thank you! We look forward to your presence.",
+    "deadline_passed": "RSVP deadline has passed",
+    "already_submitted": "You have already RSVP'd",
+    "already_submitted_detail": "You have RSVP'd as {{status}}, {{pax}} guests"
   },
   "wishes": {
     "title": "Wishes",
@@ -400,7 +437,22 @@
     "account_number": "Account number",
     "account_holder": "Account holder",
     "copy": "Copy",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "empty": "No payment information available"
+  },
+  "location": {
+    "title": "Venue Location",
+    "empty": "No location information",
+    "open_waze": "Open in Waze",
+    "open_google": "Google Maps",
+    "open_apple": "Apple Maps"
+  },
+  "music_modal": {
+    "title": "Wedding Music",
+    "now_playing": "Now playing",
+    "play": "Play",
+    "pause": "Pause",
+    "powered_by": "Powered by YouTube"
   },
   "sign_in": {
     "title": "Jemputan Digital",

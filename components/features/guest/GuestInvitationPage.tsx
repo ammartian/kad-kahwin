@@ -1,19 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { formatEventDate, formatEventTime } from "@/lib/utils";
-import { EventInfoSection } from "./EventInfoSection";
-import { MusicEmbed } from "./MusicEmbed";
-import { RSVPSection } from "./RSVPSection";
-import { WishesSection } from "./WishesSection";
-import { WishlistSection } from "./WishlistSection";
-import { DonationSection } from "./DonationSection";
-
-const PREVIEW_WIDTH = 375;
+import { InvitationContainer } from "./invitation/InvitationContainer";
+import { HeroSection } from "./invitation/sections/HeroSection";
+import { EventDetailsSection } from "./invitation/sections/EventDetailsSection";
+import { CarouselSection } from "./invitation/sections/CarouselSection";
+import { WishesSection } from "./invitation/sections/WishesSection";
+import { BottomNavbar } from "./invitation/navbar/BottomNavbar";
 
 interface GuestInvitationPageProps {
   slug: string;
@@ -55,84 +52,75 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
   const displayDate = formatEventDate(event.weddingDate, locale) ?? "";
   const displayTime = formatEventTime(event.weddingTime) ?? "";
 
+  const carouselImages = event.carouselImageUrls ?? [];
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div
-        className="mx-auto flex min-h-screen flex-col overflow-auto"
-        style={{ maxWidth: PREVIEW_WIDTH }}
-      >
-        <div className="relative flex min-h-screen flex-1 flex-col">
-          <div
-            className="absolute inset-0"
-            style={{ backgroundColor }}
+    <InvitationContainer
+      backgroundColor={backgroundColor}
+      backgroundImageUrl={backgroundImageUrl}
+    >
+      {/* All sections share the same bg color */}
+      <div style={{ backgroundColor }}>
+        <HeroSection
+          coupleName={event.coupleName}
+          displayDate={displayDate}
+          displayTime={displayTime}
+          backgroundImageUrl={backgroundImageUrl}
+          backgroundColor={backgroundColor}
+          colorPrimary={colorPrimary}
+          colorAccent={colorAccent}
+        />
+
+        <EventDetailsSection
+          displayDate={displayDate}
+          displayTime={displayTime}
+          venueName={event.venueName}
+          venueAddress={event.venueAddress}
+          backgroundColor={backgroundColor}
+          colorPrimary={colorPrimary}
+          colorAccent={colorAccent}
+        />
+
+        {carouselImages.length > 0 && (
+          <CarouselSection
+            images={carouselImages}
+            backgroundColor={backgroundColor}
+            colorAccent={colorAccent}
           />
-          {backgroundImageUrl && (
-            <Image
-              src={backgroundImageUrl}
-              alt=""
-              fill
-              className="object-cover"
-              sizes={`${PREVIEW_WIDTH}px`}
-              priority
-            />
-          )}
-          <div className="relative flex flex-1 flex-col">
-            <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
-              <h1
-                className="mb-4 text-2xl font-semibold tracking-wide"
-                style={{ color: colorPrimary }}
-              >
-                {event.coupleName || t("guest.couple_name_placeholder")}
-              </h1>
-              {displayDate && (
-                <div
-                  className="text-sm font-medium"
-                  style={{ color: colorAccent }}
-                >
-                  {displayDate}
-                </div>
-              )}
-              {displayTime && (
-                <div
-                  className="mt-1 text-sm"
-                  style={{ color: colorAccent }}
-                >
-                  {displayTime}
-                </div>
-              )}
-            </div>
-            <EventInfoSection
-              weddingDate={event.weddingDate}
-              weddingTime={event.weddingTime}
-              locationWaze={event.locationWaze}
-              locationGoogle={event.locationGoogle}
-              locationApple={event.locationApple}
-              colorAccent={colorAccent}
-            />
-            <RSVPSection
-              eventId={event._id}
-              rsvpDeadline={event.rsvpDeadline}
-              colorAccent={colorAccent}
-              onSubmitted={setGuestName}
-            />
-            <WishesSection eventId={event._id} colorAccent={colorAccent} />
-            <WishlistSection
-              eventId={event._id}
-              colorAccent={colorAccent}
-              guestName={guestName}
-              onGuestNameUsed={setGuestName}
-            />
-            <DonationSection
-              donationQrUrl={event.donationQrUrl ?? null}
-              bankName={event.bankName}
-              bankAccount={event.bankAccount}
-              bankHolder={event.bankHolder}
-              colorAccent={colorAccent}
-            />
-          </div>
-        </div>
+        )}
+
+        <WishesSection
+          eventId={event._id}
+          backgroundColor={backgroundColor}
+          colorPrimary={colorPrimary}
+          colorAccent={colorAccent}
+        />
+
+        {/* Bottom padding to clear fixed navbar */}
+        <div className="h-20" />
       </div>
-      <MusicEmbed musicYoutubeUrl={event.musicYoutubeUrl} />
-    </div>
+
+      <BottomNavbar
+        eventId={event._id}
+        colorAccent={colorAccent}
+        backgroundColor={backgroundColor}
+        coupleName={event.coupleName}
+        weddingDate={event.weddingDate}
+        weddingTime={event.weddingTime}
+        venueName={event.venueName}
+        venueAddress={event.venueAddress}
+        locationWaze={event.locationWaze}
+        locationGoogle={event.locationGoogle}
+        locationApple={event.locationApple}
+        donationQrUrl={event.donationQrUrl}
+        bankName={event.bankName}
+        bankAccount={event.bankAccount}
+        bankHolder={event.bankHolder}
+        rsvpDeadline={event.rsvpDeadline}
+        musicYoutubeUrl={event.musicYoutubeUrl}
+        guestName={guestName}
+        onGuestNameUsed={setGuestName}
+      />
+    </InvitationContainer>
   );
 }

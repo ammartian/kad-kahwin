@@ -9,6 +9,8 @@ export function EventDetailsSection() {
   const coupleName = useEditorStore((s) => s.coupleName);
   const weddingDate = useEditorStore((s) => s.weddingDate);
   const weddingTime = useEditorStore((s) => s.weddingTime);
+  const venueName = useEditorStore((s) => s.venueName);
+  const venueAddress = useEditorStore((s) => s.venueAddress);
   const setField = useEditorStore((s) => s.setField);
 
   return (
@@ -38,6 +40,26 @@ export function EventDetailsSection() {
             value={weddingTime}
             onChange={(e) => setField("weddingTime", e.target.value)}
             placeholder={t("builder.wedding_time_placeholder")}
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-medium text-gray-600">{t("builder.venue_name")}</label>
+          <Input
+            value={venueName}
+            onChange={(e) => setField("venueName", e.target.value)}
+            placeholder={t("builder.venue_name_placeholder")}
+            maxLength={200}
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-medium text-gray-600">{t("builder.venue_address")}</label>
+          <textarea
+            value={venueAddress}
+            onChange={(e) => setField("venueAddress", e.target.value)}
+            placeholder={t("builder.venue_address_placeholder")}
+            maxLength={500}
+            rows={2}
+            className="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
           />
         </div>
       </div>
