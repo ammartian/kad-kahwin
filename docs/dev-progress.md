@@ -1,82 +1,167 @@
 ## Kad Kahwin MVP – Dev Progress
 
+> **Reference PRD:** `docs/PRD/finalized-prd.md` (v2.0, March 17, 2026)
+
+---
+
 ### High-Level Status
-- [ ] MVP complete
-- [x] Backend core (users, events, managers, guests, rsvps, wishlist, wishes)
-- [x] Builder UI (event editor + live preview)
-- [x] Authentication (Google via BetterAuth)
 
-### Phase 1 – Must-Have MVP Features (PRD §8.1 checklist)
-- [x] Project setup (Next.js, Convex, BetterAuth, TailwindCSS, Shadcn)
-- [x] Authentication (Google OAuth sign-in screen + BetterAuth client)
-- [x] Event creation with custom slug (Convex `events` + slug validation)
-- [x] Landing page builder UI (builder route + layout)
-- [x] Background image support in schema (`backgroundImageId` on `events`)
-- [x] Color theming fields in schema (`backgroundColor`, `colorPrimary`, `colorSecondary`, `colorAccent`)
-- [x] YouTube music field in schema (`musicYoutubeUrl`)
-- [x] Event info fields in schema (date, time, location links)
-- [x] Live preview wiring (builder → Zustand store → Convex update)
-- [x] Background image upload flow (5MB limit, Convex storage, UI)
-- [x] Color picker UI + full theming integration
-- [x] Music embed (YouTube auto-play + loop on guest page)
-- [x] Guest-facing event info section (date, time, location buttons)
-- [x] Guest list management UI (CRUD table)
-- [x] Excel import (upload, parse, validate, bulk insert)
-- [x] Excel export (generate file, download)
-- [x] RSVP form (attending/not, pax 1–10) on guest page
-- [x] RSVP deadline enforcement in mutation + UI
-- [x] RSVP analytics cards (attending, pax total, not attending, pending)
-- [x] Real-time wishes feed UI (chat-like section)
-- [x] Manager delete wish action (Convex + UI)
-- [x] Wishlist CRUD dashboard (add/edit/delete)
-- [x] Affiliate link converter (Shopee/Lazada → affiliate URL)
-- [x] Guest claim/unclaim wishlist item (atomic Convex mutation)
-- [x] Guest add wishlist item (auto-claimed)
-- [x] Manager hide/show wishlist items (visibility toggle)
-- [x] Donation section UI (QR upload, bank info, copy-to-clipboard)
-- [x] Custom guest URL route `(guest)/[slug]`
-- [ ] SEO implementation (per-event meta tags, sitemap, structured data)
-- [x] Dual-language setup (Malay/English translation files)
-- [ ] Language switcher everywhere needed (guest + dashboard)
-- [ ] PostHog events wired (per PRD list)
-- [ ] Sentry error/performance monitoring verified
-- [x] Co‑manager data model and invite mutation
-- [ ] Co‑manager invite acceptance flow + UI
-- [x] Desktop 9:16 invitation view (centered frame) implemented
-- [x] Publish/draft toggle for events (share link when published)
-- [ ] Production Vercel deployment with environment variables
+- MVP complete
+- Backend core (users, events, managers, guests, rsvps, wishlist, wishes)
+- Builder UI (event editor + live preview)
+- Authentication (Google via BetterAuth)
+- Invitation view redesign (cinematic, mobile-locked, bottom navbar)
 
-### Phase 2 – Post-MVP (PRD §8.2)
-- [ ] Stripe FPX payment integration (RM39 per event)
-- [ ] Payment enforcement (block share until paid)
-- [ ] Refund behaviour (deactivate link)
-- [ ] Image optimization on upload (resize to 1200px)
-- [ ] Custom email templates for co‑manager invites
-- [ ] Guest list filtering/sorting UI
-- [ ] Bulk guest actions (e.g. delete many)
-- [ ] Event templates (pre-designed themes)
-- [ ] Admin/superadmin panel
-- [ ] Usage analytics dashboard (events per user, revenue)
-- [ ] Facebook / Apple / email login
+---
 
-### Phase 3–4 – Future (PRD §8.3–8.4)
-- [ ] Multi-event support UI (event list dashboard)
-- [ ] Event duplication
-- [ ] Guest broadcast messaging
-- [ ] White-label option for planners
-- [ ] Blog / content SEO features
-- [ ] Vendor marketplace
-- [ ] Wedding planning tools (checklists, budgets)
-- [ ] Photo gallery uploads
-- [ ] RSVP meal preferences
-- [ ] Seating chart management
-- [ ] Thank you card generator
+### Phase 1 – Foundation (Done)
 
-### Testing Checklist (PRD §10.1–10.3)
-- [x] Unit tests for Convex `events` mutations/queries
-- [x] Unit tests for editor/builder Zustand stores
-- [x] Unit tests for RSVP logic (duplicate, deadline, pax validation)
-- [x] Unit tests for wishlist claim/unclaim and affiliate converter
-- [ ] Unit tests for guest import (Excel parsing/validation)
-- [ ] Manual end-to-end flows (auth → create event → customize → share → guest actions)
-- [ ] Manual verification of SEO tags, PostHog events, and Sentry reporting
+- Project setup (Next.js, Convex, BetterAuth, TailwindCSS, Shadcn)
+- Authentication (Google OAuth sign-in screen + BetterAuth client)
+- Event creation with custom slug (Convex `events` + slug validation)
+- Landing page builder UI (builder route + layout)
+- Background image support in schema (`backgroundImageId` on `events`)
+- Color theming fields in schema (`backgroundColor`, `colorPrimary`, `colorSecondary`, `colorAccent`)
+- YouTube music field in schema (`musicYoutubeUrl`)
+- Event info fields in schema (date, time, location links)
+- Live preview wiring (builder → Zustand store → Convex update)
+- Background image upload flow (5MB limit, Convex storage, UI)
+- Color picker UI + full theming integration
+- Music embed (YouTube auto-play + loop on guest page)
+- Guest list management UI (CRUD table)
+- Excel import (upload, parse, validate, bulk insert)
+- Excel export (generate file, download)
+- RSVP form (attending/not, pax 1–10) on guest page
+- RSVP deadline enforcement in mutation + UI
+- RSVP analytics cards (attending, pax total, not attending, pending)
+- Real-time wishes feed UI (chat-like section)
+- Manager delete wish action (Convex + UI)
+- Wishlist CRUD dashboard (add/edit/delete)
+- Affiliate link converter (Shopee/Lazada → affiliate URL)
+- Guest claim/unclaim wishlist item (atomic Convex mutation)
+- Guest add wishlist item (auto-claimed)
+- Manager hide/show wishlist items (visibility toggle)
+- Donation section UI (QR upload, bank info, copy-to-clipboard)
+- Custom guest URL route `(guest)/[slug]`
+- Dual-language setup (Malay/English translation files)
+- Co-manager data model and invite mutation
+- Desktop 9:16 invitation view — basic centered frame
+- Publish/draft toggle for events (share link when published)
+
+---
+
+### Phase 1 – Invitation View Redesign (PRD §3) — Remaining
+
+#### Schema & Backend
+
+- Add `venueName` and `venueAddress` fields to `events` schema (PRD §6.1)
+- Add `carouselImageIds` field to `events` schema (PRD §6.2)
+- Convex query: `getCarouselImages(eventId)` → returns CDN URLs (PRD §5.2)
+- Convex mutation: `updateCarouselImages(eventId, imageIds[])` (PRD §5.2)
+- Convex action: `generateIcsFile(eventId)` → returns `.ics` string (PRD §5.2)
+
+#### Builder Updates
+
+- Builder: "Details" tab — add venue name + venue address fields (PRD §4.2)
+- Builder: "Photos" tab — upload up to 10 carousel photos (PRD §4.2, §6.2)
+- Builder: drag-to-reorder photos, per-photo delete (PRD §6.2)
+
+#### URL Route Update
+
+- New route: `app/(guest)/invite/[eventId]/[slug]/page.tsx` (PRD §6.3)
+- Redirect: old `app/(guest)/[slug]` → new URL format (PRD §6.3)
+
+#### Invitation View — Sections
+
+- `InvitationContainer.tsx` — mobile-locked frame (max-width 390px, blurred desktop bg) (PRD §3.2)
+- `HeroSection.tsx` — couple names, date, Ken Burns background, entrance animations (PRD §3.3 §1)
+- `EventDetailsSection.tsx` — venue name, date, time styled cards with scroll animations (PRD §3.3 §2)
+- `CarouselSection.tsx` — swipeable photo carousel, auto-advance, dots indicator (PRD §3.3 §3)
+- `WishesSection.tsx` — refactor existing into new timeline layout with AnimatePresence (PRD §3.3 §4)
+- `RSVPSection.tsx` — refactor existing into new styled card with success animation (PRD §3.3 §5)
+
+#### Bottom Navbar
+
+- `BottomNavbar.tsx` — 6-icon fixed bottom bar, semi-transparent, themed (PRD §3.4)
+- Bottom sheet modal system — slide-up with spring animation, drag-to-dismiss (PRD §3.4)
+- `MusicModal.tsx` — play/pause toggle, now playing, controls hidden YouTube iframe (PRD §3.4 Modal 1)
+- `CalendarModal.tsx` — Google Calendar URL, Apple/Outlook `.ics` download (PRD §3.4 Modal 2)
+- `DonationModal.tsx` — QR code image, bank details, copy-to-clipboard (PRD §3.4 Modal 3)
+- `LocationModal.tsx` — Waze/Google Maps/Apple Maps buttons (PRD §3.4 Modal 4)
+- `RSVPModal.tsx` — RSVP form, submission state, deadline display (PRD §3.4 Modal 5)
+- `WishlistModal.tsx` — wishlist items, claim/unclaim, add item form (PRD §3.4 Modal 6)
+
+#### Animations (Framer Motion)
+
+- Install / configure Framer Motion (PRD §3.5)
+- Scroll-triggered section animations (`whileInView`, `once: true`) (PRD §3.5)
+- Stagger children on all section entries (PRD §3.5)
+- Ken Burns effect on hero background (PRD §3.5)
+- Floating scroll indicator animation (PRD §3.5)
+- New wish entrance animation (`AnimatePresence`) (PRD §3.5)
+- `prefers-reduced-motion` support — disable all animations if set (PRD §3.5)
+
+#### i18n — New Keys
+
+- Add all new navbar/modal translation keys to `ms.json` and `en.json` (PRD Appendix B)
+
+---
+
+### Phase 1 – Remaining (Non-Invitation)
+
+- Co-manager invite acceptance flow + UI
+- Language switcher on guest page + dashboard
+- SEO implementation (per-event meta tags, sitemap, structured data) (PRD §7.8)
+- PostHog events wired — all events including new navbar events (PRD §7.9)
+- Sentry error/performance monitoring verified
+- Production Vercel deployment with environment variables
+
+---
+
+### Phase 2 – Post-MVP (PRD §10.2)
+
+- Stripe FPX payment integration (RM39 per event)
+- Payment enforcement (block share until paid)
+- Refund behaviour (deactivate link)
+- Image optimization on upload (resize to 1200px)
+- Custom email templates for co-manager invites
+- Guest list filtering/sorting UI
+- Bulk guest actions (e.g. delete many)
+- Event templates system (Modern Minimalist, Rustic, Bold, Islamic Geometric) (PRD §3.6)
+- Template picker UI in builder
+- Admin/superadmin panel
+- Usage analytics dashboard (events per user, revenue)
+- Facebook / Apple / email login
+
+---
+
+### Phase 3–4 – Future (PRD §10.3)
+
+- Multi-event support UI (event list dashboard)
+- Event duplication
+- Guest broadcast messaging
+- White-label option for planners
+- Blog / content SEO features
+- Vendor marketplace
+- Wedding planning tools (checklists, budgets)
+- RSVP meal preferences
+- Seating chart management
+- Thank you card generator
+
+---
+
+### Testing Checklist (PRD §11)
+
+- Unit tests for Convex `events` mutations/queries
+- Unit tests for editor/builder Zustand stores
+- Unit tests for RSVP logic (duplicate, deadline, pax validation)
+- Unit tests for wishlist claim/unclaim and affiliate converter
+- Unit tests for guest import (Excel parsing/validation)
+- Unit tests for ICS file generation (PRD §11.4)
+- Unit tests for carousel image management (max 10, empty state)
+- Manual end-to-end flows (auth → create event → customize → share → guest actions)
+- Manual verification of SEO tags, PostHog events, and Sentry reporting
+- Manual test: bottom navbar — all 6 modals open/close, drag-to-dismiss
+- Manual test: wishlist modal — claim conflict handled correctly
+- Manual test: calendar modal — Google URL pre-filled, `.ics` downloads correctly
+
