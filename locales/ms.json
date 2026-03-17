@@ -272,7 +272,8 @@
   "event_card": {
     "draft": "Draf",
     "published": "Diterbitkan",
-    "copied": "Disalin!"
+    "copied": "Disalin!",
+    "view_invitation": "Lihat jemputan"
   },
   "builder": {
     "back_to_dashboard": "Dashboard",
@@ -305,6 +306,12 @@
     "error_image_size": "Gambar mesti kurang daripada 5MB",
     "error_image_format": "Guna format JPG, PNG atau WEBP sahaja",
     "error_youtube_url": "Sila masukkan pautan YouTube yang sah",
+    "donation": "Derma",
+    "donation_qr": "Kod QR (DuitNow/TNG)",
+    "donation_qr_hint": "Muat naik imej QR (JPG, PNG, WEBP, max 2MB)",
+    "bank_name": "Nama bank",
+    "bank_account": "Nombor akaun",
+    "bank_holder": "Nama pemegang akaun",
     "error_hex_color": "Guna kod hex 6 digit (cth. #ff0000)",
     "uploading": "Memuat naik...",
     "remove_image": "Buang gambar"
@@ -317,6 +324,83 @@
     "play_music": "Main muzik",
     "wedding_music": "Muzik majlis",
     "couple_name_placeholder": "Nama Pasangan"
+  },
+  "event_nav": {
+    "builder": "Edit",
+    "guests": "Tetamu",
+    "wishlist": "Wishlist"
+  },
+  "guests": {
+    "title": "Senarai Tetamu",
+    "add_guest": "Tambah Tetamu",
+    "import_excel": "Import Excel",
+    "export_excel": "Export Excel",
+    "name": "Nama",
+    "phone": "Telefon",
+    "email": "Emel",
+    "pax": "Pax",
+    "rsvp_status": "RSVP",
+    "attending": "Hadir",
+    "not_attending": "Tidak hadir",
+    "pending": "Belum jawab",
+    "actions": "Tindakan",
+    "delete": "Padam",
+    "analytics_attending": "Hadir",
+    "analytics_pax": "Jumlah Pax",
+    "analytics_not_attending": "Tidak Hadir",
+    "analytics_pending": "Belum Jawab",
+    "import_modal_title": "Import Excel",
+    "import_modal_hint": "Seret fail atau klik untuk muat naik. Format: Nama, Telefon, Emel, Pax (pilihan)",
+    "import_success": "{{count}} tetamu berjaya diimport",
+    "import_errors": "Ralat: {{errors}}",
+    "add_guest_modal_title": "Tambah Tetamu",
+    "add_error": "Gagal menambah tetamu. Sila cuba lagi.",
+    "no_guests": "Tiada tetamu lagi. Tambah secara manual atau import dari Excel.",
+    "load_more": "Muat lebih",
+    "search_placeholder": "Cari mengikut nama, emel, telefon...",
+    "filter_all": "Semua",
+    "sort_name": "Susun mengikut nama",
+    "sort_rsvp": "Susun mengikut RSVP",
+    "export_preparing": "Menyediakan export..."
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "add_item": "Tambah Item",
+    "item_title": "Nama item",
+    "item_url": "Pautan produk (Shopee/Lazada)",
+    "claimed": "Dituntut",
+    "claimed_by": "Dituntut oleh {{name}}",
+    "hidden": "Tersembunyi",
+    "visible": "Tunjuk",
+    "hide": "Sembunyi",
+    "delete": "Padam",
+    "edit": "Edit",
+    "no_items": "Tiada item wishlist. Tambah item dari Shopee atau Lazada."
+  },
+  "rsvp": {
+    "title": "RSVP",
+    "attending": "Saya hadir",
+    "not_attending": "Saya tidak hadir",
+    "pax_label": "Bilangan tetamu (1-10)",
+    "name_placeholder": "Nama anda",
+    "submit": "Hantar",
+    "submitted": "Terima kasih, respons anda telah direkodkan.",
+    "deadline_passed": "Tarikh tutup RSVP telah berlalu"
+  },
+  "wishes": {
+    "title": "Ucapan",
+    "placeholder": "Tulis ucapan anda...",
+    "send": "Hantar",
+    "load_more": "Muat lebih",
+    "char_count": "{{count}}/255"
+  },
+  "donation": {
+    "title": "Derma",
+    "bank_name": "Nama bank",
+    "account_number": "Nombor akaun",
+    "account_holder": "Pemegang akaun",
+    "copy": "Salin",
+    "copied": "Disalin!"
   },
   "sign_in": {
     "title": "Jemputan Digital",

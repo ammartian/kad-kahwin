@@ -1,13 +1,11 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import Link from "next/link";
 import type { Id } from "@/convex/_generated/dataModel";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { EditorPanel } from "./EditorPanel";
 import { PreviewPanel } from "./PreviewPanel";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, AlertCircle } from "lucide-react";
+import { Check, Loader2, AlertCircle } from "lucide-react";
 import { LanguageToggle } from "@/components/landing/LanguageToggle";
 
 interface BuilderLayoutProps {
@@ -20,16 +18,9 @@ export function BuilderLayout({ eventId }: BuilderLayoutProps) {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
-      <header className="sticky top-0 z-10 flex shrink-0 items-center justify-between border-b border-gray-200 bg-white px-4 py-3 sm:px-6">
-        <Link href="/dashboard">
-          <Button variant="ghost" size="sm">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            {t("builder.back_to_dashboard")}
-          </Button>
-        </Link>
-        <div className="flex items-center gap-4">
-          <LanguageToggle />
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+      <header className="flex shrink-0 items-center justify-end gap-4 border-b border-gray-200 bg-white px-4 py-2 sm:px-6">
+        <LanguageToggle />
+        <div className="flex items-center gap-2 text-sm text-gray-500">
           {saveStatus === "saving" && (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -48,7 +39,6 @@ export function BuilderLayout({ eventId }: BuilderLayoutProps) {
               <span className="text-red-600">{t("builder.save_status_error")}</span>
             </>
           )}
-          </div>
         </div>
       </header>
 

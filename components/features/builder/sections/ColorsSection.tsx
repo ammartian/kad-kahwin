@@ -1,8 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useTranslation } from "react-i18next";
-import { HexColorPicker } from "react-colorful";
 import { useEditorStore } from "@/stores/editorStore";
+
+const HexColorPicker = dynamic(
+  () => import("react-colorful").then((m) => ({ default: m.HexColorPicker })),
+  { ssr: false }
+);
 import { Input } from "@/components/ui/input";
 import {
   Popover,

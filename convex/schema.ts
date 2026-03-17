@@ -59,4 +59,53 @@ export default defineSchema({
     .index("by_event", ["eventId"])
     .index("by_event_user", ["eventId", "userId"])
     .index("by_user", ["userId"]),
+
+  guests: defineTable({
+    eventId: v.id("events"),
+    name: v.string(),
+    phone: v.optional(v.string()),
+    email: v.optional(v.string()),
+    maxPax: v.optional(v.number()),
+    createdAt: v.number(),
+  }).index("by_event", ["eventId"]),
+
+  rsvps: defineTable({
+    eventId: v.id("events"),
+    guestName: v.string(),
+    guestNameLower: v.optional(v.string()),
+    attending: v.boolean(),
+    paxCount: v.number(),
+    submittedAt: v.number(),
+  })
+    .index("by_event", ["eventId"])
+    .index("by_event_and_name", ["eventId", "guestName"])
+    .index("by_event_guestNameLower", ["eventId", "guestNameLower"]),
+
+  wishlist_items: defineTable({
+    eventId: v.id("events"),
+    title: v.string(),
+    description: v.optional(v.string()),
+    price: v.optional(v.number()),
+    originalUrl: v.string(),
+    affiliateUrl: v.string(),
+    platform: v.union(
+      v.literal("shopee"),
+      v.literal("lazada"),
+      v.literal("other")
+    ),
+    isVisible: v.boolean(),
+    claimedByName: v.optional(v.string()),
+    claimedAt: v.optional(v.number()),
+    addedBy: v.union(v.literal("manager"), v.literal("guest")),
+    createdAt: v.number(),
+  })
+    .index("by_event", ["eventId"])
+    .index("by_event_visible", ["eventId", "isVisible"]),
+
+  wishes: defineTable({
+    eventId: v.id("events"),
+    guestName: v.string(),
+    message: v.string(),
+    createdAt: v.number(),
+  }).index("by_event", ["eventId"]),
 });

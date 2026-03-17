@@ -1,25 +1,25 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useMutation } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useEditorStore } from "@/stores/editorStore";
-import { isValidHex } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ImagePlus, Loader2, X } from "lucide-react";
 
-const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
 const MAX_SIZE_BYTES = 5 * 1024 * 1024;
 
-export function BackgroundSection() {
+export function DonationSection() {
   const { t } = useTranslation();
   const eventId = useEditorStore((s) => s.eventId);
-  const backgroundColor = useEditorStore((s) => s.backgroundColor);
-  const backgroundImageUrl = useEditorStore((s) => s.backgroundImageUrl);
-  const setField = useEditorStore((s) => s.setField);
+  const event = useQuery(
+    api.events.getEvent,
+    eventId ? { eventId } : "skip"
+  );
 
   const generateUploadUrl = useMutation(api.storage.generateUploadUrl);
   const updateEvent = useMutation(api.events.updateEvent);
@@ -27,7 +27,20 @@ export function BackgroundSection() {
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [bankName, setBankName] = useState("");
+  const [bankAccount, setBankAccount] = useState("");
+  const [bankHolder, setBankHolder] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const syncedEventId = useRef<typeof eventId>(null);
+
+  useEffect(() => {
+    if (event && eventId && syncedEventId.current !== eventId) {
+      syncedEventId.current = eventId;
+      setBankName(event.bankName ?? "");
+      setBankAccount(event.bankAccount ?? "");
+      setBankHolder(event.bankHolder ?? "");
+    }
+  }, [eventId, event]);
 
   const validateFile = useCallback(
     (file: File): string | null => {
@@ -52,8 +65,6 @@ export function BackgroundSection() {
       }
       setError(null);
       setUploading(true);
-      const objectUrl = URL.createObjectURL(file);
-      setField("backgroundImageUrl", objectUrl);
       try {
         const uploadUrl = await generateUploadUrl();
         const res = await fetch(uploadUrl, {
@@ -63,30 +74,33 @@ export function BackgroundSection() {
         });
         if (!res.ok) throw new Error("Upload failed");
         const { storageId } = (await res.json()) as { storageId: string };
-        const result = await updateEvent({
+        await updateEvent({
           eventId,
-          backgroundImageId: storageId as Parameters<typeof updateEvent>[0]["backgroundImageId"],
+          donationQrId: storageId as Parameters<typeof updateEvent>[0]["donationQrId"],
         });
-        if (result?.backgroundImageUrl) {
-          setField("backgroundImageUrl", result.backgroundImageUrl);
-        }
-        URL.revokeObjectURL(objectUrl);
       } catch {
         setError(t("builder.save_status_error"));
-        setField("backgroundImageUrl", null);
-        URL.revokeObjectURL(objectUrl);
       } finally {
         setUploading(false);
       }
     },
-    [eventId, generateUploadUrl, updateEvent, setField, validateFile, t]
+    [eventId, generateUploadUrl, updateEvent, validateFile, t]
   );
 
-  const handleRemoveImage = useCallback(() => {
+  const handleRemoveQr = useCallback(() => {
     if (!eventId) return;
-    updateEvent({ eventId, clearBackgroundImage: true });
-    setField("backgroundImageUrl", null);
-  }, [eventId, updateEvent, setField]);
+    updateEvent({ eventId, clearDonationQr: true });
+  }, [eventId, updateEvent]);
+
+  const handleSaveBank = useCallback(() => {
+    if (!eventId) return;
+    updateEvent({
+      eventId,
+      bankName: bankName.trim() || undefined,
+      bankAccount: bankAccount.trim() || undefined,
+      bankHolder: bankHolder.trim() || undefined,
+    });
+  }, [eventId, bankName, bankAccount, bankHolder, updateEvent]);
 
   const onDrop = useCallback(
     (e: React.DragEvent) => {
@@ -114,12 +128,20 @@ export function BackgroundSection() {
     [handleFile]
   );
 
+  if (!eventId) return null;
+
+  const donationQrUrl = event?.donationQrUrl ?? null;
+
   return (
     <section className="space-y-3">
-      <h3 className="text-sm font-semibold text-gray-900">{t("builder.background")}</h3>
+      <h3 className="text-sm font-semibold text-gray-900">
+        {t("builder.donation")}
+      </h3>
 
       <div className="space-y-2">
-        <label className="text-xs font-medium text-gray-600">{t("builder.background_image")}</label>
+        <label className="text-xs font-medium text-gray-600">
+          {t("builder.donation_qr")}
+        </label>
         <div
           role="button"
           tabIndex={0}
@@ -129,7 +151,7 @@ export function BackgroundSection() {
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           className={`
-            relative flex min-h-[120px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors
+            relative flex min-h-[100px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors
             ${dragOver ? "border-gray-900 bg-gray-50" : "border-gray-300 bg-gray-50/50 hover:border-gray-400"}
           `}
         >
@@ -141,24 +163,15 @@ export function BackgroundSection() {
             onChange={onInputChange}
             disabled={uploading}
           />
-          {backgroundImageUrl ? (
+          {donationQrUrl ? (
             <>
-              {backgroundImageUrl.startsWith("blob:") ? (
-                /* eslint-disable-next-line @next/next/no-img-element -- blob: URLs not supported by next/image */
-                <img
-                  src={backgroundImageUrl}
-                  alt="Background"
-                  className="absolute inset-0 h-full w-full rounded-lg object-cover"
-                />
-              ) : (
-                <Image
-                  src={backgroundImageUrl}
-                  alt="Background"
-                  fill
-                  className="rounded-lg object-cover"
-                  sizes="400px"
-                />
-              )}
+              <Image
+                src={donationQrUrl}
+                alt="Donation QR"
+                fill
+                className="rounded-lg object-contain"
+                sizes="200px"
+              />
               <div className="absolute inset-0 flex items-center justify-center gap-2 rounded-lg bg-black/40 opacity-0 transition-opacity hover:opacity-100">
                 {uploading ? (
                   <Loader2 className="h-6 w-6 animate-spin text-white" />
@@ -170,7 +183,7 @@ export function BackgroundSection() {
                     className="border-white/50 text-white"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleRemoveImage();
+                      handleRemoveQr();
                     }}
                   >
                     <X className="h-4 w-4" />
@@ -183,7 +196,9 @@ export function BackgroundSection() {
           ) : (
             <>
               <ImagePlus className="h-8 w-8 text-gray-400" />
-              <p className="mt-1 text-xs text-gray-500">{t("builder.background_image_hint")}</p>
+              <p className="mt-1 text-xs text-gray-500">
+                {t("builder.donation_qr_hint")}
+              </p>
             </>
           )}
         </div>
@@ -191,24 +206,40 @@ export function BackgroundSection() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-xs font-medium text-gray-600">{t("builder.background_color")}</label>
-        <div className="flex gap-2">
-          <input
-            type="color"
-            value={backgroundColor}
-            onChange={(e) => setField("backgroundColor", e.target.value)}
-            className="h-10 w-14 cursor-pointer rounded border border-gray-300"
-          />
-          <Input
-            value={backgroundColor}
-            onChange={(e) => setField("backgroundColor", e.target.value)}
-            placeholder="#f8f4f0"
-            className={`flex-1 font-mono text-sm ${backgroundColor.trim() !== "" && !isValidHex(backgroundColor) ? "border-red-500" : ""}`}
-          />
-        </div>
-        {backgroundColor.trim() !== "" && !isValidHex(backgroundColor) && (
-          <p className="text-xs text-red-600">{t("builder.error_hex_color")}</p>
-        )}
+        <label className="text-xs font-medium text-gray-600">
+          {t("builder.bank_name")}
+        </label>
+        <Input
+          value={bankName}
+          onChange={(e) => setBankName(e.target.value)}
+          onBlur={handleSaveBank}
+          placeholder="e.g. Maybank"
+          className="text-sm"
+        />
+      </div>
+      <div className="space-y-2">
+        <label className="text-xs font-medium text-gray-600">
+          {t("builder.bank_account")}
+        </label>
+        <Input
+          value={bankAccount}
+          onChange={(e) => setBankAccount(e.target.value)}
+          onBlur={handleSaveBank}
+          placeholder="e.g. 1234567890"
+          className="text-sm"
+        />
+      </div>
+      <div className="space-y-2">
+        <label className="text-xs font-medium text-gray-600">
+          {t("builder.bank_holder")}
+        </label>
+        <Input
+          value={bankHolder}
+          onChange={(e) => setBankHolder(e.target.value)}
+          onBlur={handleSaveBank}
+          placeholder="e.g. Ahmad bin Ali"
+          className="text-sm"
+        />
       </div>
     </section>
   );

@@ -5,6 +5,8 @@ import { authComponent } from "./auth";
 const SLUG_PATTERN = /^[a-z0-9-]+$/;
 const SLUG_MIN_LENGTH = 3;
 const SLUG_MAX_LENGTH = 50;
+const YOUTUBE_PATTERN =
+  /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]+/;
 
 export const checkSlugAvailable = query({
   args: { slug: v.string() },
@@ -145,13 +147,15 @@ export const getEvent = query({
     const event = await ctx.db.get(args.eventId);
     if (!event) return null;
 
-    const backgroundImageUrl = event.backgroundImageId
-      ? await ctx.storage.getUrl(event.backgroundImageId)
-      : null;
+    const [backgroundImageUrl, donationQrUrl] = await Promise.all([
+      event.backgroundImageId ? ctx.storage.getUrl(event.backgroundImageId) : null,
+      event.donationQrId ? ctx.storage.getUrl(event.donationQrId) : null,
+    ]);
 
     return {
       ...event,
       backgroundImageUrl,
+      donationQrUrl,
     };
   },
 });
@@ -167,6 +171,13 @@ export const updateEvent = mutation({
     locationApple: v.optional(v.string()),
     backgroundImageId: v.optional(v.id("_storage")),
     clearBackgroundImage: v.optional(v.boolean()),
+    donationQrId: v.optional(v.id("_storage")),
+    clearDonationQr: v.optional(v.boolean()),
+    bankName: v.optional(v.string()),
+    bankAccount: v.optional(v.string()),
+    bankHolder: v.optional(v.string()),
+    rsvpDeadline: v.optional(v.string()),
+    published: v.optional(v.boolean()),
     backgroundColor: v.optional(v.string()),
     colorPrimary: v.optional(v.string()),
     colorSecondary: v.optional(v.string()),
@@ -186,7 +197,15 @@ export const updateEvent = mutation({
 
     if (!manager) throw new Error("Unauthorized: not a manager of this event");
 
-    const { eventId, clearBackgroundImage, ...updates } = args;
+    const { eventId, clearBackgroundImage, clearDonationQr, ...updates } = args;
+
+    if (
+      updates.musicYoutubeUrl !== undefined &&
+      updates.musicYoutubeUrl !== "" &&
+      !YOUTUBE_PATTERN.test(updates.musicYoutubeUrl.trim())
+    ) {
+      throw new Error("Please enter a valid YouTube link");
+    }
     const patch: Record<string, unknown> = {};
     if (updates.coupleName !== undefined) patch.coupleName = updates.coupleName;
     if (updates.weddingDate !== undefined) patch.weddingDate = updates.weddingDate;
@@ -201,6 +220,13 @@ export const updateEvent = mutation({
     if (updates.musicYoutubeUrl !== undefined) patch.musicYoutubeUrl = updates.musicYoutubeUrl;
     if (updates.backgroundImageId !== undefined) patch.backgroundImageId = updates.backgroundImageId;
     if (clearBackgroundImage) patch.backgroundImageId = undefined;
+    if (updates.donationQrId !== undefined) patch.donationQrId = updates.donationQrId;
+    if (clearDonationQr) patch.donationQrId = undefined;
+    if (updates.bankName !== undefined) patch.bankName = updates.bankName;
+    if (updates.bankAccount !== undefined) patch.bankAccount = updates.bankAccount;
+    if (updates.bankHolder !== undefined) patch.bankHolder = updates.bankHolder;
+    if (updates.rsvpDeadline !== undefined) patch.rsvpDeadline = updates.rsvpDeadline;
+    if (updates.published !== undefined) patch.published = updates.published;
     if (Object.keys(patch).length === 0) return;
 
     await ctx.db.patch(eventId, patch as Record<string, unknown>);
@@ -208,6 +234,10 @@ export const updateEvent = mutation({
     if (updates.backgroundImageId) {
       const url = await ctx.storage.getUrl(updates.backgroundImageId);
       return { backgroundImageUrl: url };
+    }
+    if (updates.donationQrId) {
+      const url = await ctx.storage.getUrl(updates.donationQrId);
+      return { donationQrUrl: url };
     }
   },
 });

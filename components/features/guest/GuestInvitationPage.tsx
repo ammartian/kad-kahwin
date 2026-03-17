@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "convex/react";
@@ -8,6 +8,10 @@ import { api } from "@/convex/_generated/api";
 import { formatEventDate, formatEventTime } from "@/lib/utils";
 import { EventInfoSection } from "./EventInfoSection";
 import { MusicEmbed } from "./MusicEmbed";
+import { RSVPSection } from "./RSVPSection";
+import { WishesSection } from "./WishesSection";
+import { WishlistSection } from "./WishlistSection";
+import { DonationSection } from "./DonationSection";
 
 const PREVIEW_WIDTH = 375;
 
@@ -18,6 +22,7 @@ interface GuestInvitationPageProps {
 export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
   const { t, i18n } = useTranslation();
   const event = useQuery(api.guest.getEventBySlug, { slug });
+  const [guestName, setGuestName] = useState<string | null>(null);
 
   useEffect(() => {
     if (event?.language) {
@@ -102,6 +107,26 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
               locationWaze={event.locationWaze}
               locationGoogle={event.locationGoogle}
               locationApple={event.locationApple}
+              colorAccent={colorAccent}
+            />
+            <RSVPSection
+              eventId={event._id}
+              rsvpDeadline={event.rsvpDeadline}
+              colorAccent={colorAccent}
+              onSubmitted={setGuestName}
+            />
+            <WishesSection eventId={event._id} colorAccent={colorAccent} />
+            <WishlistSection
+              eventId={event._id}
+              colorAccent={colorAccent}
+              guestName={guestName}
+              onGuestNameUsed={setGuestName}
+            />
+            <DonationSection
+              donationQrUrl={event.donationQrUrl ?? null}
+              bankName={event.bankName}
+              bankAccount={event.bankAccount}
+              bankHolder={event.bankHolder}
               colorAccent={colorAccent}
             />
           </div>

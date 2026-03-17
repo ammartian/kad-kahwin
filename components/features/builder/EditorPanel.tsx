@@ -7,6 +7,7 @@ import {
   MusicSection,
   EventDetailsSection,
   LocationSection,
+  DonationSection,
 } from "./sections";
 
 export function EditorPanel() {
@@ -24,6 +25,7 @@ export function EditorPanel() {
           <MusicSection />
           <EventDetailsSection />
           <LocationSection />
+          <DonationSection />
         </div>
       </div>
     </div>

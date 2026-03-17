@@ -11,9 +11,14 @@
 import type * as auth from "../auth.js";
 import type * as events from "../events.js";
 import type * as guest from "../guest.js";
+import type * as guests from "../guests.js";
 import type * as http from "../http.js";
+import type * as lib_affiliateConverter from "../lib/affiliateConverter.js";
+import type * as rsvps from "../rsvps.js";
 import type * as storage from "../storage.js";
 import type * as waitlist from "../waitlist.js";
+import type * as wishes from "../wishes.js";
+import type * as wishlist from "../wishlist.js";
 
 import type {
   ApiFromModules,
@@ -25,9 +30,14 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   events: typeof events;
   guest: typeof guest;
+  guests: typeof guests;
   http: typeof http;
+  "lib/affiliateConverter": typeof lib_affiliateConverter;
+  rsvps: typeof rsvps;
   storage: typeof storage;
   waitlist: typeof waitlist;
+  wishes: typeof wishes;
+  wishlist: typeof wishlist;
 }>;
 
 /**

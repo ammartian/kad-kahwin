@@ -13,6 +13,7 @@ import {
 } from "@/lib/validators/event";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { useSlugCheck } from "@/hooks/use-slug-check";
+import { useInviteUrl } from "@/hooks/useInviteUrl";
 import {
   Dialog,
   DialogContent,
@@ -30,7 +31,6 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { siteConfig } from "@/lib/config";
 import { Check, Loader2, AlertCircle } from "lucide-react";
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
@@ -89,6 +89,8 @@ export function CreateEventModal({
 
   const coupleName = watch("coupleName");
   const slug = watch("slug");
+  const normalizedSlug = slug?.toLowerCase().trim() || "";
+  const inviteUrlPreview = useInviteUrl(normalizedSlug);
 
   const { slugStatus } = useSlugCheck(slug);
 
@@ -260,8 +262,8 @@ export function CreateEventModal({
           </p>
         )}
         {slug && (
-          <p className="text-xs text-muted-foreground truncate" title={`${siteConfig.url}/${slug.toLowerCase().trim()}`}>
-            {t("event_creation.url_preview")}: {siteConfig.url}/{slug.toLowerCase().trim()}
+          <p className="text-xs text-muted-foreground truncate" title={inviteUrlPreview}>
+            {t("event_creation.url_preview")}: {inviteUrlPreview}
           </p>
         )}
         {errors.slug && (

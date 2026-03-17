@@ -4,10 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import type { ListEventItem } from "@/types/events";
-import { siteConfig } from "@/lib/config";
+import { useInviteUrl } from "@/hooks/useInviteUrl";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Copy, ExternalLink } from "lucide-react";
+import { Copy, ExternalLink, Eye } from "lucide-react";
 
 interface EventCardProps {
   event: ListEventItem;
@@ -29,8 +29,7 @@ function formatDate(isoDate: string): string {
 export function EventCard({ event }: EventCardProps) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
-
-  const inviteUrl = `${siteConfig.url}/${event.slug}`;
+  const inviteUrl = useInviteUrl(event.slug);
 
   const handleCopy = async () => {
     try {
@@ -72,10 +71,18 @@ export function EventCard({ event }: EventCardProps) {
           {event.weddingTime ? ` • ${event.weddingTime}` : ""}
         </p>
         <p className="text-xs text-muted-foreground truncate" title={inviteUrl}>
-          {siteConfig.url}/{event.slug}
+          {inviteUrl}
         </p>
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row gap-2">
+        {event.published && (
+          <Button asChild size="sm" className="min-h-[44px] sm:min-h-9 flex-1">
+            <Link href={`/${event.slug}`} target="_blank" rel="noopener noreferrer" prefetch={false}>
+              <Eye className="size-4 mr-2" />
+              {t("event_card.view_invitation")}
+            </Link>
+          </Button>
+        )}
         <Button
           variant="outline"
           size="sm"

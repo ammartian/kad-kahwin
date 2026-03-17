@@ -272,7 +272,8 @@
   "event_card": {
     "draft": "Draft",
     "published": "Published",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "view_invitation": "View invitation"
   },
   "builder": {
     "back_to_dashboard": "Dashboard",
@@ -305,6 +306,12 @@
     "error_image_size": "Image must be under 5MB",
     "error_image_format": "Use JPG, PNG or WEBP format only",
     "error_youtube_url": "Please enter a valid YouTube link",
+    "donation": "Donation",
+    "donation_qr": "QR Code (DuitNow/TNG)",
+    "donation_qr_hint": "Upload QR image (JPG, PNG, WEBP, max 2MB)",
+    "bank_name": "Bank name",
+    "bank_account": "Account number",
+    "bank_holder": "Account holder name",
     "error_hex_color": "Use 6-digit hex code (e.g. #ff0000)",
     "uploading": "Uploading...",
     "remove_image": "Remove image"
@@ -317,6 +324,83 @@
     "play_music": "Play music",
     "wedding_music": "Wedding music",
     "couple_name_placeholder": "Couple Names"
+  },
+  "event_nav": {
+    "builder": "Edit",
+    "guests": "Guests",
+    "wishlist": "Wishlist"
+  },
+  "guests": {
+    "title": "Guest List",
+    "add_guest": "Add Guest",
+    "import_excel": "Import Excel",
+    "export_excel": "Export Excel",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "pax": "Pax",
+    "rsvp_status": "RSVP",
+    "attending": "Attending",
+    "not_attending": "Not attending",
+    "pending": "Pending",
+    "actions": "Actions",
+    "delete": "Delete",
+    "analytics_attending": "Attending",
+    "analytics_pax": "Total Pax",
+    "analytics_not_attending": "Not Attending",
+    "analytics_pending": "Pending",
+    "import_modal_title": "Import Excel",
+    "import_modal_hint": "Drag file or click to upload. Format: Name, Phone, Email, Pax (optional)",
+    "import_success": "{{count}} guests imported successfully",
+    "import_errors": "Errors: {{errors}}",
+    "add_guest_modal_title": "Add Guest",
+    "add_error": "Failed to add guest. Please try again.",
+    "no_guests": "No guests yet. Add manually or import from Excel.",
+    "load_more": "Load more",
+    "search_placeholder": "Search by name, email, phone...",
+    "filter_all": "All",
+    "sort_name": "Sort by name",
+    "sort_rsvp": "Sort by RSVP status",
+    "export_preparing": "Preparing export..."
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "add_item": "Add Item",
+    "item_title": "Item name",
+    "item_url": "Product link (Shopee/Lazada)",
+    "claimed": "Claimed",
+    "claimed_by": "Claimed by {{name}}",
+    "hidden": "Hidden",
+    "visible": "Visible",
+    "hide": "Hide",
+    "delete": "Delete",
+    "edit": "Edit",
+    "no_items": "No wishlist items. Add items from Shopee or Lazada."
+  },
+  "rsvp": {
+    "title": "RSVP",
+    "attending": "I'm attending",
+    "not_attending": "I'm not attending",
+    "pax_label": "Number of guests (1-10)",
+    "name_placeholder": "Your name",
+    "submit": "Submit",
+    "submitted": "Thank you, your response has been recorded.",
+    "deadline_passed": "RSVP deadline has passed"
+  },
+  "wishes": {
+    "title": "Wishes",
+    "placeholder": "Write your wish...",
+    "send": "Send",
+    "load_more": "Load more",
+    "char_count": "{{count}}/255"
+  },
+  "donation": {
+    "title": "Donation",
+    "bank_name": "Bank name",
+    "account_number": "Account number",
+    "account_holder": "Account holder",
+    "copy": "Copy",
+    "copied": "Copied!"
   },
   "sign_in": {
     "title": "Jemputan Digital",

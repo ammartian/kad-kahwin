@@ -31,11 +31,13 @@ export const ctaConfig = {
 };
 
 // Site metadata
+// For invite URLs: useInviteUrl() uses window.location.origin in browser (localhost when local, prod when deployed).
+// Optional: set NEXT_PUBLIC_SITE_URL in .env.local (e.g. http://localhost:3000) for SSR fallback.
 export const siteConfig = {
   name: "Jemputan Digital",
   description:
     "Modern digital wedding invitation platform for Malaysian couples",
-  url: "https://jemputandigital.my",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://jemputandigital.my",
   ogImage: "/og-image.png",
   links: {
     instagram: "https://instagram.com/jemputandigital",
