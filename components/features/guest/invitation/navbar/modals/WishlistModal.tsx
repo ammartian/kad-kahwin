@@ -165,7 +165,7 @@ export function WishlistModal({
               onClick={() => setAddOpen(false)}
               className="flex-1"
             >
-              Batal
+              {t("wishlist.cancel")}
             </Button>
             <Button
               type="submit"

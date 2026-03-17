@@ -333,7 +333,9 @@
     "play_music": "Main muzik",
     "wedding_music": "Muzik majlis",
     "couple_name_placeholder": "Nama Pasangan",
-    "scroll_down": "Tatal ke bawah"
+    "scroll_down": "Tatal ke bawah",
+    "hero_tagline": "Walimatul Urus",
+    "event_details_title": "Butiran Majlis"
   },
   "navbar": {
     "music": "Muzik",
@@ -407,6 +409,7 @@
     "no_items": "Tiada item dalam senarai hadiah",
     "already_claimed": "Item ini telah dituntut oleh orang lain",
     "enter_name": "Masukkan nama anda",
+    "cancel": "Batal",
     "platform_shopee": "Shopee",
     "platform_lazada": "Lazada",
     "platform_other": "Lain-lain"
@@ -416,7 +419,11 @@
     "placeholder": "Tulis ucapan anda...",
     "send": "Hantar",
     "load_more": "Muat lebih",
-    "char_count": "{{count}}/255"
+    "char_count": "{{count}}/255",
+    "just_now": "Baru sahaja",
+    "minutes_ago": "{{count}} minit lepas",
+    "hours_ago": "{{count}} jam lepas",
+    "days_ago": "{{count}} hari lepas"
   },
   "donation": {
     "title": "Sumbangan",

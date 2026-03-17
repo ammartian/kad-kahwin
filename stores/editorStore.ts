@@ -15,8 +15,7 @@ export type EditorField =
   | "backgroundImageUrl"
   | "musicYoutubeUrl"
   | "venueName"
-  | "venueAddress"
-  | "carouselImageUrls";
+  | "venueAddress";
 
 export interface EditorState {
   eventId: Id<"events"> | null;
@@ -35,7 +34,6 @@ export interface EditorState {
   musicYoutubeUrl: string;
   venueName: string;
   venueAddress: string;
-  carouselImageUrls: string[];
 }
 
 const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
@@ -54,7 +52,6 @@ const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
   musicYoutubeUrl: "",
   venueName: "",
   venueAddress: "",
-  carouselImageUrls: [],
 };
 
 interface EditorStore extends EditorState {
@@ -75,7 +72,6 @@ interface EditorStore extends EditorState {
     musicYoutubeUrl?: string;
     venueName?: string;
     venueAddress?: string;
-    carouselImageUrls?: string[];
   }) => void;
   reset: () => void;
 }
@@ -108,7 +104,6 @@ export const useEditorStore = create<EditorStore>((set) => ({
       musicYoutubeUrl: event.musicYoutubeUrl ?? "",
       venueName: event.venueName ?? "",
       venueAddress: event.venueAddress ?? "",
-      carouselImageUrls: event.carouselImageUrls ?? [],
     }),
 
   reset: () =>

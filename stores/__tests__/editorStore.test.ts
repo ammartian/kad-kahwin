@@ -22,6 +22,8 @@ describe("editorStore: initFromEvent", () => {
       colorAccent: "#c9a86c",
       backgroundImageUrl: "https://storage.example.com/bg.jpg",
       musicYoutubeUrl: "https://youtube.com/watch?v=abc",
+      venueName: "Grand Ballroom KLCC",
+      venueAddress: "50088 Kuala Lumpur",
     };
 
     useEditorStore.getState().initFromEvent(event);
@@ -41,6 +43,19 @@ describe("editorStore: initFromEvent", () => {
     expect(state.colorAccent).toBe("#c9a86c");
     expect(state.backgroundImageUrl).toBe("https://storage.example.com/bg.jpg");
     expect(state.musicYoutubeUrl).toBe("https://youtube.com/watch?v=abc");
+    expect(state.venueName).toBe("Grand Ballroom KLCC");
+    expect(state.venueAddress).toBe("50088 Kuala Lumpur");
+  });
+
+  it("does not contain carouselImageUrls (removed from store — lives as prop)", () => {
+    useEditorStore.getState().initFromEvent({
+      _id: "event-123" as Id<"events">,
+      coupleName: "Ahmad & Siti",
+      weddingDate: "2030-06-15",
+    });
+
+    const state = useEditorStore.getState();
+    expect("carouselImageUrls" in state).toBe(false);
   });
 
   it("falls back to defaults for missing optional fields", () => {
@@ -65,6 +80,8 @@ describe("editorStore: initFromEvent", () => {
     expect(state.colorAccent).toBe("#c9a86c");
     expect(state.backgroundImageUrl).toBeNull();
     expect(state.musicYoutubeUrl).toBe("");
+    expect(state.venueName).toBe("");
+    expect(state.venueAddress).toBe("");
   });
 });
 

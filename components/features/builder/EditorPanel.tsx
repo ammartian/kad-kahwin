@@ -15,10 +15,12 @@ import { PhotosSection } from "./sections/PhotosSection";
 interface EditorPanelProps {
   eventId: Id<"events">;
   carouselImageIds: Id<"_storage">[];
+  carouselImageUrls: string[];
   onCarouselIdsChange: (ids: Id<"_storage">[]) => void;
+  onCarouselUrlsChange: (urls: string[]) => void;
 }
 
-export function EditorPanel({ eventId, carouselImageIds, onCarouselIdsChange }: EditorPanelProps) {
+export function EditorPanel({ eventId, carouselImageIds, carouselImageUrls, onCarouselIdsChange, onCarouselUrlsChange }: EditorPanelProps) {
   const { t } = useTranslation();
 
   return (
@@ -36,7 +38,9 @@ export function EditorPanel({ eventId, carouselImageIds, onCarouselIdsChange }: 
           <PhotosSection
             eventId={eventId}
             carouselImageIds={carouselImageIds}
+            carouselImageUrls={carouselImageUrls}
             onIdsChange={onCarouselIdsChange}
+            onUrlsChange={onCarouselUrlsChange}
           />
           <DonationSection />
         </div>

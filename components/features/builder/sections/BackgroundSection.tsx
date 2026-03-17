@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
 import { useEditorStore } from "@/stores/editorStore";
 import { isValidHex } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -27,7 +28,20 @@ export function BackgroundSection() {
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [uploadedStorageId, setUploadedStorageId] = useState<Id<"_storage"> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const resolvedUrl = useQuery(
+    api.storage.getStorageUrl,
+    uploadedStorageId ? { storageId: uploadedStorageId } : "skip"
+  );
+
+  useEffect(() => {
+    if (resolvedUrl) {
+      setField("backgroundImageUrl", resolvedUrl);
+      setUploadedStorageId(null);
+    }
+  }, [resolvedUrl, setField]);
 
   const validateFile = useCallback(
     (file: File): string | null => {
@@ -63,13 +77,12 @@ export function BackgroundSection() {
         });
         if (!res.ok) throw new Error("Upload failed");
         const { storageId } = (await res.json()) as { storageId: string };
-        const result = await updateEvent({
+        const sid = storageId as Id<"_storage">;
+        await updateEvent({
           eventId,
-          backgroundImageId: storageId as Parameters<typeof updateEvent>[0]["backgroundImageId"],
+          backgroundImageId: sid,
         });
-        if (result?.backgroundImageUrl) {
-          setField("backgroundImageUrl", result.backgroundImageUrl);
-        }
+        setUploadedStorageId(sid);
         URL.revokeObjectURL(objectUrl);
       } catch {
         setError(t("builder.save_status_error"));
@@ -86,6 +99,7 @@ export function BackgroundSection() {
     if (!eventId) return;
     updateEvent({ eventId, clearBackgroundImage: true });
     setField("backgroundImageUrl", null);
+    setUploadedStorageId(null);
   }, [eventId, updateEvent, setField]);
 
   const onDrop = useCallback(
@@ -141,18 +155,18 @@ export function BackgroundSection() {
             onChange={onInputChange}
             disabled={uploading}
           />
-          {backgroundImageUrl ? (
+          {(resolvedUrl ?? backgroundImageUrl) ? (
             <>
-              {backgroundImageUrl.startsWith("blob:") ? (
+              {(resolvedUrl ?? backgroundImageUrl)!.startsWith("blob:") ? (
                 /* eslint-disable-next-line @next/next/no-img-element -- blob: URLs not supported by next/image */
                 <img
-                  src={backgroundImageUrl}
+                  src={(resolvedUrl ?? backgroundImageUrl)!}
                   alt="Background"
                   className="absolute inset-0 h-full w-full rounded-lg object-cover"
                 />
               ) : (
                 <Image
-                  src={backgroundImageUrl}
+                  src={(resolvedUrl ?? backgroundImageUrl)!}
                   alt="Background"
                   fill
                   className="rounded-lg object-cover"

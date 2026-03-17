@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
-import { useEditorStore } from "@/stores/editorStore";
 import Image from "next/image";
 import { ImagePlus, Loader2, X, GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,13 +21,13 @@ interface UploadingItem {
 interface PhotosSectionProps {
   eventId: Id<"events">;
   carouselImageIds: Id<"_storage">[];
+  carouselImageUrls: string[];
   onIdsChange: (ids: Id<"_storage">[]) => void;
+  onUrlsChange: (urls: string[]) => void;
 }
 
-function PhotosSection({ eventId, carouselImageIds, onIdsChange }: PhotosSectionProps) {
+function PhotosSection({ eventId, carouselImageIds, carouselImageUrls, onIdsChange, onUrlsChange }: PhotosSectionProps) {
   const { t } = useTranslation();
-  const carouselImageUrls = useEditorStore((s) => s.carouselImageUrls);
-  const setField = useEditorStore((s) => s.setField);
 
   const generateUploadUrl = useMutation(api.storage.generateUploadUrl);
   const updateCarouselImages = useMutation(api.guest.updateCarouselImages);
@@ -47,6 +46,36 @@ function PhotosSection({ eventId, carouselImageIds, onIdsChange }: PhotosSection
     return null;
   };
 
+  const uploadOne = useCallback(
+    async (file: File, item: UploadingItem): Promise<Id<"_storage"> | null> => {
+      const err = validateFile(file);
+      if (err) {
+        setError(err);
+        URL.revokeObjectURL(item.previewUrl);
+        setUploading((prev) => prev.filter((u) => u.tempId !== item.tempId));
+        return null;
+      }
+      try {
+        const uploadUrl = await generateUploadUrl();
+        const res = await fetch(uploadUrl, {
+          method: "POST",
+          headers: { "Content-Type": file.type },
+          body: file,
+        });
+        if (!res.ok) throw new Error("Upload failed");
+        const { storageId } = (await res.json()) as { storageId: string };
+        return storageId as Id<"_storage">;
+      } catch {
+        setError(t("builder.save_status_error"));
+        return null;
+      } finally {
+        URL.revokeObjectURL(item.previewUrl);
+        setUploading((prev) => prev.filter((u) => u.tempId !== item.tempId));
+      }
+    },
+    [generateUploadUrl, t]
+  );
+
   const handleFiles = useCallback(
     async (files: File[]) => {
       setError(null);
@@ -63,43 +92,18 @@ function PhotosSection({ eventId, carouselImageIds, onIdsChange }: PhotosSection
       }));
       setUploading((prev) => [...prev, ...newUploading]);
 
-      const newIds: Id<"_storage">[] = [];
-      for (let i = 0; i < toProcess.length; i++) {
-        const file = toProcess[i];
-        const err = validateFile(file);
-        if (err) {
-          setError(err);
-          URL.revokeObjectURL(newUploading[i].previewUrl);
-          continue;
-        }
-        try {
-          const uploadUrl = await generateUploadUrl();
-          const res = await fetch(uploadUrl, {
-            method: "POST",
-            headers: { "Content-Type": file.type },
-            body: file,
-          });
-          if (!res.ok) throw new Error("Upload failed");
-          const { storageId } = (await res.json()) as { storageId: string };
-          newIds.push(storageId as Id<"_storage">);
-        } catch {
-          setError(t("builder.save_status_error"));
-        } finally {
-          URL.revokeObjectURL(newUploading[i].previewUrl);
-          setUploading((prev) => prev.filter((u) => u.tempId !== newUploading[i].tempId));
-        }
-      }
+      const results = await Promise.all(
+        toProcess.map((file, i) => uploadOne(file, newUploading[i]))
+      );
+      const newIds = results.filter((id): id is Id<"_storage"> => id !== null);
 
       if (newIds.length > 0) {
         const updatedIds = [...carouselImageIds, ...newIds];
         onIdsChange(updatedIds);
         await updateCarouselImages({ eventId, imageIds: updatedIds });
-        // Refresh preview URLs (simplified: trigger a re-read via store)
-        // The store carouselImageUrls will update via getEvent re-fetch
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentCount, carouselImageIds, eventId, generateUploadUrl, updateCarouselImages, t]
+    [currentCount, carouselImageIds, eventId, uploadOne, updateCarouselImages, t, onIdsChange]
   );
 
   const removePhoto = useCallback(
@@ -107,10 +111,10 @@ function PhotosSection({ eventId, carouselImageIds, onIdsChange }: PhotosSection
       const newIds = carouselImageIds.filter((_, i) => i !== index);
       const newUrls = carouselImageUrls.filter((_, i) => i !== index);
       onIdsChange(newIds);
-      setField("carouselImageUrls", newUrls);
+      onUrlsChange(newUrls);
       await updateCarouselImages({ eventId, imageIds: newIds });
     },
-    [carouselImageIds, carouselImageUrls, eventId, updateCarouselImages, setField, onIdsChange]
+    [carouselImageIds, carouselImageUrls, eventId, updateCarouselImages, onIdsChange, onUrlsChange]
   );
 
   const onDragStart = (idx: number) => {
@@ -131,12 +135,12 @@ function PhotosSection({ eventId, carouselImageIds, onIdsChange }: PhotosSection
       newIds.splice(targetIdx, 0, removedId);
       newUrls.splice(targetIdx, 0, removedUrl);
       onIdsChange(newIds);
-      setField("carouselImageUrls", newUrls);
+      onUrlsChange(newUrls);
       setDragOverIdx(null);
       dragSrcIdx.current = null;
       await updateCarouselImages({ eventId, imageIds: newIds });
     },
-    [carouselImageIds, carouselImageUrls, eventId, updateCarouselImages, setField, onIdsChange]
+    [carouselImageIds, carouselImageUrls, eventId, updateCarouselImages, onIdsChange, onUrlsChange]
   );
 
   return (

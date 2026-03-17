@@ -84,7 +84,7 @@ export function RSVPModal({
               pax: rsvp.paxCount,
             })}
           </p>
-          {rsvpDeadline && (
+          {rsvpDeadline && isDeadlinePassed && (
             <p className="text-xs text-gray-400">
               {t("rsvp.deadline_passed")}
             </p>

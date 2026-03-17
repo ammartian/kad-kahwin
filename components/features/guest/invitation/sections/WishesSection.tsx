@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { usePaginatedQuery, useQuery, useMutation } from "convex/react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { api } from "@/convex/_generated/api";
@@ -10,17 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Send } from "lucide-react";
 
 const WISHES_PAGE_SIZE = 50;
-
-function getRelativeTime(timestamp: number): string {
-  const diff = Date.now() - timestamp;
-  const minutes = Math.floor(diff / 60000);
-  if (minutes < 1) return "Baru sahaja";
-  if (minutes < 60) return `${minutes} minit lepas`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours} jam lepas`;
-  const days = Math.floor(hours / 24);
-  return `${days} hari lepas`;
-}
 
 interface WishesSectionProps {
   eventId: Id<"events">;
@@ -37,6 +26,20 @@ export function WishesSection({
 }: WishesSectionProps) {
   const { t } = useTranslation();
   const shouldReduceMotion = useReducedMotion();
+
+  const getRelativeTime = useMemo(() => {
+    return (timestamp: number): string => {
+      const diff = Date.now() - timestamp;
+      const minutes = Math.floor(diff / 60000);
+      if (minutes < 1) return t("wishes.just_now");
+      if (minutes < 60) return t("wishes.minutes_ago", { count: minutes });
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return t("wishes.hours_ago", { count: hours });
+      const days = Math.floor(hours / 24);
+      return t("wishes.days_ago", { count: days });
+    };
+  }, [t]);
+
   const { results: wishes, status, loadMore } = usePaginatedQuery(
     api.wishes.listWishes,
     { eventId },

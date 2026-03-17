@@ -333,7 +333,9 @@
     "play_music": "Play music",
     "wedding_music": "Wedding music",
     "couple_name_placeholder": "Couple Names",
-    "scroll_down": "Scroll down"
+    "scroll_down": "Scroll down",
+    "hero_tagline": "Walimatul Urus",
+    "event_details_title": "Event Details"
   },
   "navbar": {
     "music": "Music",
@@ -407,6 +409,7 @@
     "no_items": "No items in gift list",
     "already_claimed": "This item has already been claimed by someone else",
     "enter_name": "Enter your name",
+    "cancel": "Cancel",
     "platform_shopee": "Shopee",
     "platform_lazada": "Lazada",
     "platform_other": "Other"
@@ -429,7 +432,11 @@
     "placeholder": "Write your wish...",
     "send": "Send",
     "load_more": "Load more",
-    "char_count": "{{count}}/255"
+    "char_count": "{{count}}/255",
+    "just_now": "Just now",
+    "minutes_ago": "{{count}} min ago",
+    "hours_ago": "{{count}} hr ago",
+    "days_ago": "{{count}} day ago"
   },
   "donation": {
     "title": "Donation",

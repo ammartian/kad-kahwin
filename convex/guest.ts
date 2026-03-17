@@ -31,25 +31,32 @@ export const getEventBySlug = query({
     }
 
     return {
-      ...event,
+      _id: event._id,
+      _creationTime: event._creationTime,
+      slug: event.slug,
+      coupleName: event.coupleName,
+      weddingDate: event.weddingDate,
+      weddingTime: event.weddingTime,
+      venueName: event.venueName,
+      venueAddress: event.venueAddress,
+      locationWaze: event.locationWaze,
+      locationGoogle: event.locationGoogle,
+      locationApple: event.locationApple,
+      backgroundColor: event.backgroundColor,
+      colorPrimary: event.colorPrimary,
+      colorSecondary: event.colorSecondary,
+      colorAccent: event.colorAccent,
+      musicYoutubeUrl: event.musicYoutubeUrl,
+      rsvpDeadline: event.rsvpDeadline,
+      language: event.language,
+      published: event.published,
       backgroundImageUrl,
       donationQrUrl,
+      bankName: event.bankName,
+      bankAccount: event.bankAccount,
+      bankHolder: event.bankHolder,
       carouselImageUrls,
     };
-  },
-});
-
-export const getCarouselImages = query({
-  args: { eventId: v.id("events") },
-  handler: async (ctx, args) => {
-    const event = await ctx.db.get(args.eventId);
-    if (!event || !event.carouselImageIds || event.carouselImageIds.length === 0) {
-      return [];
-    }
-    const urls = await Promise.all(
-      event.carouselImageIds.map((id) => ctx.storage.getUrl(id))
-    );
-    return urls.filter((url): url is string => url !== null);
   },
 });
 

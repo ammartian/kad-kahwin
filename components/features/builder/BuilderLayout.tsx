@@ -11,13 +11,17 @@ import { LanguageToggle } from "@/components/landing/LanguageToggle";
 interface BuilderLayoutProps {
   eventId: Id<"events">;
   carouselImageIds: Id<"_storage">[];
+  carouselImageUrls: string[];
   onCarouselIdsChange: (ids: Id<"_storage">[]) => void;
+  onCarouselUrlsChange: (urls: string[]) => void;
 }
 
 export function BuilderLayout({
   eventId,
   carouselImageIds,
+  carouselImageUrls,
   onCarouselIdsChange,
+  onCarouselUrlsChange,
 }: BuilderLayoutProps) {
   const { t } = useTranslation();
   const saveStatus = useAutoSave(eventId);
@@ -53,7 +57,9 @@ export function BuilderLayout({
           <EditorPanel
             eventId={eventId}
             carouselImageIds={carouselImageIds}
+            carouselImageUrls={carouselImageUrls}
             onCarouselIdsChange={onCarouselIdsChange}
+            onCarouselUrlsChange={onCarouselUrlsChange}
           />
         </div>
         <div className="flex min-h-[400px] flex-1 lg:min-h-0 lg:flex-[4]">

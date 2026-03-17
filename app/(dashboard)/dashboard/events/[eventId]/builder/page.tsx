@@ -16,11 +16,13 @@ export default function BuilderPage() {
   const initFromEvent = useEditorStore((s) => s.initFromEvent);
   const reset = useEditorStore((s) => s.reset);
   const [carouselImageIds, setCarouselImageIds] = useState<Id<"_storage">[]>([]);
+  const [carouselImageUrls, setCarouselImageUrls] = useState<string[]>([]);
 
   // Init store from event when data is ready
   useEffect(() => {
     if (event && event._id === eventId && !initialized) {
       setCarouselImageIds((event.carouselImageIds ?? []) as Id<"_storage">[]);
+      setCarouselImageUrls(event.carouselImageUrls ?? []);
       initFromEvent({
         _id: event._id,
         coupleName: event.coupleName,
@@ -37,7 +39,6 @@ export default function BuilderPage() {
         musicYoutubeUrl: event.musicYoutubeUrl,
         venueName: event.venueName,
         venueAddress: event.venueAddress,
-        carouselImageUrls: event.carouselImageUrls ?? [],
       });
     }
   }, [event, eventId, initialized, initFromEvent]);
@@ -67,7 +68,9 @@ export default function BuilderPage() {
     <BuilderLayout
       eventId={eventId}
       carouselImageIds={carouselImageIds}
+      carouselImageUrls={carouselImageUrls}
       onCarouselIdsChange={setCarouselImageIds}
+      onCarouselUrlsChange={setCarouselImageUrls}
     />
   );
 }

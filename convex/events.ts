@@ -220,42 +220,26 @@ export const updateEvent = mutation({
     ) {
       throw new Error("Please enter a valid YouTube link");
     }
+
+    const SCALAR_FIELDS = [
+      "coupleName", "weddingDate", "weddingTime",
+      "locationWaze", "locationGoogle", "locationApple",
+      "backgroundColor", "colorPrimary", "colorSecondary", "colorAccent",
+      "musicYoutubeUrl", "backgroundImageId", "donationQrId",
+      "bankName", "bankAccount", "bankHolder",
+      "rsvpDeadline", "published", "venueName", "venueAddress", "carouselImageIds",
+    ] as const;
+
     const patch: Record<string, unknown> = {};
-    if (updates.coupleName !== undefined) patch.coupleName = updates.coupleName;
-    if (updates.weddingDate !== undefined) patch.weddingDate = updates.weddingDate;
-    if (updates.weddingTime !== undefined) patch.weddingTime = updates.weddingTime;
-    if (updates.locationWaze !== undefined) patch.locationWaze = updates.locationWaze;
-    if (updates.locationGoogle !== undefined) patch.locationGoogle = updates.locationGoogle;
-    if (updates.locationApple !== undefined) patch.locationApple = updates.locationApple;
-    if (updates.backgroundColor !== undefined) patch.backgroundColor = updates.backgroundColor;
-    if (updates.colorPrimary !== undefined) patch.colorPrimary = updates.colorPrimary;
-    if (updates.colorSecondary !== undefined) patch.colorSecondary = updates.colorSecondary;
-    if (updates.colorAccent !== undefined) patch.colorAccent = updates.colorAccent;
-    if (updates.musicYoutubeUrl !== undefined) patch.musicYoutubeUrl = updates.musicYoutubeUrl;
-    if (updates.backgroundImageId !== undefined) patch.backgroundImageId = updates.backgroundImageId;
+    for (const key of SCALAR_FIELDS) {
+      if (updates[key] !== undefined) patch[key] = updates[key];
+    }
     if (clearBackgroundImage) patch.backgroundImageId = undefined;
-    if (updates.donationQrId !== undefined) patch.donationQrId = updates.donationQrId;
     if (clearDonationQr) patch.donationQrId = undefined;
-    if (updates.bankName !== undefined) patch.bankName = updates.bankName;
-    if (updates.bankAccount !== undefined) patch.bankAccount = updates.bankAccount;
-    if (updates.bankHolder !== undefined) patch.bankHolder = updates.bankHolder;
-    if (updates.rsvpDeadline !== undefined) patch.rsvpDeadline = updates.rsvpDeadline;
-    if (updates.published !== undefined) patch.published = updates.published;
-    if (updates.venueName !== undefined) patch.venueName = updates.venueName;
-    if (updates.venueAddress !== undefined) patch.venueAddress = updates.venueAddress;
-    if (updates.carouselImageIds !== undefined) patch.carouselImageIds = updates.carouselImageIds;
+
     if (Object.keys(patch).length === 0) return;
 
     await ctx.db.patch(eventId, patch as Record<string, unknown>);
-
-    if (updates.backgroundImageId) {
-      const url = await ctx.storage.getUrl(updates.backgroundImageId);
-      return { backgroundImageUrl: url };
-    }
-    if (updates.donationQrId) {
-      const url = await ctx.storage.getUrl(updates.donationQrId);
-      return { donationQrUrl: url };
-    }
   },
 });
 

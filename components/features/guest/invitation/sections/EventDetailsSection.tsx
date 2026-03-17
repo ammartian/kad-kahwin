@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Calendar, Clock, MapPin } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface EventDetailsSectionProps {
   displayDate: string;
@@ -60,6 +61,7 @@ export function EventDetailsSection({
   colorPrimary,
   colorAccent,
 }: EventDetailsSectionProps) {
+  const { t } = useTranslation();
   const shouldReduceMotion = useReducedMotion();
 
   const cards = [
@@ -85,7 +87,7 @@ export function EventDetailsSection({
         className="mb-10 text-center"
       >
         <div className="mb-2 text-xs tracking-[0.3em] uppercase" style={{ color: colorAccent }}>
-          Butiran Majlis
+          {t("guest.event_details_title")}
         </div>
         <div className="mx-auto h-px w-16" style={{ backgroundColor: colorAccent }} />
       </motion.div>

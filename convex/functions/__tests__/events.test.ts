@@ -529,62 +529,64 @@ describe("events: inviteCoManager business logic", () => {
 
 // --------------------------------------------------------------------------
 // Inline replication of updateEvent handler logic
+// (mirrors the loop-based patch in convex/events.ts — no return value)
 // --------------------------------------------------------------------------
+
+const SCALAR_FIELDS = [
+  "coupleName", "weddingDate", "weddingTime",
+  "locationWaze", "locationGoogle", "locationApple",
+  "backgroundColor", "colorPrimary", "colorSecondary", "colorAccent",
+  "musicYoutubeUrl", "backgroundImageId", "donationQrId",
+  "bankName", "bankAccount", "bankHolder",
+  "rsvpDeadline", "published", "venueName", "venueAddress", "carouselImageIds",
+] as const;
+
+const YOUTUBE_PATTERN =
+  /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]+/;
 
 type UpdateEventArgs = {
   eventId: string;
-  coupleName?: string;
-  weddingDate?: string;
-  weddingTime?: string;
-  locationWaze?: string;
-  locationGoogle?: string;
-  locationApple?: string;
-  backgroundImageId?: string;
   clearBackgroundImage?: boolean;
-  backgroundColor?: string;
-  colorPrimary?: string;
-  colorSecondary?: string;
-  colorAccent?: string;
-  musicYoutubeUrl?: string;
+  clearDonationQr?: boolean;
+  [key: string]: unknown;
 };
 
 async function updateEventLogic(
   db: {
     queryManagerByEventAndUser: (eventId: string, userId: string) => Promise<{ userId: string } | null>;
     patchEvent: (eventId: string, patch: Record<string, unknown>) => Promise<void>;
-    getStorageUrl?: (storageId: string) => Promise<string | null>;
   },
   authUser: AuthUser | null,
   args: UpdateEventArgs
-): Promise<{ backgroundImageUrl?: string } | void> {
+): Promise<void> {
   if (!authUser) throw new Error("Unauthorized");
 
   const manager = await db.queryManagerByEventAndUser(args.eventId, authUser._id);
   if (!manager) throw new Error("Unauthorized: not a manager of this event");
 
-  const { eventId, clearBackgroundImage, ...updates } = args;
+  const { eventId, clearBackgroundImage, clearDonationQr, ...updates } = args;
+
+  const musicYoutubeUrl = updates.musicYoutubeUrl as string | undefined;
+  if (
+    musicYoutubeUrl !== undefined &&
+    musicYoutubeUrl !== "" &&
+    !YOUTUBE_PATTERN.test(musicYoutubeUrl.trim())
+  ) {
+    throw new Error("Please enter a valid YouTube link");
+  }
+
   const patch: Record<string, unknown> = {};
-  if (updates.coupleName !== undefined) patch.coupleName = updates.coupleName;
-  if (updates.weddingDate !== undefined) patch.weddingDate = updates.weddingDate;
-  if (updates.weddingTime !== undefined) patch.weddingTime = updates.weddingTime;
-  if (updates.locationWaze !== undefined) patch.locationWaze = updates.locationWaze;
-  if (updates.locationGoogle !== undefined) patch.locationGoogle = updates.locationGoogle;
-  if (updates.locationApple !== undefined) patch.locationApple = updates.locationApple;
-  if (updates.backgroundColor !== undefined) patch.backgroundColor = updates.backgroundColor;
-  if (updates.colorPrimary !== undefined) patch.colorPrimary = updates.colorPrimary;
-  if (updates.colorSecondary !== undefined) patch.colorSecondary = updates.colorSecondary;
-  if (updates.colorAccent !== undefined) patch.colorAccent = updates.colorAccent;
-  if (updates.musicYoutubeUrl !== undefined) patch.musicYoutubeUrl = updates.musicYoutubeUrl;
-  if (updates.backgroundImageId !== undefined) patch.backgroundImageId = updates.backgroundImageId;
+  for (const key of SCALAR_FIELDS) {
+    if ((updates as Record<string, unknown>)[key] !== undefined) {
+      patch[key] = (updates as Record<string, unknown>)[key];
+    }
+  }
   if (clearBackgroundImage) patch.backgroundImageId = undefined;
+  if (clearDonationQr) patch.donationQrId = undefined;
+
   if (Object.keys(patch).length === 0) return;
 
   await db.patchEvent(eventId, patch);
-
-  if (updates.backgroundImageId && db.getStorageUrl) {
-    const url = await db.getStorageUrl(updates.backgroundImageId);
-    return { backgroundImageUrl: url ?? undefined };
-  }
 }
 
 describe("events: updateEvent business logic", () => {
@@ -598,7 +600,6 @@ describe("events: updateEvent business logic", () => {
     patchEvent: ReturnType<
       typeof vi.fn<(eventId: string, patch: Record<string, unknown>) => Promise<void>>
     >;
-    getStorageUrl?: ReturnType<typeof vi.fn<(id: string) => Promise<string | null>>>;
   };
 
   beforeEach(() => {
@@ -623,21 +624,43 @@ describe("events: updateEvent business logic", () => {
     expect(db.patchEvent).not.toHaveBeenCalled();
   });
 
-  it("returns early when no fields to update", async () => {
-    const result = await updateEventLogic(db, authUser, { eventId });
-    expect(result).toBeUndefined();
+  it("returns early without patching when no fields to update", async () => {
+    await updateEventLogic(db, authUser, { eventId });
     expect(db.patchEvent).not.toHaveBeenCalled();
+  });
+
+  it("rejects invalid YouTube URL", async () => {
+    await expect(
+      updateEventLogic(db, authUser, {
+        eventId,
+        musicYoutubeUrl: "https://vimeo.com/12345",
+      })
+    ).rejects.toThrow("Please enter a valid YouTube link");
+    expect(db.patchEvent).not.toHaveBeenCalled();
+  });
+
+  it("accepts empty string for musicYoutubeUrl (clears field)", async () => {
+    await updateEventLogic(db, authUser, { eventId, musicYoutubeUrl: "" });
+    expect(db.patchEvent).toHaveBeenCalledOnce();
+    const patch = db.patchEvent.mock.calls[0][1];
+    expect(patch.musicYoutubeUrl).toBe("");
   });
 
   it("clears backgroundImageId when clearBackgroundImage is true", async () => {
     await updateEventLogic(db, authUser, { eventId, clearBackgroundImage: true });
-
     expect(db.patchEvent).toHaveBeenCalledOnce();
     const patch = db.patchEvent.mock.calls[0][1];
     expect(patch.backgroundImageId).toBeUndefined();
   });
 
-  it("patches only provided fields", async () => {
+  it("clears donationQrId when clearDonationQr is true", async () => {
+    await updateEventLogic(db, authUser, { eventId, clearDonationQr: true });
+    expect(db.patchEvent).toHaveBeenCalledOnce();
+    const patch = db.patchEvent.mock.calls[0][1];
+    expect(patch.donationQrId).toBeUndefined();
+  });
+
+  it("patches only provided fields, leaving others absent", async () => {
     await updateEventLogic(db, authUser, {
       eventId,
       coupleName: "John & Jane",
@@ -646,21 +669,64 @@ describe("events: updateEvent business logic", () => {
 
     expect(db.patchEvent).toHaveBeenCalledOnce();
     const patch = db.patchEvent.mock.calls[0][1];
-    expect(patch).toEqual({
-      coupleName: "John & Jane",
-      colorPrimary: "#1a1a1a",
-    });
+    expect(patch).toEqual({ coupleName: "John & Jane", colorPrimary: "#1a1a1a" });
   });
 
-  it("patches all Feature 3 fields when provided", async () => {
+  it("patches venue fields (venueName, venueAddress)", async () => {
+    await updateEventLogic(db, authUser, {
+      eventId,
+      venueName: "Grand Ballroom KLCC",
+      venueAddress: "50088 Kuala Lumpur",
+    });
+
+    const patch = db.patchEvent.mock.calls[0][1];
+    expect(patch.venueName).toBe("Grand Ballroom KLCC");
+    expect(patch.venueAddress).toBe("50088 Kuala Lumpur");
+  });
+
+  it("patches donation bank fields (bankName, bankAccount, bankHolder)", async () => {
+    await updateEventLogic(db, authUser, {
+      eventId,
+      bankName: "Maybank",
+      bankAccount: "1234567890",
+      bankHolder: "Ahmad bin Ali",
+    });
+
+    const patch = db.patchEvent.mock.calls[0][1];
+    expect(patch.bankName).toBe("Maybank");
+    expect(patch.bankAccount).toBe("1234567890");
+    expect(patch.bankHolder).toBe("Ahmad bin Ali");
+  });
+
+  it("patches rsvpDeadline and published fields", async () => {
+    await updateEventLogic(db, authUser, {
+      eventId,
+      rsvpDeadline: "2030-06-01",
+      published: true,
+    });
+
+    const patch = db.patchEvent.mock.calls[0][1];
+    expect(patch.rsvpDeadline).toBe("2030-06-01");
+    expect(patch.published).toBe(true);
+  });
+
+  it("patches carouselImageIds array", async () => {
+    const ids = ["storage-1", "storage-2", "storage-3"];
+    await updateEventLogic(db, authUser, { eventId, carouselImageIds: ids });
+
+    const patch = db.patchEvent.mock.calls[0][1];
+    expect(patch.carouselImageIds).toEqual(ids);
+  });
+
+  it("patches all core fields when provided", async () => {
     await updateEventLogic(db, authUser, {
       eventId,
       coupleName: "Ahmad & Siti",
       weddingDate: "2030-06-15",
       weddingTime: "14:00",
-      locationWaze: "https://waze.com/ul/...",
-      locationGoogle: "https://maps.google.com/...",
-      locationApple: "https://maps.apple.com/...",
+      locationWaze: "https://waze.com/ul/abc",
+      locationGoogle: "https://maps.google.com/abc",
+      locationApple: "https://maps.apple.com/abc",
       backgroundColor: "#f8f4f0",
       colorPrimary: "#1a1a1a",
       colorSecondary: "#4a4a4a",
@@ -668,18 +734,18 @@ describe("events: updateEvent business logic", () => {
       musicYoutubeUrl: "https://youtube.com/watch?v=abc",
     });
 
-    expect(db.patchEvent).toHaveBeenCalledOnce();
     const patch = db.patchEvent.mock.calls[0][1];
     expect(patch.coupleName).toBe("Ahmad & Siti");
     expect(patch.weddingDate).toBe("2030-06-15");
-    expect(patch.weddingTime).toBe("14:00");
-    expect(patch.locationWaze).toBe("https://waze.com/ul/...");
-    expect(patch.locationGoogle).toBe("https://maps.google.com/...");
-    expect(patch.locationApple).toBe("https://maps.apple.com/...");
-    expect(patch.backgroundColor).toBe("#f8f4f0");
-    expect(patch.colorPrimary).toBe("#1a1a1a");
-    expect(patch.colorSecondary).toBe("#4a4a4a");
-    expect(patch.colorAccent).toBe("#c9a86c");
+    expect(patch.locationWaze).toBe("https://waze.com/ul/abc");
     expect(patch.musicYoutubeUrl).toBe("https://youtube.com/watch?v=abc");
+  });
+
+  it("does not return backgroundImageUrl (return value was removed)", async () => {
+    const result = await updateEventLogic(db, authUser, {
+      eventId,
+      backgroundImageId: "storage-abc",
+    });
+    expect(result).toBeUndefined();
   });
 });

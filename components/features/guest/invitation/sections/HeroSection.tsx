@@ -129,7 +129,7 @@ export function HeroSection({
           className="mt-6 text-sm tracking-widest uppercase"
           style={{ color: backgroundImageUrl ? "rgba(255,255,255,0.7)" : colorAccent }}
         >
-          Walimatul Urus
+          {t("guest.hero_tagline")}
         </motion.div>
       </div>
 

@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { formatEventDate, formatEventTime } from "@/lib/utils";
+import { useEventLanguage } from "@/hooks/useEventLanguage";
 import { InvitationContainer } from "./invitation/InvitationContainer";
 import { HeroSection } from "./invitation/sections/HeroSection";
 import { EventDetailsSection } from "./invitation/sections/EventDetailsSection";
@@ -17,15 +18,11 @@ interface GuestInvitationPageProps {
 }
 
 export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const event = useQuery(api.guest.getEventBySlug, { slug });
   const [guestName, setGuestName] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (event?.language) {
-      i18n.changeLanguage(event.language);
-    }
-  }, [event?.language, i18n]);
+  useEventLanguage(event?.language);
 
   if (event === undefined) {
     return (
