@@ -18,11 +18,13 @@ export default function BuilderPage() {
   const [carouselImageIds, setCarouselImageIds] = useState<Id<"_storage">[]>([]);
   const [carouselImageUrls, setCarouselImageUrls] = useState<string[]>([]);
 
-  // Init store from event when data is ready
+  // Always sync carousel from the reactive Convex query so new uploads appear immediately.
+  // Only call initFromEvent once to avoid overwriting in-progress edits.
   useEffect(() => {
-    if (event && event._id === eventId && !initialized) {
-      setCarouselImageIds((event.carouselImageIds ?? []) as Id<"_storage">[]);
-      setCarouselImageUrls(event.carouselImageUrls ?? []);
+    if (!event || event._id !== eventId) return;
+    setCarouselImageIds((event.carouselImageIds ?? []) as Id<"_storage">[]);
+    setCarouselImageUrls(event.carouselImageUrls ?? []);
+    if (!initialized) {
       initFromEvent({
         _id: event._id,
         coupleName: event.coupleName,

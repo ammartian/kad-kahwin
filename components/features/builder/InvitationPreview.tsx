@@ -13,6 +13,8 @@ export function InvitationPreview() {
   const backgroundImageUrl = useEditorStore((s) => s.backgroundImageUrl);
   const colorPrimary = useEditorStore((s) => s.colorPrimary);
   const colorAccent = useEditorStore((s) => s.colorAccent);
+  const venueName = useEditorStore((s) => s.venueName);
+  const venueAddress = useEditorStore((s) => s.venueAddress);
 
   const displayDate = weddingDate
     ? new Date(weddingDate + "T12:00:00").toLocaleDateString("ms-MY", {
@@ -81,6 +83,22 @@ export function InvitationPreview() {
             style={{ color: colorAccent || "#c9a86c" }}
           >
             {displayTime}
+          </div>
+        )}
+        {venueName && (
+          <div
+            className="mt-3 text-xs font-medium"
+            style={{ color: colorPrimary || "#1a1a1a" }}
+          >
+            {venueName}
+          </div>
+        )}
+        {venueAddress && (
+          <div
+            className="mt-0.5 text-xs opacity-70"
+            style={{ color: colorPrimary || "#1a1a1a" }}
+          >
+            {venueAddress}
           </div>
         )}
       </div>
