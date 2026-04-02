@@ -56,11 +56,10 @@ export function EventCard({ event }: EventCardProps) {
           {event.coupleName}
         </CardTitle>
         <span
-          className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${
-            event.published
-              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-              : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400"
-          }`}
+          className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${event.published
+            ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+            : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400"
+            }`}
         >
           {event.published ? t("event_card.published") : t("event_card.draft")}
         </span>
@@ -74,29 +73,31 @@ export function EventCard({ event }: EventCardProps) {
           {inviteUrl}
         </p>
       </CardContent>
-      <CardFooter className="flex flex-col sm:flex-row gap-2">
+      <CardFooter className="flex flex-col gap-2">
+        <Button asChild size="sm" className="min-h-[44px] sm:min-h-9 flex-1 w-full">
+          <Link href={`/dashboard/events/${event._id}`} prefetch={false}>
+            <ExternalLink className="size-4 mr-2" />
+            {t("dashboard.manage")}
+          </Link>
+        </Button>
+
         {event.published && (
-          <Button asChild size="sm" className="min-h-[44px] sm:min-h-9 flex-1">
+          <Button asChild size="sm" className="min-h-[44px] sm:min-h-9 flex-1 w-full">
             <Link href={`/${event.slug}`} target="_blank" rel="noopener noreferrer" prefetch={false}>
               <Eye className="size-4 mr-2" />
               {t("event_card.view_invitation")}
             </Link>
           </Button>
         )}
+
         <Button
           variant="outline"
           size="sm"
-          className="min-h-[44px] sm:min-h-9 flex-1"
+          className="min-h-[44px] sm:min-h-9 flex-1 w-full"
           onClick={handleCopy}
         >
           <Copy className="size-4 mr-2" />
           {copied ? t("event_card.copied") : t("dashboard.copy_link")}
-        </Button>
-        <Button asChild size="sm" className="min-h-[44px] sm:min-h-9 flex-1">
-          <Link href={`/dashboard/events/${event._id}`} prefetch={false}>
-            <ExternalLink className="size-4 mr-2" />
-            {t("dashboard.manage")}
-          </Link>
         </Button>
       </CardFooter>
     </Card>
