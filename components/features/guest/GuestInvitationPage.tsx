@@ -43,6 +43,7 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
   const backgroundColor = event.backgroundColor ?? "#f8f4f0";
   const backgroundImageUrl = event.backgroundImageUrl ?? null;
   const colorPrimary = event.colorPrimary ?? "#1a1a1a";
+  const colorSecondary = event.colorSecondary ?? "#c9bfb0";
   const colorAccent = event.colorAccent ?? "#c9a86c";
 
   const locale = event.language === "en" ? "en-MY" : "ms-MY";
@@ -56,45 +57,58 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
       backgroundColor={backgroundColor}
       backgroundImageUrl={backgroundImageUrl}
     >
-      {/* All sections share the same bg color */}
-      <div style={{ backgroundColor }}>
-        <HeroSection
-          coupleName={event.coupleName}
-          displayDate={displayDate}
-          displayTime={displayTime}
-          backgroundImageUrl={backgroundImageUrl}
-          backgroundColor={backgroundColor}
-          colorPrimary={colorPrimary}
-          colorAccent={colorAccent}
-        />
-
-        <EventDetailsSection
-          displayDate={displayDate}
-          displayTime={displayTime}
-          venueName={event.venueName}
-          venueAddress={event.venueAddress}
-          backgroundColor={backgroundColor}
-          colorPrimary={colorPrimary}
-          colorAccent={colorAccent}
-        />
-
-        {carouselImages.length > 0 && (
-          <CarouselSection
-            images={carouselImages}
+      {/* Scroll snap container — snaps between Landing, Event Details, Photos & Wishes */}
+      <div
+        style={{ backgroundColor }}
+        className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth"
+      >
+        {/* Section 1: Landing */}
+        <section className="snap-start">
+          <HeroSection
+            coupleName={event.coupleName}
+            displayDate={displayDate}
+            displayTime={displayTime}
+            backgroundImageUrl={backgroundImageUrl}
             backgroundColor={backgroundColor}
+            colorPrimary={colorPrimary}
             colorAccent={colorAccent}
           />
-        )}
+        </section>
 
-        <WishesSection
-          eventId={event._id}
-          backgroundColor={backgroundColor}
-          colorPrimary={colorPrimary}
-          colorAccent={colorAccent}
-        />
+        {/* Section 2: Event Details */}
+        <section className="snap-start flex min-h-screen flex-col items-center justify-center">
+          <EventDetailsSection
+            displayDate={displayDate}
+            displayTime={displayTime}
+            venueName={event.venueName}
+            venueAddress={event.venueAddress}
+            backgroundColor={backgroundColor}
+            colorPrimary={colorPrimary}
+            colorAccent={colorAccent}
+          />
+        </section>
 
-        {/* Bottom padding to clear fixed navbar */}
-        <div className="h-20" />
+        {/* Section 3: Photos & Wishes */}
+        <section className="snap-start flex min-h-screen flex-col">
+          {carouselImages.length > 0 && (
+            <CarouselSection
+              images={carouselImages}
+              backgroundColor={backgroundColor}
+              colorAccent={colorAccent}
+            />
+          )}
+
+          <WishesSection
+            eventId={event._id}
+            backgroundColor={backgroundColor}
+            colorPrimary={colorPrimary}
+            colorSecondary={colorSecondary}
+            colorAccent={colorAccent}
+          />
+
+          {/* Bottom padding to clear fixed navbar */}
+          <div className="h-20" />
+        </section>
       </div>
 
       <BottomNavbar

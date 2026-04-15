@@ -21,17 +21,21 @@ type ColorField = "colorPrimary" | "colorSecondary" | "colorAccent";
 interface ColorPickerFieldProps {
   field: ColorField;
   label: string;
+  hint: string;
   value: string;
   invalid: boolean;
 }
 
-function ColorPickerField({ field, label, value, invalid }: ColorPickerFieldProps) {
+function ColorPickerField({ field, label, hint, value, invalid }: ColorPickerFieldProps) {
   const setField = useEditorStore((s) => s.setField);
   const displayColor = value && isValidHex(value) ? value : "#1a1a1a";
 
   return (
-    <div className="space-y-2">
-      <label className="text-xs font-medium text-gray-600">{label}</label>
+    <div className="space-y-1.5">
+      <div>
+        <label className="text-xs font-medium text-gray-700">{label}</label>
+        <p className="text-[11px] text-gray-400 leading-tight">{hint}</p>
+      </div>
       <div className="flex gap-2">
         <Popover>
           <PopoverTrigger asChild>
@@ -73,22 +77,25 @@ export function ColorsSection() {
   return (
     <section className="space-y-3">
       <h3 className="text-sm font-semibold text-gray-900">{t("builder.colors")}</h3>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-3">
         <ColorPickerField
           field="colorPrimary"
           label={t("builder.color_primary")}
+          hint={t("builder.color_primary_hint")}
           value={colorPrimary}
           invalid={primaryInvalid}
         />
         <ColorPickerField
           field="colorSecondary"
           label={t("builder.color_secondary")}
+          hint={t("builder.color_secondary_hint")}
           value={colorSecondary}
           invalid={secondaryInvalid}
         />
         <ColorPickerField
           field="colorAccent"
           label={t("builder.color_accent")}
+          hint={t("builder.color_accent_hint")}
           value={colorAccent}
           invalid={accentInvalid}
         />

@@ -73,7 +73,7 @@ export function WishesSection({ eventId, colorAccent }: WishesSectionProps) {
         {wishes?.map((w) => (
           <div
             key={w._id}
-            className="rounded-lg bg-white/20 p-3"
+            className="rounded-sm bg-white/20 p-3"
           >
             <div className="flex items-start justify-between gap-2">
               <div>
@@ -114,7 +114,7 @@ export function WishesSection({ eventId, colorAccent }: WishesSectionProps) {
           onChange={(e) => setGuestName(e.target.value)}
           placeholder={t("rsvp.name_placeholder")}
           required
-          className="rounded-md border border-gray-300 bg-white/90 px-3 py-2 text-sm"
+          className="rounded-sm border border-gray-300 bg-white/90 px-3 py-2 text-sm"
         />
         <div className="relative">
           <textarea
@@ -124,7 +124,7 @@ export function WishesSection({ eventId, colorAccent }: WishesSectionProps) {
             maxLength={255}
             required
             rows={3}
-            className="w-full rounded-md border border-gray-300 bg-white/90 px-3 py-2 text-sm"
+            className="w-full rounded-sm border border-gray-300 bg-white/90 px-3 py-2 text-sm"
           />
           <span className="absolute bottom-2 right-2 text-xs text-gray-500">
             {t("wishes.char_count", { count: message.length })}

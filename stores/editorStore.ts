@@ -46,7 +46,7 @@ const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
   locationApple: "",
   backgroundColor: "#f8f4f0",
   colorPrimary: "#1a1a1a",
-  colorSecondary: "#4a4a4a",
+  colorSecondary: "#c9bfb0",
   colorAccent: "#c9a86c",
   backgroundImageUrl: null,
   musicYoutubeUrl: "",

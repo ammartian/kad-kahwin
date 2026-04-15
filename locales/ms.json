@@ -283,9 +283,12 @@
     "background_image_hint": "Seret atau klik untuk muat naik (JPG, PNG, WEBP, max 5MB)",
     "background_color": "Warna latar (jika tiada gambar)",
     "colors": "Warna Tema",
-    "color_primary": "Warna utama",
-    "color_secondary": "Warna sekunder",
-    "color_accent": "Warna aksen",
+    "color_primary": "Warna Teks",
+    "color_primary_hint": "Teks, nama & tarikh",
+    "color_secondary": "Warna Sempadan",
+    "color_secondary_hint": "Sempadan input & kad",
+    "color_accent": "Ikon & Aksen",
+    "color_accent_hint": "Ikon, butang & garisan",
     "music": "Muzik",
     "music_placeholder": "cth. https://youtube.com/watch?v=...",
     "music_hint": "Pautan YouTube — auto main & ulang pada halaman tetamu",
@@ -323,7 +326,11 @@
     "photos_hint": "Muat naik sehingga 10 foto (JPG, PNG, WEBP, max 5MB setiap satu)",
     "photos_add": "Tambah Foto",
     "photos_count": "{{count}}/10 foto",
-    "photos_max_reached": "Had 10 foto telah dicapai"
+    "photos_max_reached": "Had 10 foto telah dicapai",
+    "tab_details": "Butiran",
+    "tab_design": "Reka Bentuk",
+    "tab_media": "Media",
+    "tab_extras": "Lain-lain"
   },
   "guest": {
     "open_in_waze": "Buka di Waze",

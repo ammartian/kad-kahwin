@@ -283,9 +283,12 @@
     "background_image_hint": "Drag or click to upload (JPG, PNG, WEBP, max 5MB)",
     "background_color": "Background color (if no image)",
     "colors": "Theme Colors",
-    "color_primary": "Primary color",
-    "color_secondary": "Secondary color",
-    "color_accent": "Accent color",
+    "color_primary": "Font Color",
+    "color_primary_hint": "Names, dates & body text",
+    "color_secondary": "Border Color",
+    "color_secondary_hint": "Input & card borders",
+    "color_accent": "Icons & Accents",
+    "color_accent_hint": "Icons, buttons & dividers",
     "music": "Music",
     "music_placeholder": "e.g. https://youtube.com/watch?v=...",
     "music_hint": "YouTube link — auto-plays & loops on guest page",
@@ -323,7 +326,11 @@
     "photos_hint": "Upload up to 10 photos (JPG, PNG, WEBP, max 5MB each)",
     "photos_add": "Add Photo",
     "photos_count": "{{count}}/10 photos",
-    "photos_max_reached": "Maximum 10 photos reached"
+    "photos_max_reached": "Maximum 10 photos reached",
+    "tab_details": "Details",
+    "tab_design": "Design",
+    "tab_media": "Media",
+    "tab_extras": "Extras"
   },
   "guest": {
     "open_in_waze": "Open in Waze",

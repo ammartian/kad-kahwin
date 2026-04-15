@@ -63,7 +63,10 @@ export function BuilderLayout({
           />
         </div>
         <div className="flex min-h-[400px] flex-1 lg:min-h-0 lg:flex-[4]">
-          <PreviewPanel />
+          <PreviewPanel
+            eventId={eventId}
+            carouselImageUrls={carouselImageUrls}
+          />
         </div>
       </div>
     </div>

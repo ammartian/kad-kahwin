@@ -15,6 +15,7 @@ interface WishesSectionProps {
   eventId: Id<"events">;
   backgroundColor: string;
   colorPrimary: string;
+  colorSecondary: string;
   colorAccent: string;
 }
 
@@ -22,6 +23,7 @@ export function WishesSection({
   eventId,
   backgroundColor,
   colorPrimary,
+  colorSecondary,
   colorAccent,
 }: WishesSectionProps) {
   const { t } = useTranslation();
@@ -101,7 +103,8 @@ export function WishesSection({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="rounded-2xl bg-white/15 p-4 backdrop-blur-sm"
+              className="rounded-md bg-white/15 p-4 backdrop-blur-sm border"
+              style={{ borderColor: `${colorSecondary}60` }}
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0 flex-1">
@@ -155,8 +158,8 @@ export function WishesSection({
           onChange={(e) => setGuestName(e.target.value)}
           placeholder={t("rsvp.name_placeholder")}
           required
-          className="w-full rounded-xl border border-white/20 bg-white/15 px-4 py-2.5 text-sm placeholder-current placeholder-opacity-50 backdrop-blur-sm focus:outline-none focus:ring-2"
-          style={{ color: colorPrimary }}
+          className="w-full rounded-sm border bg-white/15 px-4 py-2.5 text-sm placeholder-current placeholder-opacity-50 backdrop-blur-sm focus:outline-none focus:ring-2"
+          style={{ color: colorPrimary, borderColor: colorSecondary }}
         />
         <div className="relative">
           <textarea
@@ -166,8 +169,8 @@ export function WishesSection({
             maxLength={255}
             required
             rows={3}
-            className="w-full rounded-xl border border-white/20 bg-white/15 px-4 py-2.5 text-sm placeholder-current placeholder-opacity-50 backdrop-blur-sm focus:outline-none focus:ring-2"
-            style={{ color: colorPrimary }}
+            className="w-full rounded-sm border bg-white/15 px-4 py-2.5 text-sm placeholder-current placeholder-opacity-50 backdrop-blur-sm focus:outline-none focus:ring-2"
+            style={{ color: colorPrimary, borderColor: colorSecondary }}
           />
           <span className="absolute bottom-2.5 right-3 text-xs opacity-40">
             {t("wishes.char_count", { count: message.length })}

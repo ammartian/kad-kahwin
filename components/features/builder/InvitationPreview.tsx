@@ -1,107 +1,114 @@
 "use client";
 
-import Image from "next/image";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
 import { useEditorStore } from "@/stores/editorStore";
+import { formatEventDate, formatEventTime } from "@/lib/utils";
+import { HeroSection } from "@/components/features/guest/invitation/sections/HeroSection";
+import { EventDetailsSection } from "@/components/features/guest/invitation/sections/EventDetailsSection";
+import { CarouselSection } from "@/components/features/guest/invitation/sections/CarouselSection";
+import { WishesSection } from "@/components/features/guest/invitation/sections/WishesSection";
+import { BottomNavbar } from "@/components/features/guest/invitation/navbar/BottomNavbar";
 
-const PREVIEW_WIDTH = 375;
+interface InvitationPreviewProps {
+  eventId: Id<"events">;
+  carouselImageUrls: string[];
+}
 
-export function InvitationPreview() {
+export function InvitationPreview({
+  eventId,
+  carouselImageUrls,
+}: InvitationPreviewProps) {
   const coupleName = useEditorStore((s) => s.coupleName);
   const weddingDate = useEditorStore((s) => s.weddingDate);
   const weddingTime = useEditorStore((s) => s.weddingTime);
   const backgroundColor = useEditorStore((s) => s.backgroundColor);
   const backgroundImageUrl = useEditorStore((s) => s.backgroundImageUrl);
   const colorPrimary = useEditorStore((s) => s.colorPrimary);
+  const colorSecondary = useEditorStore((s) => s.colorSecondary);
   const colorAccent = useEditorStore((s) => s.colorAccent);
   const venueName = useEditorStore((s) => s.venueName);
   const venueAddress = useEditorStore((s) => s.venueAddress);
+  const locationWaze = useEditorStore((s) => s.locationWaze);
+  const locationGoogle = useEditorStore((s) => s.locationGoogle);
+  const locationApple = useEditorStore((s) => s.locationApple);
+  const musicYoutubeUrl = useEditorStore((s) => s.musicYoutubeUrl);
 
-  const displayDate = weddingDate
-    ? new Date(weddingDate + "T12:00:00").toLocaleDateString("ms-MY", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })
-    : "";
+  // Fetch fields not tracked in the editor store
+  const event = useQuery(api.events.getEvent, { eventId });
 
-  const displayTime = weddingTime
-    ? new Date(`1970-01-01T${weddingTime}`).toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      })
-    : "";
-
-  const isBlobUrl = backgroundImageUrl?.startsWith("blob:");
+  const locale = event?.language === "en" ? "en-MY" : "ms-MY";
+  const displayDate = formatEventDate(weddingDate, locale) ?? "";
+  const displayTime = formatEventTime(weddingTime) ?? "";
 
   return (
+    // CSS transform creates a new containing block for position:fixed children
+    // so BottomNavbar's fixed positioning is contained within this 390px frame
     <div
-      className="relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg"
-      style={{ width: PREVIEW_WIDTH, aspectRatio: "9/16" }}
+      className="relative mx-auto w-full max-w-[390px] overflow-hidden rounded-xl shadow-2xl"
+      style={{ transform: "translateZ(0)" }}
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundColor: backgroundColor || "#f8f4f0",
-        }}
-      />
-      {backgroundImageUrl &&
-        (isBlobUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element -- blob: URLs not supported by next/image
-          <img
-            src={backgroundImageUrl}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
+      <div style={{ backgroundColor: backgroundColor || "#f8f4f0" }}>
+        <HeroSection
+          coupleName={coupleName}
+          displayDate={displayDate}
+          displayTime={displayTime}
+          backgroundImageUrl={backgroundImageUrl}
+          backgroundColor={backgroundColor || "#f8f4f0"}
+          colorPrimary={colorPrimary || "#1a1a1a"}
+          colorAccent={colorAccent || "#c9a86c"}
+        />
+
+        <EventDetailsSection
+          displayDate={displayDate}
+          displayTime={displayTime}
+          venueName={venueName}
+          venueAddress={venueAddress}
+          backgroundColor={backgroundColor || "#f8f4f0"}
+          colorPrimary={colorPrimary || "#1a1a1a"}
+          colorAccent={colorAccent || "#c9a86c"}
+        />
+
+        {carouselImageUrls.length > 0 && (
+          <CarouselSection
+            images={carouselImageUrls}
+            backgroundColor={backgroundColor || "#f8f4f0"}
+            colorAccent={colorAccent || "#c9a86c"}
           />
-        ) : (
-          <Image
-            src={backgroundImageUrl}
-            alt=""
-            fill
-            className="object-cover"
-            sizes={`${PREVIEW_WIDTH}px`}
-          />
-        ))}
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-        <div
-          className="mb-4 text-2xl font-semibold tracking-wide"
-          style={{ color: colorPrimary || "#1a1a1a" }}
-        >
-          {coupleName || "Nama Pasangan"}
-        </div>
-        {displayDate && (
-          <div
-            className="text-sm font-medium"
-            style={{ color: colorAccent || "#c9a86c" }}
-          >
-            {displayDate}
-          </div>
         )}
-        {displayTime && (
-          <div
-            className="mt-1 text-sm"
-            style={{ color: colorAccent || "#c9a86c" }}
-          >
-            {displayTime}
-          </div>
-        )}
-        {venueName && (
-          <div
-            className="mt-3 text-xs font-medium"
-            style={{ color: colorPrimary || "#1a1a1a" }}
-          >
-            {venueName}
-          </div>
-        )}
-        {venueAddress && (
-          <div
-            className="mt-0.5 text-xs opacity-70"
-            style={{ color: colorPrimary || "#1a1a1a" }}
-          >
-            {venueAddress}
-          </div>
-        )}
+
+        <WishesSection
+          eventId={eventId}
+          backgroundColor={backgroundColor || "#f8f4f0"}
+          colorPrimary={colorPrimary || "#1a1a1a"}
+          colorSecondary={colorSecondary || "#c9bfb0"}
+          colorAccent={colorAccent || "#c9a86c"}
+        />
+
+        {/* Bottom padding to clear fixed navbar */}
+        <div className="h-20" />
       </div>
+
+      <BottomNavbar
+        eventId={eventId}
+        colorAccent={colorAccent || "#c9a86c"}
+        backgroundColor={backgroundColor || "#f8f4f0"}
+        coupleName={coupleName}
+        weddingDate={weddingDate}
+        weddingTime={weddingTime}
+        venueName={venueName}
+        venueAddress={venueAddress}
+        locationWaze={locationWaze}
+        locationGoogle={locationGoogle}
+        locationApple={locationApple}
+        donationQrUrl={event?.donationQrUrl ?? null}
+        bankName={event?.bankName}
+        bankAccount={event?.bankAccount}
+        bankHolder={event?.bankHolder}
+        rsvpDeadline={event?.rsvpDeadline}
+        musicYoutubeUrl={musicYoutubeUrl}
+      />
     </div>
   );
 }
