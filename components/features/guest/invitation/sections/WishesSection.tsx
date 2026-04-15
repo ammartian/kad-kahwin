@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useMemo } from "react";
 import { usePaginatedQuery, useQuery, useMutation } from "convex/react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -17,6 +18,7 @@ interface WishesSectionProps {
   colorPrimary: string;
   colorSecondary: string;
   colorAccent: string;
+  backgroundImageUrl?: string | null;
 }
 
 export function WishesSection({
@@ -25,6 +27,7 @@ export function WishesSection({
   colorPrimary,
   colorSecondary,
   colorAccent,
+  backgroundImageUrl,
 }: WishesSectionProps) {
   const { t } = useTranslation();
   const shouldReduceMotion = useReducedMotion();
@@ -82,9 +85,23 @@ export function WishesSection({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="px-6 py-12"
+      className="relative overflow-hidden px-6 py-12"
       style={{ backgroundColor, color: colorPrimary }}
     >
+      {backgroundImageUrl && (
+        <div className="absolute inset-0">
+          {backgroundImageUrl.startsWith("blob:") ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img src={backgroundImageUrl} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <Image src={backgroundImageUrl} alt="" fill className="object-cover" sizes="390px" />
+          )}
+          <div className="absolute inset-0 bg-black/30" />
+        </div>
+      )}
+      {/* Content sits above background image */}
+      <div className="relative z-10">
+
       {/* Title */}
       <div className="mb-8 text-center">
         <div className="mb-2 text-xs tracking-[0.3em] uppercase" style={{ color: colorAccent }}>
@@ -192,6 +209,8 @@ export function WishesSection({
           </Button>
         </motion.div>
       </form>
+
+      </div>{/* end relative z-10 */}
     </motion.section>
   );
 }

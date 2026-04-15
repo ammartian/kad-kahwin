@@ -327,10 +327,14 @@
     "photos_add": "Add Photo",
     "photos_count": "{{count}}/10 photos",
     "photos_max_reached": "Maximum 10 photos reached",
+    "tab_landing": "Landing",
     "tab_details": "Details",
-    "tab_design": "Design",
-    "tab_media": "Media",
-    "tab_extras": "Extras"
+    "tab_photos": "Photos & Wishes",
+    "section_event_details_bg": "Event Details Background",
+    "section_event_details_colors": "Event Details Colours",
+    "section_wishes_bg": "Wishes Background",
+    "section_wishes_colors": "Wishes Colours",
+    "image_resolution_hint": "Best resolution: 1080 × 1920 px (9:16 portrait), max 5 MB"
   },
   "guest": {
     "open_in_waze": "Open in Waze",

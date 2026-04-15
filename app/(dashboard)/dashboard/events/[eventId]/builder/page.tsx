@@ -41,6 +41,16 @@ export default function BuilderPage() {
         musicYoutubeUrl: event.musicYoutubeUrl,
         venueName: event.venueName,
         venueAddress: event.venueAddress,
+        eventDetailsBgImageUrl: event.eventDetailsBgImageUrl ?? null,
+        eventDetailsBgColor: event.eventDetailsBgColor,
+        eventDetailsColorPrimary: event.eventDetailsColorPrimary,
+        eventDetailsColorSecondary: event.eventDetailsColorSecondary,
+        eventDetailsColorAccent: event.eventDetailsColorAccent,
+        wishesBgImageUrl: event.wishesBgImageUrl ?? null,
+        wishesBgColor: event.wishesBgColor,
+        wishesColorPrimary: event.wishesColorPrimary,
+        wishesColorSecondary: event.wishesColorSecondary,
+        wishesColorAccent: event.wishesColorAccent,
       });
     }
   }, [event, eventId, initialized, initFromEvent]);

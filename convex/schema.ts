@@ -36,6 +36,18 @@ export default defineSchema({
     colorPrimary: v.optional(v.string()),
     colorSecondary: v.optional(v.string()),
     colorAccent: v.optional(v.string()),
+    // Event Details section overrides
+    eventDetailsBgImageId: v.optional(v.id("_storage")),
+    eventDetailsBgColor: v.optional(v.string()),
+    eventDetailsColorPrimary: v.optional(v.string()),
+    eventDetailsColorSecondary: v.optional(v.string()),
+    eventDetailsColorAccent: v.optional(v.string()),
+    // Wishes section overrides
+    wishesBgImageId: v.optional(v.id("_storage")),
+    wishesBgColor: v.optional(v.string()),
+    wishesColorPrimary: v.optional(v.string()),
+    wishesColorSecondary: v.optional(v.string()),
+    wishesColorAccent: v.optional(v.string()),
     musicYoutubeUrl: v.optional(v.string()),
     venueName: v.optional(v.string()),
     venueAddress: v.optional(v.string()),

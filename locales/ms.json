@@ -327,10 +327,14 @@
     "photos_add": "Tambah Foto",
     "photos_count": "{{count}}/10 foto",
     "photos_max_reached": "Had 10 foto telah dicapai",
+    "tab_landing": "Landing",
     "tab_details": "Butiran",
-    "tab_design": "Reka Bentuk",
-    "tab_media": "Media",
-    "tab_extras": "Lain-lain"
+    "tab_photos": "Foto & Ucapan",
+    "section_event_details_bg": "Latar Butiran Majlis",
+    "section_event_details_colors": "Warna Butiran Majlis",
+    "section_wishes_bg": "Latar Ucapan",
+    "section_wishes_colors": "Warna Ucapan",
+    "image_resolution_hint": "Resolusi terbaik: 1080 × 1920 px (9:16 potret), maks 5 MB"
   },
   "guest": {
     "open_in_waze": "Buka di Waze",

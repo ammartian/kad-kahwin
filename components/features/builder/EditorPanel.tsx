@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calendar, Palette, Image as ImageIcon, Gift } from "lucide-react";
+import { Sparkles, CalendarDays, Images } from "lucide-react";
 import type { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
 import {
@@ -14,8 +14,10 @@ import {
   DonationSection,
 } from "./sections";
 import { PhotosSection } from "./sections/PhotosSection";
+import { SectionBackground } from "./sections/SectionBackground";
+import { SectionColors } from "./sections/SectionColors";
 
-type TabKey = "details" | "design" | "media" | "extras";
+type TabKey = "landing" | "details" | "photos";
 
 interface EditorPanelProps {
   eventId: Id<"events">;
@@ -27,13 +29,12 @@ interface EditorPanelProps {
 
 export function EditorPanel({ eventId, carouselImageIds, carouselImageUrls, onCarouselIdsChange, onCarouselUrlsChange }: EditorPanelProps) {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<TabKey>("details");
+  const [activeTab, setActiveTab] = useState<TabKey>("landing");
 
   const tabs: { key: TabKey; labelKey: string; icon: React.ReactNode }[] = [
-    { key: "details", labelKey: "builder.tab_details", icon: <Calendar className="h-4 w-4" /> },
-    { key: "design",  labelKey: "builder.tab_design",  icon: <Palette className="h-4 w-4" /> },
-    { key: "media",   labelKey: "builder.tab_media",   icon: <ImageIcon className="h-4 w-4" /> },
-    { key: "extras",  labelKey: "builder.tab_extras",  icon: <Gift className="h-4 w-4" /> },
+    { key: "landing", labelKey: "builder.tab_landing", icon: <Sparkles className="h-4 w-4" /> },
+    { key: "details", labelKey: "builder.tab_details", icon: <CalendarDays className="h-4 w-4" /> },
+    { key: "photos",  labelKey: "builder.tab_photos",  icon: <Images className="h-4 w-4" /> },
   ];
 
   return (
@@ -65,19 +66,33 @@ export function EditorPanel({ eventId, carouselImageIds, carouselImageUrls, onCa
       {/* Tab content */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden">
         <div className="space-y-6 p-4 sm:p-6">
+          {activeTab === "landing" && (
+            <>
+              <BackgroundSection />
+              <ColorsSection />
+              <MusicSection />
+            </>
+          )}
           {activeTab === "details" && (
             <>
               <EventDetailsSection />
               <LocationSection />
+              <SectionBackground
+                imageUrlField="eventDetailsBgImageUrl"
+                imageIdMutationArg="eventDetailsBgImageId"
+                clearMutationArg="clearEventDetailsBgImage"
+                colorField="eventDetailsBgColor"
+                sectionTitle={t("builder.section_event_details_bg")}
+              />
+              <SectionColors
+                primaryField="eventDetailsColorPrimary"
+                secondaryField="eventDetailsColorSecondary"
+                accentField="eventDetailsColorAccent"
+                title={t("builder.section_event_details_colors")}
+              />
             </>
           )}
-          {activeTab === "design" && (
-            <>
-              <BackgroundSection />
-              <ColorsSection />
-            </>
-          )}
-          {activeTab === "media" && (
+          {activeTab === "photos" && (
             <>
               <PhotosSection
                 eventId={eventId}
@@ -86,11 +101,21 @@ export function EditorPanel({ eventId, carouselImageIds, carouselImageUrls, onCa
                 onIdsChange={onCarouselIdsChange}
                 onUrlsChange={onCarouselUrlsChange}
               />
-              <MusicSection />
+              <SectionBackground
+                imageUrlField="wishesBgImageUrl"
+                imageIdMutationArg="wishesBgImageId"
+                clearMutationArg="clearWishesBgImage"
+                colorField="wishesBgColor"
+                sectionTitle={t("builder.section_wishes_bg")}
+              />
+              <SectionColors
+                primaryField="wishesColorPrimary"
+                secondaryField="wishesColorSecondary"
+                accentField="wishesColorAccent"
+                title={t("builder.section_wishes_colors")}
+              />
+              <DonationSection />
             </>
-          )}
-          {activeTab === "extras" && (
-            <DonationSection />
           )}
         </div>
       </div>

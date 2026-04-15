@@ -15,7 +15,19 @@ export type EditorField =
   | "backgroundImageUrl"
   | "musicYoutubeUrl"
   | "venueName"
-  | "venueAddress";
+  | "venueAddress"
+  // Event Details section overrides
+  | "eventDetailsBgImageUrl"
+  | "eventDetailsBgColor"
+  | "eventDetailsColorPrimary"
+  | "eventDetailsColorSecondary"
+  | "eventDetailsColorAccent"
+  // Wishes section overrides
+  | "wishesBgImageUrl"
+  | "wishesBgColor"
+  | "wishesColorPrimary"
+  | "wishesColorSecondary"
+  | "wishesColorAccent";
 
 export interface EditorState {
   eventId: Id<"events"> | null;
@@ -34,6 +46,18 @@ export interface EditorState {
   musicYoutubeUrl: string;
   venueName: string;
   venueAddress: string;
+  // Event Details section overrides
+  eventDetailsBgImageUrl: string | null;
+  eventDetailsBgColor: string;
+  eventDetailsColorPrimary: string;
+  eventDetailsColorSecondary: string;
+  eventDetailsColorAccent: string;
+  // Wishes section overrides
+  wishesBgImageUrl: string | null;
+  wishesBgColor: string;
+  wishesColorPrimary: string;
+  wishesColorSecondary: string;
+  wishesColorAccent: string;
 }
 
 const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
@@ -52,6 +76,18 @@ const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
   musicYoutubeUrl: "",
   venueName: "",
   venueAddress: "",
+  // Event Details section overrides
+  eventDetailsBgImageUrl: null,
+  eventDetailsBgColor: "#f8f4f0",
+  eventDetailsColorPrimary: "#1a1a1a",
+  eventDetailsColorSecondary: "#c9bfb0",
+  eventDetailsColorAccent: "#c9a86c",
+  // Wishes section overrides
+  wishesBgImageUrl: null,
+  wishesBgColor: "#f8f4f0",
+  wishesColorPrimary: "#1a1a1a",
+  wishesColorSecondary: "#c9bfb0",
+  wishesColorAccent: "#c9a86c",
 };
 
 interface EditorStore extends EditorState {
@@ -72,6 +108,16 @@ interface EditorStore extends EditorState {
     musicYoutubeUrl?: string;
     venueName?: string;
     venueAddress?: string;
+    eventDetailsBgImageUrl?: string | null;
+    eventDetailsBgColor?: string;
+    eventDetailsColorPrimary?: string;
+    eventDetailsColorSecondary?: string;
+    eventDetailsColorAccent?: string;
+    wishesBgImageUrl?: string | null;
+    wishesBgColor?: string;
+    wishesColorPrimary?: string;
+    wishesColorSecondary?: string;
+    wishesColorAccent?: string;
   }) => void;
   reset: () => void;
 }
@@ -104,6 +150,16 @@ export const useEditorStore = create<EditorStore>((set) => ({
       musicYoutubeUrl: event.musicYoutubeUrl ?? "",
       venueName: event.venueName ?? "",
       venueAddress: event.venueAddress ?? "",
+      eventDetailsBgImageUrl: event.eventDetailsBgImageUrl ?? null,
+      eventDetailsBgColor: event.eventDetailsBgColor ?? DEFAULT_STATE.eventDetailsBgColor,
+      eventDetailsColorPrimary: event.eventDetailsColorPrimary ?? DEFAULT_STATE.eventDetailsColorPrimary,
+      eventDetailsColorSecondary: event.eventDetailsColorSecondary ?? DEFAULT_STATE.eventDetailsColorSecondary,
+      eventDetailsColorAccent: event.eventDetailsColorAccent ?? DEFAULT_STATE.eventDetailsColorAccent,
+      wishesBgImageUrl: event.wishesBgImageUrl ?? null,
+      wishesBgColor: event.wishesBgColor ?? DEFAULT_STATE.wishesBgColor,
+      wishesColorPrimary: event.wishesColorPrimary ?? DEFAULT_STATE.wishesColorPrimary,
+      wishesColorSecondary: event.wishesColorSecondary ?? DEFAULT_STATE.wishesColorSecondary,
+      wishesColorAccent: event.wishesColorAccent ?? DEFAULT_STATE.wishesColorAccent,
     }),
 
   reset: () =>

@@ -13,11 +13,13 @@ export const getEventBySlug = query({
 
     if (!event || !event.published) return null;
 
-    const [backgroundImageUrl, donationQrUrl] = await Promise.all([
+    const [backgroundImageUrl, donationQrUrl, eventDetailsBgImageUrl, wishesBgImageUrl] = await Promise.all([
       event.backgroundImageId
         ? ctx.storage.getUrl(event.backgroundImageId)
         : null,
       event.donationQrId ? ctx.storage.getUrl(event.donationQrId) : null,
+      event.eventDetailsBgImageId ? ctx.storage.getUrl(event.eventDetailsBgImageId) : null,
+      event.wishesBgImageId ? ctx.storage.getUrl(event.wishesBgImageId) : null,
     ]);
 
     const carouselImageUrls: string[] = [];
@@ -56,6 +58,16 @@ export const getEventBySlug = query({
       bankAccount: event.bankAccount,
       bankHolder: event.bankHolder,
       carouselImageUrls,
+      eventDetailsBgImageUrl,
+      eventDetailsBgColor: event.eventDetailsBgColor,
+      eventDetailsColorPrimary: event.eventDetailsColorPrimary,
+      eventDetailsColorSecondary: event.eventDetailsColorSecondary,
+      eventDetailsColorAccent: event.eventDetailsColorAccent,
+      wishesBgImageUrl,
+      wishesBgColor: event.wishesBgColor,
+      wishesColorPrimary: event.wishesColorPrimary,
+      wishesColorSecondary: event.wishesColorSecondary,
+      wishesColorAccent: event.wishesColorAccent,
     };
   },
 });

@@ -29,6 +29,14 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
   const venueName = useEditorStore((s) => s.venueName);
   const venueAddress = useEditorStore((s) => s.venueAddress);
   const initialized = useEditorStore((s) => s.initialized);
+  const eventDetailsBgColor = useEditorStore((s) => s.eventDetailsBgColor);
+  const eventDetailsColorPrimary = useEditorStore((s) => s.eventDetailsColorPrimary);
+  const eventDetailsColorSecondary = useEditorStore((s) => s.eventDetailsColorSecondary);
+  const eventDetailsColorAccent = useEditorStore((s) => s.eventDetailsColorAccent);
+  const wishesBgColor = useEditorStore((s) => s.wishesBgColor);
+  const wishesColorPrimary = useEditorStore((s) => s.wishesColorPrimary);
+  const wishesColorSecondary = useEditorStore((s) => s.wishesColorSecondary);
+  const wishesColorAccent = useEditorStore((s) => s.wishesColorAccent);
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -50,6 +58,14 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
         musicYoutubeUrl: musicYoutubeUrl || undefined,
         venueName: venueName || undefined,
         venueAddress: venueAddress || undefined,
+        eventDetailsBgColor: eventDetailsBgColor && isValidHex(eventDetailsBgColor) ? eventDetailsBgColor : undefined,
+        eventDetailsColorPrimary: eventDetailsColorPrimary && isValidHex(eventDetailsColorPrimary) ? eventDetailsColorPrimary : undefined,
+        eventDetailsColorSecondary: eventDetailsColorSecondary && isValidHex(eventDetailsColorSecondary) ? eventDetailsColorSecondary : undefined,
+        eventDetailsColorAccent: eventDetailsColorAccent && isValidHex(eventDetailsColorAccent) ? eventDetailsColorAccent : undefined,
+        wishesBgColor: wishesBgColor && isValidHex(wishesBgColor) ? wishesBgColor : undefined,
+        wishesColorPrimary: wishesColorPrimary && isValidHex(wishesColorPrimary) ? wishesColorPrimary : undefined,
+        wishesColorSecondary: wishesColorSecondary && isValidHex(wishesColorSecondary) ? wishesColorSecondary : undefined,
+        wishesColorAccent: wishesColorAccent && isValidHex(wishesColorAccent) ? wishesColorAccent : undefined,
       });
       setSaveStatus("idle");
     } catch {
@@ -71,6 +87,14 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
     musicYoutubeUrl,
     venueName,
     venueAddress,
+    eventDetailsBgColor,
+    eventDetailsColorPrimary,
+    eventDetailsColorSecondary,
+    eventDetailsColorAccent,
+    wishesBgColor,
+    wishesColorPrimary,
+    wishesColorSecondary,
+    wishesColorAccent,
   ]);
 
   useEffect(() => {
@@ -98,6 +122,14 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
     musicYoutubeUrl,
     venueName,
     venueAddress,
+    eventDetailsBgColor,
+    eventDetailsColorPrimary,
+    eventDetailsColorSecondary,
+    eventDetailsColorAccent,
+    wishesBgColor,
+    wishesColorPrimary,
+    wishesColorSecondary,
+    wishesColorAccent,
     persist,
   ]);
 

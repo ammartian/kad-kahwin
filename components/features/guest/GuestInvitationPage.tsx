@@ -46,6 +46,18 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
   const colorSecondary = event.colorSecondary ?? "#c9bfb0";
   const colorAccent = event.colorAccent ?? "#c9a86c";
 
+  // Per-section overrides (fall back to global)
+  const eventDetailsBg = event.eventDetailsBgColor ?? backgroundColor;
+  const eventDetailsBgImage = event.eventDetailsBgImageUrl ?? null;
+  const eventDetailsPrimary = event.eventDetailsColorPrimary ?? colorPrimary;
+  const eventDetailsAccent = event.eventDetailsColorAccent ?? colorAccent;
+
+  const wishesBg = event.wishesBgColor ?? backgroundColor;
+  const wishesBgImage = event.wishesBgImageUrl ?? null;
+  const wishesPrimary = event.wishesColorPrimary ?? colorPrimary;
+  const wishesSecondary = event.wishesColorSecondary ?? colorSecondary;
+  const wishesAccent = event.wishesColorAccent ?? colorAccent;
+
   const locale = event.language === "en" ? "en-MY" : "ms-MY";
   const displayDate = formatEventDate(event.weddingDate, locale) ?? "";
   const displayTime = formatEventTime(event.weddingTime) ?? "";
@@ -82,9 +94,10 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
             displayTime={displayTime}
             venueName={event.venueName}
             venueAddress={event.venueAddress}
-            backgroundColor={backgroundColor}
-            colorPrimary={colorPrimary}
-            colorAccent={colorAccent}
+            backgroundColor={eventDetailsBg}
+            colorPrimary={eventDetailsPrimary}
+            colorAccent={eventDetailsAccent}
+            backgroundImageUrl={eventDetailsBgImage}
           />
         </section>
 
@@ -100,10 +113,11 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
 
           <WishesSection
             eventId={event._id}
-            backgroundColor={backgroundColor}
-            colorPrimary={colorPrimary}
-            colorSecondary={colorSecondary}
-            colorAccent={colorAccent}
+            backgroundColor={wishesBg}
+            colorPrimary={wishesPrimary}
+            colorSecondary={wishesSecondary}
+            colorAccent={wishesAccent}
+            backgroundImageUrl={wishesBgImage}
           />
 
           {/* Bottom padding to clear fixed navbar */}

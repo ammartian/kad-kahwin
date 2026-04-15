@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -12,6 +13,7 @@ interface EventDetailsSectionProps {
   backgroundColor: string;
   colorPrimary: string;
   colorAccent: string;
+  backgroundImageUrl?: string | null;
 }
 
 const cardVariants: Variants = {
@@ -60,6 +62,7 @@ export function EventDetailsSection({
   backgroundColor,
   colorPrimary,
   colorAccent,
+  backgroundImageUrl,
 }: EventDetailsSectionProps) {
   const { t } = useTranslation();
   const shouldReduceMotion = useReducedMotion();
@@ -75,9 +78,23 @@ export function EventDetailsSection({
 
   return (
     <section
-      className="flex min-h-[60vh] flex-col items-center justify-center px-6 py-16"
+      className="relative flex min-h-[60vh] flex-col items-center justify-center overflow-hidden px-6 py-16"
       style={{ backgroundColor }}
     >
+      {backgroundImageUrl && (
+        <div className="absolute inset-0">
+          {backgroundImageUrl.startsWith("blob:") ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img src={backgroundImageUrl} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <Image src={backgroundImageUrl} alt="" fill className="object-cover" sizes="390px" />
+          )}
+          <div className="absolute inset-0 bg-black/30" />
+        </div>
+      )}
+      {/* Content sits above background image */}
+      <div className="relative z-10 w-full">
+
       {/* Section title */}
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
@@ -105,6 +122,8 @@ export function EventDetailsSection({
           />
         ))}
       </div>
+
+      </div>{/* end relative z-10 */}
     </section>
   );
 }

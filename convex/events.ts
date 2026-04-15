@@ -147,9 +147,11 @@ export const getEvent = query({
     const event = await ctx.db.get(args.eventId);
     if (!event) return null;
 
-    const [backgroundImageUrl, donationQrUrl] = await Promise.all([
+    const [backgroundImageUrl, donationQrUrl, eventDetailsBgImageUrl, wishesBgImageUrl] = await Promise.all([
       event.backgroundImageId ? ctx.storage.getUrl(event.backgroundImageId) : null,
       event.donationQrId ? ctx.storage.getUrl(event.donationQrId) : null,
+      event.eventDetailsBgImageId ? ctx.storage.getUrl(event.eventDetailsBgImageId) : null,
+      event.wishesBgImageId ? ctx.storage.getUrl(event.wishesBgImageId) : null,
     ]);
 
     const carouselImageUrls: string[] = [];
@@ -166,6 +168,8 @@ export const getEvent = query({
       ...event,
       backgroundImageUrl,
       donationQrUrl,
+      eventDetailsBgImageUrl,
+      wishesBgImageUrl,
       carouselImageUrls,
     };
   },
@@ -197,6 +201,20 @@ export const updateEvent = mutation({
     venueName: v.optional(v.string()),
     venueAddress: v.optional(v.string()),
     carouselImageIds: v.optional(v.array(v.id("_storage"))),
+    // Event Details section overrides
+    eventDetailsBgImageId: v.optional(v.id("_storage")),
+    clearEventDetailsBgImage: v.optional(v.boolean()),
+    eventDetailsBgColor: v.optional(v.string()),
+    eventDetailsColorPrimary: v.optional(v.string()),
+    eventDetailsColorSecondary: v.optional(v.string()),
+    eventDetailsColorAccent: v.optional(v.string()),
+    // Wishes section overrides
+    wishesBgImageId: v.optional(v.id("_storage")),
+    clearWishesBgImage: v.optional(v.boolean()),
+    wishesBgColor: v.optional(v.string()),
+    wishesColorPrimary: v.optional(v.string()),
+    wishesColorSecondary: v.optional(v.string()),
+    wishesColorAccent: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const user = await authComponent.getAuthUser(ctx);
@@ -211,7 +229,7 @@ export const updateEvent = mutation({
 
     if (!manager) throw new Error("Unauthorized: not a manager of this event");
 
-    const { eventId, clearBackgroundImage, clearDonationQr, ...updates } = args;
+    const { eventId, clearBackgroundImage, clearDonationQr, clearEventDetailsBgImage, clearWishesBgImage, ...updates } = args;
 
     if (
       updates.musicYoutubeUrl !== undefined &&
@@ -228,6 +246,10 @@ export const updateEvent = mutation({
       "musicYoutubeUrl", "backgroundImageId", "donationQrId",
       "bankName", "bankAccount", "bankHolder",
       "rsvpDeadline", "published", "venueName", "venueAddress", "carouselImageIds",
+      "eventDetailsBgImageId", "eventDetailsBgColor",
+      "eventDetailsColorPrimary", "eventDetailsColorSecondary", "eventDetailsColorAccent",
+      "wishesBgImageId", "wishesBgColor",
+      "wishesColorPrimary", "wishesColorSecondary", "wishesColorAccent",
     ] as const;
 
     const patch: Record<string, unknown> = {};
@@ -236,6 +258,8 @@ export const updateEvent = mutation({
     }
     if (clearBackgroundImage) patch.backgroundImageId = undefined;
     if (clearDonationQr) patch.donationQrId = undefined;
+    if (clearEventDetailsBgImage) patch.eventDetailsBgImageId = undefined;
+    if (clearWishesBgImage) patch.wishesBgImageId = undefined;
 
     if (Object.keys(patch).length === 0) return;
 
