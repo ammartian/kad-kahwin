@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Sparkles, CalendarDays, Images } from "lucide-react";
+import { Sparkles, CalendarDays, Images, Copy, Check } from "lucide-react";
 import type { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
+import { useInviteUrl } from "@/hooks/useInviteUrl";
 import {
   BackgroundSection,
   ColorsSection,
@@ -21,15 +22,25 @@ type TabKey = "landing" | "details" | "photos";
 
 interface EditorPanelProps {
   eventId: Id<"events">;
+  slug: string;
   carouselImageIds: Id<"_storage">[];
   carouselImageUrls: string[];
   onCarouselIdsChange: (ids: Id<"_storage">[]) => void;
   onCarouselUrlsChange: (urls: string[]) => void;
 }
 
-export function EditorPanel({ eventId, carouselImageIds, carouselImageUrls, onCarouselIdsChange, onCarouselUrlsChange }: EditorPanelProps) {
+export function EditorPanel({ eventId, slug, carouselImageIds, carouselImageUrls, onCarouselIdsChange, onCarouselUrlsChange }: EditorPanelProps) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<TabKey>("landing");
+  const [copied, setCopied] = useState(false);
+  const inviteUrl = useInviteUrl(slug);
+
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(inviteUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, [inviteUrl]);
 
   const tabs: { key: TabKey; labelKey: string; icon: React.ReactNode }[] = [
     { key: "landing", labelKey: "builder.tab_landing", icon: <Sparkles className="h-4 w-4" /> },
@@ -41,6 +52,20 @@ export function EditorPanel({ eventId, carouselImageIds, carouselImageUrls, onCa
     <div className="flex flex-1 flex-col overflow-hidden">
       <div className="border-b border-gray-200 px-4 py-3 sm:px-6">
         <h2 className="text-lg font-semibold text-gray-900">{t("builder.title")}</h2>
+      </div>
+
+      {/* Invitation URL banner */}
+      <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50 px-4 py-2 sm:px-6">
+        <span className="min-w-0 flex-1 truncate text-xs text-gray-500">{inviteUrl}</span>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="flex shrink-0 items-center gap-1 rounded px-2 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-200"
+          aria-label="Copy invitation URL"
+        >
+          {copied ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? t("event_card.copied") : t("dashboard.copy_link")}
+        </button>
       </div>
 
       {/* Tab strip */}

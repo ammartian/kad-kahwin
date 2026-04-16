@@ -254,13 +254,10 @@
     "slug_placeholder": "shafiqah-qayyum",
     "url_preview": "Your invitation URL",
     "rsvp_deadline": "RSVP deadline (optional)",
-    "co_manager_email": "Invite partner (optional)",
-    "co_manager_email_placeholder": "Partner's email address",
     "submit": "Create Event",
     "submitting": "Creating...",
     "success_title": "Event created!",
     "success_message": "Your wedding invitation is ready. You can now customize it and share the link.",
-    "invitation_sent": "Invitation sent to {{email}}",
     "slug_checking": "Checking...",
     "slug_available": "Available",
     "slug_taken": "Already taken",
@@ -346,7 +343,11 @@
     "couple_name_placeholder": "Couple Names",
     "scroll_down": "Scroll down",
     "hero_tagline": "Walimatul Urus",
-    "event_details_title": "Event Details"
+    "event_details_title": "Event Details",
+    "card_date": "Date",
+    "card_time": "Time",
+    "card_venue": "Venue",
+    "card_address": "Address"
   },
   "navbar": {
     "music": "Music",

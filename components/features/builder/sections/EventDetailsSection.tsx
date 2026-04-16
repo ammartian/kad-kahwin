@@ -3,6 +3,7 @@
 import { useTranslation } from "react-i18next";
 import { useEditorStore } from "@/stores/editorStore";
 import { Input } from "@/components/ui/input";
+import { DateTimePicker } from "@/components/ui/date-time-picker";
 
 export function EventDetailsSection() {
   const { t } = useTranslation();
@@ -25,23 +26,15 @@ export function EventDetailsSection() {
             placeholder={t("builder.couple_name_placeholder")}
           />
         </div>
-        <div className="space-y-2">
-          <label className="text-xs font-medium text-gray-600">{t("builder.wedding_date")}</label>
-          <Input
-            type="date"
-            value={weddingDate}
-            onChange={(e) => setField("weddingDate", e.target.value)}
-          />
-        </div>
-        <div className="space-y-2">
-          <label className="text-xs font-medium text-gray-600">{t("builder.wedding_time")}</label>
-          <Input
-            type="time"
-            value={weddingTime}
-            onChange={(e) => setField("weddingTime", e.target.value)}
-            placeholder={t("builder.wedding_time_placeholder")}
-          />
-        </div>
+        <DateTimePicker
+          date={weddingDate}
+          onDateChange={(val) => setField("weddingDate", val)}
+          time={weddingTime}
+          onTimeChange={(val) => setField("weddingTime", val)}
+          dateLabel={t("builder.wedding_date")}
+          timeLabel={t("builder.wedding_time")}
+          labelClassName="text-xs font-medium text-gray-600"
+        />
         <div className="space-y-2">
           <label className="text-xs font-medium text-gray-600">{t("builder.venue_name")}</label>
           <Input

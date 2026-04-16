@@ -31,6 +31,8 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { DateTimePicker } from "@/components/ui/date-time-picker";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Check, Loader2, AlertCircle } from "lucide-react";
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
@@ -44,12 +46,10 @@ interface CreateEventModalProps {
 function resetFormState(
   setSubmitStatus: (s: SubmitStatus) => void,
   setErrorMessage: (s: string) => void,
-  setInvitedEmail: (s: string | null) => void,
   reset: () => void
 ) {
   setSubmitStatus("idle");
   setErrorMessage("");
-  setInvitedEmail(null);
   reset();
 }
 
@@ -61,12 +61,10 @@ export function CreateEventModal({
   const { t } = useTranslation();
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [invitedEmail, setInvitedEmail] = useState<string | null>(null);
 
   const isMobile = useIsMobile(640);
 
   const createEvent = useMutation(api.events.createEvent);
-  const inviteCoManager = useMutation(api.events.inviteCoManager);
 
   const {
     register,
@@ -83,7 +81,6 @@ export function CreateEventModal({
       weddingTime: "",
       slug: "",
       rsvpDeadline: "",
-      coManagerEmail: "",
     },
   });
 
@@ -103,7 +100,7 @@ export function CreateEventModal({
 
   const resetState = useCallback(() => {
     setTimeout(() => {
-      resetFormState(setSubmitStatus, setErrorMessage, setInvitedEmail, reset);
+      resetFormState(setSubmitStatus, setErrorMessage, reset);
     }, 300);
   }, [reset]);
 
@@ -125,21 +122,13 @@ export function CreateEventModal({
     setErrorMessage("");
 
     try {
-      const eventId = await createEvent({
+      await createEvent({
         coupleName: data.coupleName.trim(),
         weddingDate: data.weddingDate,
         weddingTime: data.weddingTime || undefined,
         slug: data.slug.toLowerCase().trim(),
         rsvpDeadline: data.rsvpDeadline || undefined,
       });
-
-      const email = data.coManagerEmail?.trim();
-      if (email) {
-        await inviteCoManager({ eventId, email });
-        setInvitedEmail(email);
-      } else {
-        setInvitedEmail(null);
-      }
 
       setSubmitStatus("success");
       onSuccess?.();
@@ -178,37 +167,19 @@ export function CreateEventModal({
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label htmlFor="weddingDate" className="text-sm font-medium">
-            {t("event_creation.wedding_date")}
-          </label>
-          <Input
-            id="weddingDate"
-            type="date"
-            min={new Date().toISOString().split("T")[0]}
-            className="min-h-[44px]"
-            {...register("weddingDate")}
-            disabled={submitStatus === "loading"}
-            aria-invalid={!!errors.weddingDate}
-          />
-          {errors.weddingDate && (
-            <p className="text-sm text-destructive">{errors.weddingDate.message}</p>
-          )}
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="weddingTime" className="text-sm font-medium">
-            {t("event_creation.wedding_time")}
-          </label>
-          <Input
-            id="weddingTime"
-            type="time"
-            placeholder={t("event_creation.wedding_time_placeholder")}
-            className="min-h-[44px]"
-            {...register("weddingTime")}
-            disabled={submitStatus === "loading"}
-          />
-        </div>
+      <div className="space-y-1">
+        <DateTimePicker
+          date={watch("weddingDate") ?? ""}
+          onDateChange={(val) => setValue("weddingDate", val, { shouldValidate: true })}
+          time={watch("weddingTime") ?? ""}
+          onTimeChange={(val) => setValue("weddingTime", val, { shouldValidate: true })}
+          dateLabel={t("event_creation.wedding_date")}
+          timeLabel={t("event_creation.wedding_time")}
+          disabled={submitStatus === "loading"}
+        />
+        {errors.weddingDate && (
+          <p className="text-sm text-destructive">{errors.weddingDate.message}</p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -272,35 +243,20 @@ export function CreateEventModal({
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="rsvpDeadline" className="text-sm font-medium">
+        <label className="text-sm font-medium">
           {t("event_creation.rsvp_deadline")}
         </label>
-        <Input
-          id="rsvpDeadline"
-          type="date"
-          className="min-h-[44px]"
-          {...register("rsvpDeadline")}
+        <DatePicker
+          value={watch("rsvpDeadline") ?? ""}
+          onChange={(val) => setValue("rsvpDeadline", val, { shouldValidate: true })}
           disabled={submitStatus === "loading"}
+          placeholder={t("event_creation.rsvp_deadline")}
         />
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="coManagerEmail" className="text-sm font-medium">
-          {t("event_creation.co_manager_email")}
-        </label>
-        <Input
-          id="coManagerEmail"
-          type="email"
-          placeholder={t("event_creation.co_manager_email_placeholder")}
-          className="min-h-[44px]"
-          {...register("coManagerEmail")}
-          disabled={submitStatus === "loading"}
-          aria-invalid={!!errors.coManagerEmail}
-        />
-        {errors.coManagerEmail && (
-          <p className="text-sm text-destructive">{errors.coManagerEmail.message}</p>
+        {errors.rsvpDeadline && (
+          <p className="text-sm text-destructive">{errors.rsvpDeadline.message}</p>
         )}
       </div>
+
     </form>
   );
 
@@ -314,11 +270,6 @@ export function CreateEventModal({
         <p className="text-sm text-muted-foreground">
           {t("event_creation.success_message")}
         </p>
-        {invitedEmail && (
-          <p className="text-sm text-green-600">
-            {t("event_creation.invitation_sent", { email: invitedEmail })}
-          </p>
-        )}
         <Button onClick={handleClose} className="w-full min-h-[44px]">
           {t("waitlist.close")}
         </Button>

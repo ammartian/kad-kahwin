@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Music2, CalendarDays, QrCode, MapPin, ClipboardList, Gift } from "lucide-react";
 import type { Id } from "@/convex/_generated/dataModel";
@@ -64,9 +64,38 @@ export function BottomNavbar({
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const videoId = musicYoutubeUrl ? extractYouTubeVideoId(musicYoutubeUrl) : null;
+  const hasInteracted = useRef(false);
 
   const openModal = (id: ModalId) => setActiveModal(id);
   const closeModal = () => setActiveModal(null);
+
+  // Auto-play on first user interaction (browser autoplay policy requires a gesture)
+  useEffect(() => {
+    if (!videoId) return;
+
+    const handleInteraction = () => {
+      if (hasInteracted.current) return;
+      hasInteracted.current = true;
+      const iframe = iframeRef.current;
+      if (iframe?.contentWindow) {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: "command", func: "playVideo", args: "" }),
+          "*"
+        );
+        setIsPlaying(true);
+      }
+    };
+
+    document.addEventListener("click", handleInteraction, { once: true });
+    document.addEventListener("touchstart", handleInteraction, { once: true });
+    document.addEventListener("scroll", handleInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("touchstart", handleInteraction);
+      document.removeEventListener("scroll", handleInteraction);
+    };
+  }, [videoId]);
 
   const toggleMusic = useCallback(() => {
     const iframe = iframeRef.current;
@@ -100,7 +129,7 @@ export function BottomNavbar({
       {videoId && (
         <iframe
           ref={iframeRef}
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&disablekb=1&modestbranding=1&enablejsapi=1`}
+          src={`https://www.youtube.com/embed/${videoId}?loop=1&playlist=${videoId}&controls=0&disablekb=1&modestbranding=1&enablejsapi=1`}
           title="Wedding music"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           className="fixed bottom-0 left-0 h-0 w-0 border-0 opacity-0"

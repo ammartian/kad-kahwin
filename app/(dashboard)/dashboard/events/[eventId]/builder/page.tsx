@@ -79,6 +79,7 @@ export default function BuilderPage() {
   return (
     <BuilderLayout
       eventId={eventId}
+      slug={event.slug}
       carouselImageIds={carouselImageIds}
       carouselImageUrls={carouselImageUrls}
       onCarouselIdsChange={setCarouselImageIds}

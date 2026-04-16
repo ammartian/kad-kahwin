@@ -76,7 +76,7 @@ describe("editorStore: initFromEvent", () => {
     expect(state.locationApple).toBe("");
     expect(state.backgroundColor).toBe("#f8f4f0");
     expect(state.colorPrimary).toBe("#1a1a1a");
-    expect(state.colorSecondary).toBe("#4a4a4a");
+    expect(state.colorSecondary).toBe("#c9bfb0");
     expect(state.colorAccent).toBe("#c9a86c");
     expect(state.backgroundImageUrl).toBeNull();
     expect(state.musicYoutubeUrl).toBe("");

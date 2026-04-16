@@ -13,10 +13,6 @@ export const createEventSchema = z
       .max(50, "URL must be at most 50 characters")
       .regex(SLUG_PATTERN, "Use only lowercase letters, numbers, and hyphens"),
     rsvpDeadline: z.string().optional(),
-    coManagerEmail: z
-      .string()
-      .optional()
-      .refine((val) => !val || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), "Invalid email"),
   })
   .superRefine((data, ctx) => {
     const weddingDateTime = data.weddingTime

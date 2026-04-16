@@ -254,13 +254,10 @@
     "slug_placeholder": "shafiqah-qayyum",
     "url_preview": "Pautan jemputan anda",
     "rsvp_deadline": "Tarikh tutup RSVP (pilihan)",
-    "co_manager_email": "Jemput pasangan (pilihan)",
-    "co_manager_email_placeholder": "Emel pasangan",
     "submit": "Cipta Acara",
     "submitting": "Sedang mencipta...",
     "success_title": "Acara berjaya dicipta!",
     "success_message": "Jemputan kahwin anda sudah sedia. Anda boleh menyesuaikannya dan kongsi pautan.",
-    "invitation_sent": "Jemputan dihantar ke {{email}}",
     "slug_checking": "Memeriksa...",
     "slug_available": "Tersedia",
     "slug_taken": "Sudah digunakan",
@@ -346,7 +343,11 @@
     "couple_name_placeholder": "Nama Pasangan",
     "scroll_down": "Tatal ke bawah",
     "hero_tagline": "Walimatul Urus",
-    "event_details_title": "Butiran Majlis"
+    "event_details_title": "Butiran Majlis",
+    "card_date": "Tarikh",
+    "card_time": "Masa",
+    "card_venue": "Tempat",
+    "card_address": "Alamat"
   },
   "navbar": {
     "music": "Muzik",

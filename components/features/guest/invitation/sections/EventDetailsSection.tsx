@@ -27,13 +27,14 @@ const cardVariants: Variants = {
 
 interface DetailCardProps {
   icon: React.ReactNode;
-  label: string;
+  title: string;
+  value: string;
   index: number;
   colorAccent: string;
   shouldReduceMotion: boolean | null;
 }
 
-function DetailCard({ icon, label, index, colorAccent, shouldReduceMotion }: DetailCardProps) {
+function DetailCard({ icon, title, value, index, colorAccent, shouldReduceMotion }: DetailCardProps) {
   return (
     <motion.div
       custom={index}
@@ -49,7 +50,15 @@ function DetailCard({ icon, label, index, colorAccent, shouldReduceMotion }: Det
       >
         {icon}
       </div>
-      <p className="text-sm font-medium leading-snug">{label}</p>
+      <div className="min-w-0 flex-1">
+        <p className="text-[10px] font-semibold uppercase tracking-widest opacity-60">{title}</p>
+        <p
+          className="mt-0.5 text-base font-semibold leading-tight"
+          style={{ color: colorAccent }}
+        >
+          {value}
+        </p>
+      </div>
     </motion.div>
   );
 }
@@ -68,11 +77,11 @@ export function EventDetailsSection({
   const shouldReduceMotion = useReducedMotion();
 
   const cards = [
-    displayDate && { icon: <Calendar className="h-5 w-5" />, label: displayDate },
-    displayTime && { icon: <Clock className="h-5 w-5" />, label: displayTime },
-    venueName && { icon: <MapPin className="h-5 w-5" />, label: venueName },
-    venueAddress && { icon: <MapPin className="h-4 w-4" />, label: venueAddress },
-  ].filter(Boolean) as { icon: React.ReactNode; label: string }[];
+    displayDate && { icon: <Calendar className="h-5 w-5" />, title: t("guest.card_date"), value: displayDate },
+    displayTime && { icon: <Clock className="h-5 w-5" />, title: t("guest.card_time"), value: displayTime },
+    venueName && { icon: <MapPin className="h-5 w-5" />, title: t("guest.card_venue"), value: venueName },
+    venueAddress && { icon: <MapPin className="h-4 w-4" />, title: t("guest.card_address"), value: venueAddress },
+  ].filter(Boolean) as { icon: React.ReactNode; title: string; value: string }[];
 
   if (cards.length === 0) return null;
 
@@ -115,7 +124,8 @@ export function EventDetailsSection({
           <DetailCard
             key={i}
             icon={card.icon}
-            label={card.label}
+            title={card.title}
+            value={card.value}
             index={i}
             colorAccent={colorAccent}
             shouldReduceMotion={shouldReduceMotion}

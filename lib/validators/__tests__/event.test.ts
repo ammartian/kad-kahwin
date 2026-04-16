@@ -141,35 +141,4 @@ describe("createEventSchema", () => {
     }
   });
 
-  it("accepts valid coManagerEmail when provided", () => {
-    const result = createEventSchema.safeParse({
-      coupleName: "John & Jane",
-      weddingDate: FUTURE_DATE,
-      slug: VALID_SLUG,
-      coManagerEmail: "partner@example.com",
-    });
-    expect(result.success).toBe(true);
-  });
-
-  it("rejects invalid coManagerEmail when provided", () => {
-    const result = createEventSchema.safeParse({
-      coupleName: "John & Jane",
-      weddingDate: FUTURE_DATE,
-      slug: VALID_SLUG,
-      coManagerEmail: "not-email",
-    });
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].message).toMatch(/Invalid email/i);
-    }
-  });
-
-  it("accepts when coManagerEmail is omitted", () => {
-    const result = createEventSchema.safeParse({
-      coupleName: "John & Jane",
-      weddingDate: FUTURE_DATE,
-      slug: VALID_SLUG,
-    });
-    expect(result.success).toBe(true);
-  });
 });
