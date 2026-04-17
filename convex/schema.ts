@@ -58,6 +58,8 @@ export default defineSchema({
     bankName: v.optional(v.string()),
     bankAccount: v.optional(v.string()),
     bankHolder: v.optional(v.string()),
+    sectionOrder: v.optional(v.array(v.string())),
+    sectionsDisabled: v.optional(v.array(v.string())),
     paid: v.boolean(),
     published: v.boolean(),
     createdAt: v.number(),

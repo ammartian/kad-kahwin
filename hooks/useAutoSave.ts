@@ -37,6 +37,8 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
   const wishesColorPrimary = useEditorStore((s) => s.wishesColorPrimary);
   const wishesColorSecondary = useEditorStore((s) => s.wishesColorSecondary);
   const wishesColorAccent = useEditorStore((s) => s.wishesColorAccent);
+  const sectionOrder = useEditorStore((s) => s.sectionOrder);
+  const sectionsDisabled = useEditorStore((s) => s.sectionsDisabled);
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -66,6 +68,8 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
         wishesColorPrimary: wishesColorPrimary && isValidHex(wishesColorPrimary) ? wishesColorPrimary : undefined,
         wishesColorSecondary: wishesColorSecondary && isValidHex(wishesColorSecondary) ? wishesColorSecondary : undefined,
         wishesColorAccent: wishesColorAccent && isValidHex(wishesColorAccent) ? wishesColorAccent : undefined,
+        sectionOrder,
+        sectionsDisabled,
       });
       setSaveStatus("idle");
     } catch {
@@ -95,6 +99,8 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
     wishesColorPrimary,
     wishesColorSecondary,
     wishesColorAccent,
+    sectionOrder,
+    sectionsDisabled,
   ]);
 
   useEffect(() => {
@@ -130,6 +136,8 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
     wishesColorPrimary,
     wishesColorSecondary,
     wishesColorAccent,
+    sectionOrder,
+    sectionsDisabled,
     persist,
   ]);
 

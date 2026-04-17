@@ -27,7 +27,10 @@ export type EditorField =
   | "wishesBgColor"
   | "wishesColorPrimary"
   | "wishesColorSecondary"
-  | "wishesColorAccent";
+  | "wishesColorAccent"
+  // Section ordering & visibility
+  | "sectionOrder"
+  | "sectionsDisabled";
 
 export interface EditorState {
   eventId: Id<"events"> | null;
@@ -58,6 +61,9 @@ export interface EditorState {
   wishesColorPrimary: string;
   wishesColorSecondary: string;
   wishesColorAccent: string;
+  // Section ordering & visibility
+  sectionOrder: string[];
+  sectionsDisabled: string[];
 }
 
 const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
@@ -88,6 +94,9 @@ const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
   wishesColorPrimary: "#1a1a1a",
   wishesColorSecondary: "#c9bfb0",
   wishesColorAccent: "#c9a86c",
+  // Section ordering & visibility
+  sectionOrder: ["landing", "details", "photos", "wishes"],
+  sectionsDisabled: [],
 };
 
 interface EditorStore extends EditorState {
@@ -118,6 +127,8 @@ interface EditorStore extends EditorState {
     wishesColorPrimary?: string;
     wishesColorSecondary?: string;
     wishesColorAccent?: string;
+    sectionOrder?: string[];
+    sectionsDisabled?: string[];
   }) => void;
   reset: () => void;
 }
@@ -160,6 +171,8 @@ export const useEditorStore = create<EditorStore>((set) => ({
       wishesColorPrimary: event.wishesColorPrimary ?? DEFAULT_STATE.wishesColorPrimary,
       wishesColorSecondary: event.wishesColorSecondary ?? DEFAULT_STATE.wishesColorSecondary,
       wishesColorAccent: event.wishesColorAccent ?? DEFAULT_STATE.wishesColorAccent,
+      sectionOrder: event.sectionOrder ?? DEFAULT_STATE.sectionOrder,
+      sectionsDisabled: event.sectionsDisabled ?? DEFAULT_STATE.sectionsDisabled,
     }),
 
   reset: () =>

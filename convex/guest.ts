@@ -68,6 +68,8 @@ export const getEventBySlug = query({
       wishesColorPrimary: event.wishesColorPrimary,
       wishesColorSecondary: event.wishesColorSecondary,
       wishesColorAccent: event.wishesColorAccent,
+      sectionOrder: event.sectionOrder,
+      sectionsDisabled: event.sectionsDisabled,
     };
   },
 });

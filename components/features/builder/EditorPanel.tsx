@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Sparkles, CalendarDays, Images, Copy, Check } from "lucide-react";
+import { Sparkles, CalendarDays, Images, Layers, Copy, Check } from "lucide-react";
 import type { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
 import { useInviteUrl } from "@/hooks/useInviteUrl";
@@ -17,8 +17,9 @@ import {
 import { PhotosSection } from "./sections/PhotosSection";
 import { SectionBackground } from "./sections/SectionBackground";
 import { SectionColors } from "./sections/SectionColors";
+import { SectionsManagerSection } from "./sections/SectionsManagerSection";
 
-type TabKey = "landing" | "details" | "photos";
+type TabKey = "landing" | "details" | "photos" | "sections";
 
 interface EditorPanelProps {
   eventId: Id<"events">;
@@ -43,9 +44,10 @@ export function EditorPanel({ eventId, slug, carouselImageIds, carouselImageUrls
   }, [inviteUrl]);
 
   const tabs: { key: TabKey; labelKey: string; icon: React.ReactNode }[] = [
-    { key: "landing", labelKey: "builder.tab_landing", icon: <Sparkles className="h-4 w-4" /> },
-    { key: "details", labelKey: "builder.tab_details", icon: <CalendarDays className="h-4 w-4" /> },
-    { key: "photos",  labelKey: "builder.tab_photos",  icon: <Images className="h-4 w-4" /> },
+    { key: "landing",  labelKey: "builder.tab_landing",   icon: <Sparkles className="h-4 w-4" /> },
+    { key: "details",  labelKey: "builder.tab_details",   icon: <CalendarDays className="h-4 w-4" /> },
+    { key: "photos",   labelKey: "builder.tab_photos",    icon: <Images className="h-4 w-4" /> },
+    { key: "sections", labelKey: "builder.tab_sections",  icon: <Layers className="h-4 w-4" /> },
   ];
 
   return (
@@ -116,6 +118,9 @@ export function EditorPanel({ eventId, slug, carouselImageIds, carouselImageUrls
                 title={t("builder.section_event_details_colors")}
               />
             </>
+          )}
+          {activeTab === "sections" && (
+            <SectionsManagerSection />
           )}
           {activeTab === "photos" && (
             <>

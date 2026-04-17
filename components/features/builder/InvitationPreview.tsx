@@ -8,7 +8,7 @@ import { formatEventDate, formatEventTime } from "@/lib/utils";
 import { HeroSection } from "@/components/features/guest/invitation/sections/HeroSection";
 import { EventDetailsSection } from "@/components/features/guest/invitation/sections/EventDetailsSection";
 import { CarouselSection } from "@/components/features/guest/invitation/sections/CarouselSection";
-import { WishesSection } from "@/components/features/guest/invitation/sections/WishesSection";
+import { WishesTickerSection } from "@/components/features/guest/invitation/sections/WishesTickerSection";
 import { BottomNavbar } from "@/components/features/guest/invitation/navbar/BottomNavbar";
 
 interface InvitationPreviewProps {
@@ -43,6 +43,8 @@ export function InvitationPreview({
   const wishesColorPrimary = useEditorStore((s) => s.wishesColorPrimary);
   const wishesColorSecondary = useEditorStore((s) => s.wishesColorSecondary);
   const wishesColorAccent = useEditorStore((s) => s.wishesColorAccent);
+  const sectionOrder = useEditorStore((s) => s.sectionOrder);
+  const sectionsDisabled = useEditorStore((s) => s.sectionsDisabled);
 
   // Fetch fields not tracked in the editor store
   const event = useQuery(api.events.getEvent, { eventId });
@@ -51,6 +53,13 @@ export function InvitationPreview({
   const displayDate = formatEventDate(weddingDate, locale) ?? "";
   const displayTime = formatEventTime(weddingTime) ?? "";
 
+  const DEFAULT_ORDER = ["landing", "details", "photos", "wishes"];
+  const order = sectionOrder.length ? sectionOrder : DEFAULT_ORDER;
+  const disabled = new Set(sectionsDisabled);
+  const orderedSections = ["landing", ...order.filter((s) => s !== "landing")];
+
+  const bg = backgroundColor || "#f8f4f0";
+
   return (
     // CSS transform creates a new containing block for position:fixed children
     // so BottomNavbar's fixed positioning is contained within this 390px frame
@@ -58,44 +67,62 @@ export function InvitationPreview({
       className="relative mx-auto w-full max-w-[390px] overflow-hidden rounded-xl shadow-2xl"
       style={{ transform: "translateZ(0)" }}
     >
-      <div style={{ backgroundColor: backgroundColor || "#f8f4f0" }}>
-        <HeroSection
-          coupleName={coupleName}
-          displayDate={displayDate}
-          displayTime={displayTime}
-          backgroundImageUrl={backgroundImageUrl}
-          backgroundColor={backgroundColor || "#f8f4f0"}
-          colorPrimary={colorPrimary || "#1a1a1a"}
-          colorAccent={colorAccent || "#c9a86c"}
-        />
-
-        <EventDetailsSection
-          displayDate={displayDate}
-          displayTime={displayTime}
-          venueName={venueName}
-          venueAddress={venueAddress}
-          backgroundColor={eventDetailsBgColor || backgroundColor || "#f8f4f0"}
-          colorPrimary={eventDetailsColorPrimary || colorPrimary || "#1a1a1a"}
-          colorAccent={eventDetailsColorAccent || colorAccent || "#c9a86c"}
-          backgroundImageUrl={eventDetailsBgImageUrl}
-        />
-
-        {carouselImageUrls.length > 0 && (
-          <CarouselSection
-            images={carouselImageUrls}
-            backgroundColor={backgroundColor || "#f8f4f0"}
-            colorAccent={colorAccent || "#c9a86c"}
-          />
-        )}
-
-        <WishesSection
-          eventId={eventId}
-          backgroundColor={wishesBgColor || backgroundColor || "#f8f4f0"}
-          colorPrimary={wishesColorPrimary || colorPrimary || "#1a1a1a"}
-          colorSecondary={wishesColorSecondary || colorSecondary || "#c9bfb0"}
-          colorAccent={wishesColorAccent || colorAccent || "#c9a86c"}
-          backgroundImageUrl={wishesBgImageUrl}
-        />
+      <div style={{ backgroundColor: bg }}>
+        {orderedSections.map((key) => {
+          if (key === "landing") {
+            return (
+              <HeroSection
+                key="landing"
+                coupleName={coupleName}
+                displayDate={displayDate}
+                displayTime={displayTime}
+                backgroundImageUrl={backgroundImageUrl}
+                backgroundColor={bg}
+                colorPrimary={colorPrimary || "#1a1a1a"}
+                colorAccent={colorAccent || "#c9a86c"}
+              />
+            );
+          }
+          if (key === "details") {
+            return (
+              <EventDetailsSection
+                key="details"
+                displayDate={displayDate}
+                displayTime={displayTime}
+                venueName={venueName}
+                venueAddress={venueAddress}
+                backgroundColor={eventDetailsBgColor || bg}
+                colorPrimary={eventDetailsColorPrimary || colorPrimary || "#1a1a1a"}
+                colorAccent={eventDetailsColorAccent || colorAccent || "#c9a86c"}
+                backgroundImageUrl={eventDetailsBgImageUrl}
+              />
+            );
+          }
+          if (key === "photos" && !disabled.has("photos") && carouselImageUrls.length > 0) {
+            return (
+              <CarouselSection
+                key="photos"
+                images={carouselImageUrls}
+                backgroundColor={bg}
+                colorAccent={colorAccent || "#c9a86c"}
+              />
+            );
+          }
+          if (key === "wishes" && !disabled.has("wishes")) {
+            return (
+              <WishesTickerSection
+                key="wishes"
+                eventId={eventId}
+                backgroundColor={wishesBgColor || bg}
+                colorPrimary={wishesColorPrimary || colorPrimary || "#1a1a1a"}
+                colorSecondary={wishesColorSecondary || colorSecondary || "#c9bfb0"}
+                colorAccent={wishesColorAccent || colorAccent || "#c9a86c"}
+                backgroundImageUrl={wishesBgImageUrl}
+              />
+            );
+          }
+          return null;
+        })}
 
         {/* Bottom padding to clear fixed navbar */}
         <div className="h-20" />

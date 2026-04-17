@@ -10,7 +10,8 @@ import { InvitationContainer } from "./invitation/InvitationContainer";
 import { HeroSection } from "./invitation/sections/HeroSection";
 import { EventDetailsSection } from "./invitation/sections/EventDetailsSection";
 import { CarouselSection } from "./invitation/sections/CarouselSection";
-import { WishesSection } from "./invitation/sections/WishesSection";
+import { WishesTickerSection } from "./invitation/sections/WishesTickerSection";
+import { WishInputModal } from "./invitation/WishInputModal";
 import { BottomNavbar } from "./invitation/navbar/BottomNavbar";
 
 interface GuestInvitationPageProps {
@@ -64,66 +65,90 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
 
   const carouselImages = event.carouselImageUrls ?? [];
 
+  const DEFAULT_ORDER = ["landing", "details", "photos", "wishes"];
+  const order = event.sectionOrder ?? DEFAULT_ORDER;
+  const disabled = new Set(event.sectionsDisabled ?? []);
+  const orderedSections = ["landing", ...order.filter((s) => s !== "landing")];
+
   return (
     <InvitationContainer
       backgroundColor={backgroundColor}
       backgroundImageUrl={backgroundImageUrl}
     >
-      {/* Scroll snap container — snaps between Landing, Event Details, Photos & Wishes */}
       <div
         style={{ backgroundColor }}
         className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth"
       >
-        {/* Section 1: Landing */}
-        <section className="snap-start">
-          <HeroSection
-            coupleName={event.coupleName}
-            displayDate={displayDate}
-            displayTime={displayTime}
-            backgroundImageUrl={backgroundImageUrl}
-            backgroundColor={backgroundColor}
-            colorPrimary={colorPrimary}
-            colorAccent={colorAccent}
-          />
-        </section>
+        {orderedSections.map((key) => {
+          if (key === "landing") {
+            return (
+              <section key="landing" className="snap-start">
+                <HeroSection
+                  coupleName={event.coupleName}
+                  displayDate={displayDate}
+                  displayTime={displayTime}
+                  backgroundImageUrl={backgroundImageUrl}
+                  backgroundColor={backgroundColor}
+                  colorPrimary={colorPrimary}
+                  colorAccent={colorAccent}
+                />
+              </section>
+            );
+          }
+          if (key === "details") {
+            return (
+              <section key="details" className="snap-start flex min-h-screen flex-col items-center justify-center">
+                <EventDetailsSection
+                  displayDate={displayDate}
+                  displayTime={displayTime}
+                  venueName={event.venueName}
+                  venueAddress={event.venueAddress}
+                  backgroundColor={eventDetailsBg}
+                  colorPrimary={eventDetailsPrimary}
+                  colorAccent={eventDetailsAccent}
+                  backgroundImageUrl={eventDetailsBgImage}
+                />
+              </section>
+            );
+          }
+          if (key === "photos" && !disabled.has("photos") && carouselImages.length > 0) {
+            return (
+              <section key="photos" className="snap-start">
+                <CarouselSection
+                  images={carouselImages}
+                  backgroundColor={backgroundColor}
+                  colorAccent={colorAccent}
+                />
+              </section>
+            );
+          }
+          if (key === "wishes" && !disabled.has("wishes")) {
+            return (
+              <section key="wishes" className="snap-start">
+                <WishesTickerSection
+                  eventId={event._id}
+                  backgroundColor={wishesBg}
+                  colorPrimary={wishesPrimary}
+                  colorSecondary={wishesSecondary}
+                  colorAccent={wishesAccent}
+                  backgroundImageUrl={wishesBgImage}
+                />
+              </section>
+            );
+          }
+          return null;
+        })}
 
-        {/* Section 2: Event Details */}
-        <section className="snap-start flex min-h-screen flex-col items-center justify-center">
-          <EventDetailsSection
-            displayDate={displayDate}
-            displayTime={displayTime}
-            venueName={event.venueName}
-            venueAddress={event.venueAddress}
-            backgroundColor={eventDetailsBg}
-            colorPrimary={eventDetailsPrimary}
-            colorAccent={eventDetailsAccent}
-            backgroundImageUrl={eventDetailsBgImage}
-          />
-        </section>
-
-        {/* Section 3: Photos & Wishes */}
-        <section className="snap-start flex min-h-screen flex-col">
-          {carouselImages.length > 0 && (
-            <CarouselSection
-              images={carouselImages}
-              backgroundColor={backgroundColor}
-              colorAccent={colorAccent}
-            />
-          )}
-
-          <WishesSection
-            eventId={event._id}
-            backgroundColor={wishesBg}
-            colorPrimary={wishesPrimary}
-            colorSecondary={wishesSecondary}
-            colorAccent={wishesAccent}
-            backgroundImageUrl={wishesBgImage}
-          />
-
-          {/* Bottom padding to clear fixed navbar */}
-          <div className="h-20" />
-        </section>
+        {/* Bottom padding to clear fixed navbar + wish button */}
+        <div className="h-24" />
       </div>
+
+      <WishInputModal
+        eventId={event._id}
+        colorAccent={colorAccent}
+        backgroundColor={backgroundColor}
+        colorPrimary={colorPrimary}
+      />
 
       <BottomNavbar
         eventId={event._id}

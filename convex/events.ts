@@ -215,6 +215,9 @@ export const updateEvent = mutation({
     wishesColorPrimary: v.optional(v.string()),
     wishesColorSecondary: v.optional(v.string()),
     wishesColorAccent: v.optional(v.string()),
+    // Section ordering & visibility
+    sectionOrder: v.optional(v.array(v.string())),
+    sectionsDisabled: v.optional(v.array(v.string())),
   },
   handler: async (ctx, args) => {
     const user = await authComponent.getAuthUser(ctx);
@@ -250,6 +253,7 @@ export const updateEvent = mutation({
       "eventDetailsColorPrimary", "eventDetailsColorSecondary", "eventDetailsColorAccent",
       "wishesBgImageId", "wishesBgColor",
       "wishesColorPrimary", "wishesColorSecondary", "wishesColorAccent",
+      "sectionOrder", "sectionsDisabled",
     ] as const;
 
     const patch: Record<string, unknown> = {};

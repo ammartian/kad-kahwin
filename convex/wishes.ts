@@ -72,6 +72,19 @@ export const addWish = mutation({
   },
 });
 
+export const getRecentWishes = query({
+  args: { eventId: v.id("events") },
+  handler: async (ctx, args) => {
+    const event = await ctx.db.get(args.eventId);
+    if (!event || !event.published) return [];
+    return await ctx.db
+      .query("wishes")
+      .withIndex("by_event", (q) => q.eq("eventId", args.eventId))
+      .order("desc")
+      .take(20);
+  },
+});
+
 export const deleteWish = mutation({
   args: { wishId: v.id("wishes") },
   handler: async (ctx, args) => {
