@@ -92,3 +92,21 @@ Tests live under `__tests__/` subdirectories:
 - `lib/utils/__tests__/` — utility function tests
 - `lib/validators/__tests__/` — Zod validator tests
 - `stores/__tests__/` — Zustand store tests
+
+## Module Documentation
+
+Detailed docs live in `docs/`. **Read the relevant doc before working on a module** — they capture non-obvious flows, patterns, and gotchas that can't be derived from code alone.
+
+| Module | Doc | When to read |
+|---|---|---|
+| Invitation builder, editorStore, auto-save | `docs/builder.md` | Touching `components/features/builder/`, `stores/editorStore.ts`, `hooks/useAutoSave.ts` |
+| Convex schema, patterns, auth helpers | `docs/convex.md` | Touching any `convex/*.ts` file |
+| Overall system, data flow, decisions | `docs/architecture.md` | Starting a cross-cutting feature |
+| Auth token lifecycle, better-auth/Convex | `docs/auth.md` | Touching `lib/auth-*.ts`, `convex/auth.ts` |
+| Public guest page, modals, RSVP flow | `docs/guest-invitation.md` | Touching `app/(guest)/`, `components/features/guest/` |
+| Dashboard routes, event management | `docs/dashboard.md` | Touching `app/(dashboard)/` |
+| Zustand stores, state ownership | `docs/state.md` | Adding new state or stores |
+| Translations, per-event language | `docs/i18n.md` | Adding UI strings or language features |
+| Test patterns, Convex test setup | `docs/testing.md` | Writing or fixing tests |
+
+**After making significant changes** (new feature, schema change, new pattern, flow change), update the relevant doc in `docs/`. Keep docs current — a stale doc is worse than no doc.
