@@ -9,6 +9,7 @@ import { HeroSection } from "@/components/features/guest/invitation/sections/Her
 import { EventDetailsSection } from "@/components/features/guest/invitation/sections/EventDetailsSection";
 import { CarouselSection } from "@/components/features/guest/invitation/sections/CarouselSection";
 import { WishesTickerSection } from "@/components/features/guest/invitation/sections/WishesTickerSection";
+import { JemputanSection } from "@/components/features/guest/invitation/sections/JemputanSection";
 import { BottomNavbar } from "@/components/features/guest/invitation/navbar/BottomNavbar";
 
 interface InvitationPreviewProps {
@@ -43,6 +44,18 @@ export function InvitationPreview({
   const wishesColorPrimary = useEditorStore((s) => s.wishesColorPrimary);
   const wishesColorSecondary = useEditorStore((s) => s.wishesColorSecondary);
   const wishesColorAccent = useEditorStore((s) => s.wishesColorAccent);
+  const jemputanBgImageUrl = useEditorStore((s) => s.jemputanBgImageUrl);
+  const jemputanBgColor = useEditorStore((s) => s.jemputanBgColor);
+  const jemputanColorPrimary = useEditorStore((s) => s.jemputanColorPrimary);
+  const jemputanColorSecondary = useEditorStore((s) => s.jemputanColorSecondary);
+  const jemputanColorAccent = useEditorStore((s) => s.jemputanColorAccent);
+  const invitationFatherBride = useEditorStore((s) => s.invitationFatherBride);
+  const invitationMotherBride = useEditorStore((s) => s.invitationMotherBride);
+  const invitationFatherGroom = useEditorStore((s) => s.invitationFatherGroom);
+  const invitationMotherGroom = useEditorStore((s) => s.invitationMotherGroom);
+  const invitationBrideName = useEditorStore((s) => s.invitationBrideName);
+  const invitationGroomName = useEditorStore((s) => s.invitationGroomName);
+  const invitationWording = useEditorStore((s) => s.invitationWording);
   const sectionOrder = useEditorStore((s) => s.sectionOrder);
   const sectionsDisabled = useEditorStore((s) => s.sectionsDisabled);
 
@@ -53,8 +66,10 @@ export function InvitationPreview({
   const displayDate = formatEventDate(weddingDate, locale) ?? "";
   const displayTime = formatEventTime(weddingTime) ?? "";
 
-  const DEFAULT_ORDER = ["landing", "details", "photos", "wishes"];
-  const order = sectionOrder.length ? sectionOrder : DEFAULT_ORDER;
+  const ALL_SECTIONS = ["landing", "jemputan", "details", "photos", "wishes"];
+  const stored = sectionOrder.length ? sectionOrder : ALL_SECTIONS;
+  const missing = ALL_SECTIONS.filter((s) => !stored.includes(s));
+  const order = [...stored, ...missing];
   const disabled = new Set(sectionsDisabled);
   const orderedSections = ["landing", ...order.filter((s) => s !== "landing")];
 
@@ -80,6 +95,26 @@ export function InvitationPreview({
                 backgroundColor={bg}
                 colorPrimary={colorPrimary || "#1a1a1a"}
                 colorAccent={colorAccent || "#c9a86c"}
+              />
+            );
+          }
+          if (key === "jemputan" && !disabled.has("jemputan")) {
+            return (
+              <JemputanSection
+                key="jemputan"
+                fatherBride={invitationFatherBride}
+                motherBride={invitationMotherBride}
+                fatherGroom={invitationFatherGroom}
+                motherGroom={invitationMotherGroom}
+                brideName={invitationBrideName}
+                groomName={invitationGroomName}
+                invitationWording={invitationWording}
+                language={event?.language ?? "ms"}
+                backgroundColor={jemputanBgColor || bg}
+                colorPrimary={jemputanColorPrimary || colorPrimary || "#1a1a1a"}
+                colorSecondary={jemputanColorSecondary || colorSecondary || "#c9bfb0"}
+                colorAccent={jemputanColorAccent || colorAccent || "#c9a86c"}
+                backgroundImageUrl={jemputanBgImageUrl}
               />
             );
           }

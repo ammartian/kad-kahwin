@@ -225,7 +225,12 @@ export const useEditorStore = create<EditorStore>((set) => ({
       wishesColorPrimary: event.wishesColorPrimary ?? DEFAULT_STATE.wishesColorPrimary,
       wishesColorSecondary: event.wishesColorSecondary ?? DEFAULT_STATE.wishesColorSecondary,
       wishesColorAccent: event.wishesColorAccent ?? DEFAULT_STATE.wishesColorAccent,
-      sectionOrder: event.sectionOrder ?? DEFAULT_STATE.sectionOrder,
+      sectionOrder: (() => {
+        const ALL = ["landing", "jemputan", "details", "photos", "wishes"];
+        const stored = event.sectionOrder ?? DEFAULT_STATE.sectionOrder;
+        const missing = ALL.filter((s) => !stored.includes(s));
+        return [...stored, ...missing];
+      })(),
       sectionsDisabled: event.sectionsDisabled ?? DEFAULT_STATE.sectionsDisabled,
       invitationFatherBride: event.invitationFatherBride ?? "",
       invitationMotherBride: event.invitationMotherBride ?? "",

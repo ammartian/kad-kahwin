@@ -69,8 +69,10 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
 
   const carouselImages = event.carouselImageUrls ?? [];
 
-  const DEFAULT_ORDER = ["landing", "jemputan", "details", "photos", "wishes"];
-  const order = event.sectionOrder ?? DEFAULT_ORDER;
+  const ALL_SECTIONS = ["landing", "jemputan", "details", "photos", "wishes"];
+  const storedOrder = event.sectionOrder ?? ALL_SECTIONS;
+  const missing = ALL_SECTIONS.filter((s) => !storedOrder.includes(s));
+  const order = [...storedOrder, ...missing];
   const disabled = new Set(event.sectionsDisabled ?? []);
   const orderedSections = ["landing", ...order.filter((s) => s !== "landing")];
 
