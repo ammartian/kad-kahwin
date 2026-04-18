@@ -15,10 +15,10 @@ import { ImagePlus, Loader2, X } from "lucide-react";
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_SIZE_BYTES = 5 * 1024 * 1024;
 
-export type ImageUrlField = Extract<EditorField, "backgroundImageUrl" | "eventDetailsBgImageUrl" | "wishesBgImageUrl">;
-export type ImageIdMutationArg = "backgroundImageId" | "eventDetailsBgImageId" | "wishesBgImageId";
-export type ClearMutationArg = "clearBackgroundImage" | "clearEventDetailsBgImage" | "clearWishesBgImage";
-export type ColorBgField = Extract<EditorField, "backgroundColor" | "eventDetailsBgColor" | "wishesBgColor">;
+export type ImageUrlField = Extract<EditorField, "backgroundImageUrl" | "eventDetailsBgImageUrl" | "wishesBgImageUrl" | "jemputanBgImageUrl">;
+export type ImageIdMutationArg = "backgroundImageId" | "eventDetailsBgImageId" | "wishesBgImageId" | "jemputanBgImageId";
+export type ClearMutationArg = "clearBackgroundImage" | "clearEventDetailsBgImage" | "clearWishesBgImage" | "clearJemputanBgImage";
+export type ColorBgField = Extract<EditorField, "backgroundColor" | "eventDetailsBgColor" | "wishesBgColor" | "jemputanBgColor">;
 
 interface SectionBackgroundProps {
   imageUrlField: ImageUrlField;

@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import { GuestImportModal } from "@/components/features/guests/GuestImportModal";
 import { GuestListTable } from "@/components/features/guests/GuestListTable";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
 
 const GUESTS_PAGE_SIZE = 100;
 
@@ -240,11 +241,7 @@ export default function GuestsPage() {
     });
 
   if (analytics === undefined || (isLoading && !guests?.length)) {
-    return (
-      <div className="flex min-h-[50vh] items-center justify-center p-6">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-gray-800" />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   return (

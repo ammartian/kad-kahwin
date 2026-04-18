@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ExternalLink, Plus, ShoppingBag } from "lucide-react";
+import { LoadingSpinner } from "@/components/ui/LoadingScreen";
 
 interface WishlistModalProps {
   eventId: Id<"events">;
@@ -106,11 +107,7 @@ export function WishlistModal({
   };
 
   if (items === undefined) {
-    return (
-      <div className="flex items-center justify-center px-6 py-12">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-gray-300 border-t-gray-800" />
-      </div>
-    );
+    return <LoadingSpinner className="py-12" />;
   }
 
   return (

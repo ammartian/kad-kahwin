@@ -10,6 +10,7 @@ import type { ListEventItem } from "@/types/events";
 import { authClient } from "@/lib/auth-client";
 import { LanguageToggle } from "@/components/landing/LanguageToggle";
 import { CreateEventModal, EventCard } from "@/components/features/events";
+import { LoadingScreen, LoadingSpinner } from "@/components/ui/LoadingScreen";
 
 export default function DashboardPage() {
   return (
@@ -28,11 +29,7 @@ export default function DashboardPage() {
 }
 
 function DashboardSkeleton() {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-gray-800" />
-    </div>
-  );
+  return <LoadingScreen />;
 }
 
 function RedirectToSignIn() {
@@ -121,8 +118,8 @@ function EventsSection({
 
   if (events === undefined) {
     return (
-      <div className="rounded-xl bg-gray-50 border border-gray-200 p-12 flex items-center justify-center min-h-[200px]">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-gray-800" />
+      <div className="rounded-xl bg-gray-50 border border-gray-200 p-12 min-h-[200px]">
+        <LoadingSpinner className="min-h-[120px]" />
       </div>
     );
   }

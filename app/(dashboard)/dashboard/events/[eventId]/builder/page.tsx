@@ -7,6 +7,7 @@ import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
 import { useEditorStore } from "@/stores/editorStore";
 import { BuilderLayout } from "@/components/features/builder/BuilderLayout";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
 
 export default function BuilderPage() {
   const params = useParams();
@@ -51,6 +52,20 @@ export default function BuilderPage() {
         wishesColorPrimary: event.wishesColorPrimary,
         wishesColorSecondary: event.wishesColorSecondary,
         wishesColorAccent: event.wishesColorAccent,
+        sectionOrder: event.sectionOrder,
+        sectionsDisabled: event.sectionsDisabled,
+        invitationFatherBride: event.invitationFatherBride,
+        invitationMotherBride: event.invitationMotherBride,
+        invitationFatherGroom: event.invitationFatherGroom,
+        invitationMotherGroom: event.invitationMotherGroom,
+        invitationBrideName: event.invitationBrideName,
+        invitationGroomName: event.invitationGroomName,
+        invitationWording: event.invitationWording,
+        jemputanBgImageUrl: event.jemputanBgImageUrl ?? null,
+        jemputanBgColor: event.jemputanBgColor,
+        jemputanColorPrimary: event.jemputanColorPrimary,
+        jemputanColorSecondary: event.jemputanColorSecondary,
+        jemputanColorAccent: event.jemputanColorAccent,
       });
     }
   }, [event, eventId, initialized, initFromEvent]);
@@ -61,11 +76,7 @@ export default function BuilderPage() {
   }, [reset]);
 
   if (event === undefined) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-gray-800" />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (event === null) {

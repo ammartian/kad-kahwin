@@ -7,10 +7,12 @@ import { api } from "@/convex/_generated/api";
 import { formatEventDate, formatEventTime } from "@/lib/utils";
 import { useEventLanguage } from "@/hooks/useEventLanguage";
 import { InvitationContainer } from "./invitation/InvitationContainer";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { HeroSection } from "./invitation/sections/HeroSection";
 import { EventDetailsSection } from "./invitation/sections/EventDetailsSection";
 import { CarouselSection } from "./invitation/sections/CarouselSection";
 import { WishesTickerSection } from "./invitation/sections/WishesTickerSection";
+import { JemputanSection } from "./invitation/sections/JemputanSection";
 import { WishInputModal } from "./invitation/WishInputModal";
 import { BottomNavbar } from "./invitation/navbar/BottomNavbar";
 
@@ -26,11 +28,7 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
   useEventLanguage(event?.language);
 
   if (event === undefined) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-100">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-gray-800" />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (event === null) {
@@ -59,13 +57,19 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
   const wishesSecondary = event.wishesColorSecondary ?? colorSecondary;
   const wishesAccent = event.wishesColorAccent ?? colorAccent;
 
+  const jemputanBg = event.jemputanBgColor ?? backgroundColor;
+  const jemputanBgImage = event.jemputanBgImageUrl ?? null;
+  const jemputanPrimary = event.jemputanColorPrimary ?? colorPrimary;
+  const jemputanSecondary = event.jemputanColorSecondary ?? colorSecondary;
+  const jemputanAccent = event.jemputanColorAccent ?? colorAccent;
+
   const locale = event.language === "en" ? "en-MY" : "ms-MY";
   const displayDate = formatEventDate(event.weddingDate, locale) ?? "";
   const displayTime = formatEventTime(event.weddingTime) ?? "";
 
   const carouselImages = event.carouselImageUrls ?? [];
 
-  const DEFAULT_ORDER = ["landing", "details", "photos", "wishes"];
+  const DEFAULT_ORDER = ["landing", "jemputan", "details", "photos", "wishes"];
   const order = event.sectionOrder ?? DEFAULT_ORDER;
   const disabled = new Set(event.sectionsDisabled ?? []);
   const orderedSections = ["landing", ...order.filter((s) => s !== "landing")];
@@ -91,6 +95,27 @@ export function GuestInvitationPage({ slug }: GuestInvitationPageProps) {
                   backgroundColor={backgroundColor}
                   colorPrimary={colorPrimary}
                   colorAccent={colorAccent}
+                />
+              </section>
+            );
+          }
+          if (key === "jemputan" && !disabled.has("jemputan")) {
+            return (
+              <section key="jemputan" className="snap-start">
+                <JemputanSection
+                  fatherBride={event.invitationFatherBride}
+                  motherBride={event.invitationMotherBride}
+                  fatherGroom={event.invitationFatherGroom}
+                  motherGroom={event.invitationMotherGroom}
+                  brideName={event.invitationBrideName}
+                  groomName={event.invitationGroomName}
+                  invitationWording={event.invitationWording}
+                  language={event.language}
+                  backgroundColor={jemputanBg}
+                  colorPrimary={jemputanPrimary}
+                  colorSecondary={jemputanSecondary}
+                  colorAccent={jemputanAccent}
+                  backgroundImageUrl={jemputanBgImage}
                 />
               </section>
             );

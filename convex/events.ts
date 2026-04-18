@@ -147,11 +147,12 @@ export const getEvent = query({
     const event = await ctx.db.get(args.eventId);
     if (!event) return null;
 
-    const [backgroundImageUrl, donationQrUrl, eventDetailsBgImageUrl, wishesBgImageUrl] = await Promise.all([
+    const [backgroundImageUrl, donationQrUrl, eventDetailsBgImageUrl, wishesBgImageUrl, jemputanBgImageUrl] = await Promise.all([
       event.backgroundImageId ? ctx.storage.getUrl(event.backgroundImageId) : null,
       event.donationQrId ? ctx.storage.getUrl(event.donationQrId) : null,
       event.eventDetailsBgImageId ? ctx.storage.getUrl(event.eventDetailsBgImageId) : null,
       event.wishesBgImageId ? ctx.storage.getUrl(event.wishesBgImageId) : null,
+      event.jemputanBgImageId ? ctx.storage.getUrl(event.jemputanBgImageId) : null,
     ]);
 
     const carouselImageUrls: string[] = [];
@@ -170,6 +171,7 @@ export const getEvent = query({
       donationQrUrl,
       eventDetailsBgImageUrl,
       wishesBgImageUrl,
+      jemputanBgImageUrl,
       carouselImageUrls,
     };
   },
@@ -218,6 +220,21 @@ export const updateEvent = mutation({
     // Section ordering & visibility
     sectionOrder: v.optional(v.array(v.string())),
     sectionsDisabled: v.optional(v.array(v.string())),
+    // Jemputan / Ucapan section content
+    invitationFatherBride: v.optional(v.string()),
+    invitationMotherBride: v.optional(v.string()),
+    invitationFatherGroom: v.optional(v.string()),
+    invitationMotherGroom: v.optional(v.string()),
+    invitationBrideName: v.optional(v.string()),
+    invitationGroomName: v.optional(v.string()),
+    invitationWording: v.optional(v.string()),
+    // Jemputan section overrides
+    jemputanBgImageId: v.optional(v.id("_storage")),
+    clearJemputanBgImage: v.optional(v.boolean()),
+    jemputanBgColor: v.optional(v.string()),
+    jemputanColorPrimary: v.optional(v.string()),
+    jemputanColorSecondary: v.optional(v.string()),
+    jemputanColorAccent: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const user = await authComponent.getAuthUser(ctx);
@@ -232,7 +249,7 @@ export const updateEvent = mutation({
 
     if (!manager) throw new Error("Unauthorized: not a manager of this event");
 
-    const { eventId, clearBackgroundImage, clearDonationQr, clearEventDetailsBgImage, clearWishesBgImage, ...updates } = args;
+    const { eventId, clearBackgroundImage, clearDonationQr, clearEventDetailsBgImage, clearWishesBgImage, clearJemputanBgImage, ...updates } = args;
 
     if (
       updates.musicYoutubeUrl !== undefined &&
@@ -254,6 +271,10 @@ export const updateEvent = mutation({
       "wishesBgImageId", "wishesBgColor",
       "wishesColorPrimary", "wishesColorSecondary", "wishesColorAccent",
       "sectionOrder", "sectionsDisabled",
+      "invitationFatherBride", "invitationMotherBride", "invitationFatherGroom", "invitationMotherGroom",
+      "invitationBrideName", "invitationGroomName", "invitationWording",
+      "jemputanBgImageId", "jemputanBgColor",
+      "jemputanColorPrimary", "jemputanColorSecondary", "jemputanColorAccent",
     ] as const;
 
     const patch: Record<string, unknown> = {};
@@ -264,6 +285,7 @@ export const updateEvent = mutation({
     if (clearDonationQr) patch.donationQrId = undefined;
     if (clearEventDetailsBgImage) patch.eventDetailsBgImageId = undefined;
     if (clearWishesBgImage) patch.wishesBgImageId = undefined;
+    if (clearJemputanBgImage) patch.jemputanBgImageId = undefined;
 
     if (Object.keys(patch).length === 0) return;
 

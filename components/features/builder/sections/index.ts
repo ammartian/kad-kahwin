@@ -4,5 +4,6 @@ export { MusicSection } from "./MusicSection";
 export { EventDetailsSection } from "./EventDetailsSection";
 export { LocationSection } from "./LocationSection";
 export { DonationSection } from "./DonationSection";
+export { JemputanSection } from "./JemputanSection";
 export { SectionBackground } from "./SectionBackground";
 export { SectionColors } from "./SectionColors";

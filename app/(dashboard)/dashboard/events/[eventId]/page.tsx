@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
 
 export default function EventIdPage() {
   const params = useParams();
@@ -14,9 +15,5 @@ export default function EventIdPage() {
     }
   }, [eventId, router]);
 
-  return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-gray-800" />
-    </div>
-  );
+  return <LoadingScreen />;
 }

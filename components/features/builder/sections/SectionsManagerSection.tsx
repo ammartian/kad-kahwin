@@ -5,13 +5,14 @@ import { useTranslation } from "react-i18next";
 import { GripVertical, Lock } from "lucide-react";
 import { useEditorStore } from "@/stores/editorStore";
 
-const SECTION_KEYS = ["landing", "details", "photos", "wishes"] as const;
+const SECTION_KEYS = ["landing", "jemputan", "details", "photos", "wishes"] as const;
 type SectionKey = (typeof SECTION_KEYS)[number];
 
 const ALWAYS_ON: SectionKey[] = ["landing", "details"];
 
 const LABEL_KEYS: Record<SectionKey, string> = {
   landing: "builder.section_landing",
+  jemputan: "builder.section_jemputan",
   details: "builder.section_details",
   photos: "builder.section_photos",
   wishes: "builder.section_wishes",

@@ -46,6 +46,7 @@ Located in `components/features/builder/sections/`:
 | `LocationSection.tsx` | Venue name, address, Waze/Google/Apple map links |
 | `MusicSection.tsx` | YouTube URL for background music |
 | `DonationSection.tsx` | QR code upload, bank name/account/holder |
+| `JemputanSection.tsx` | Formal invitation wording, parents' names, couple names |
 | `SectionsManagerSection.tsx` | Show/hide and reorder invitation sections |
 | `SectionBackground.tsx` | Per-section background image or color override |
 | `SectionColors.tsx` | Per-section color overrides |
@@ -61,11 +62,11 @@ backgroundColor: "#f8f4f0"
 colorPrimary:    "#1a1a1a"
 colorSecondary:  "#c9bfb0"
 colorAccent:     "#c9a86c"
-sectionOrder:    ["landing", "details", "photos", "wishes"]
+sectionOrder:    ["landing", "jemputan", "details", "photos", "wishes"]
 sectionsDisabled: []
 ```
 
-Per-section overrides follow the pattern `{section}BgColor`, `{section}ColorPrimary`, etc. Currently supported sections with overrides: `eventDetails`, `wishes`.
+Per-section overrides follow the pattern `{section}BgColor`, `{section}ColorPrimary`, etc. Currently supported sections with overrides: `eventDetails`, `wishes`, `jemputan`.
 
 ---
 

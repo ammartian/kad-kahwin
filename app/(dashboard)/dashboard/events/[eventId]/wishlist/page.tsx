@@ -23,6 +23,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Plus, Trash2, Edit2, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
 
 export default function WishlistPage() {
   const params = useParams();
@@ -92,11 +93,7 @@ export default function WishlistPage() {
   };
 
   if (items === undefined) {
-    return (
-      <div className="flex min-h-[50vh] items-center justify-center p-6">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-gray-800" />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   return (

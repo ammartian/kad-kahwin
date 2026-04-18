@@ -13,13 +13,14 @@ export const getEventBySlug = query({
 
     if (!event || !event.published) return null;
 
-    const [backgroundImageUrl, donationQrUrl, eventDetailsBgImageUrl, wishesBgImageUrl] = await Promise.all([
+    const [backgroundImageUrl, donationQrUrl, eventDetailsBgImageUrl, wishesBgImageUrl, jemputanBgImageUrl] = await Promise.all([
       event.backgroundImageId
         ? ctx.storage.getUrl(event.backgroundImageId)
         : null,
       event.donationQrId ? ctx.storage.getUrl(event.donationQrId) : null,
       event.eventDetailsBgImageId ? ctx.storage.getUrl(event.eventDetailsBgImageId) : null,
       event.wishesBgImageId ? ctx.storage.getUrl(event.wishesBgImageId) : null,
+      event.jemputanBgImageId ? ctx.storage.getUrl(event.jemputanBgImageId) : null,
     ]);
 
     const carouselImageUrls: string[] = [];
@@ -70,6 +71,18 @@ export const getEventBySlug = query({
       wishesColorAccent: event.wishesColorAccent,
       sectionOrder: event.sectionOrder,
       sectionsDisabled: event.sectionsDisabled,
+      invitationFatherBride: event.invitationFatherBride,
+      invitationMotherBride: event.invitationMotherBride,
+      invitationFatherGroom: event.invitationFatherGroom,
+      invitationMotherGroom: event.invitationMotherGroom,
+      invitationBrideName: event.invitationBrideName,
+      invitationGroomName: event.invitationGroomName,
+      invitationWording: event.invitationWording,
+      jemputanBgImageUrl,
+      jemputanBgColor: event.jemputanBgColor,
+      jemputanColorPrimary: event.jemputanColorPrimary,
+      jemputanColorSecondary: event.jemputanColorSecondary,
+      jemputanColorAccent: event.jemputanColorAccent,
     };
   },
 });

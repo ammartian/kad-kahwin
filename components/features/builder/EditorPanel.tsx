@@ -13,6 +13,7 @@ import {
   EventDetailsSection,
   LocationSection,
   DonationSection,
+  JemputanSection,
 } from "./sections";
 import { PhotosSection } from "./sections/PhotosSection";
 import { SectionBackground } from "./sections/SectionBackground";
@@ -116,6 +117,20 @@ export function EditorPanel({ eventId, slug, carouselImageIds, carouselImageUrls
                 secondaryField="eventDetailsColorSecondary"
                 accentField="eventDetailsColorAccent"
                 title={t("builder.section_event_details_colors")}
+              />
+              <JemputanSection />
+              <SectionBackground
+                imageUrlField="jemputanBgImageUrl"
+                imageIdMutationArg="jemputanBgImageId"
+                clearMutationArg="clearJemputanBgImage"
+                colorField="jemputanBgColor"
+                sectionTitle={t("builder.section_jemputan_bg")}
+              />
+              <SectionColors
+                primaryField="jemputanColorPrimary"
+                secondaryField="jemputanColorSecondary"
+                accentField="jemputanColorAccent"
+                title={t("builder.section_jemputan_colors")}
               />
             </>
           )}

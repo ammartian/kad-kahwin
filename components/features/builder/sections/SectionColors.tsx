@@ -27,6 +27,9 @@ export type SectionColorField = Extract<
   | "wishesColorPrimary"
   | "wishesColorSecondary"
   | "wishesColorAccent"
+  | "jemputanColorPrimary"
+  | "jemputanColorSecondary"
+  | "jemputanColorAccent"
 >;
 
 interface ColorPickerFieldProps {

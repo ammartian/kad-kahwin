@@ -25,14 +25,17 @@
 3. Convex `useQuery` hooks in child components subscribe for real-time updates (wishes wall, RSVP count).
 
 ### Invitation sections
-Sections rendered based on `sectionOrder` and `sectionsDisabled` fields from the event. Default order: `["landing", "details", "photos", "wishes"]`. Disabled sections are hidden entirely.
+Sections rendered based on `sectionOrder` and `sectionsDisabled` fields from the event. Default order: `["landing", "jemputan", "details", "photos", "wishes"]`. Disabled sections are hidden entirely.
 
-| Section | Component | Content |
-|---|---|---|
-| `landing` | `HeroSection.tsx` | Couple name, wedding date, hero image |
-| `details` | `EventDetailsSection.tsx` | Date, time, venue, map links |
-| `photos` | `CarouselSection.tsx` | Photo carousel |
-| `wishes` | `WishesSection.tsx` | Wishes wall (real-time) |
+| Section | Component | Content | Always On |
+|---|---|---|---|
+| `landing` | `HeroSection.tsx` | Couple name, wedding date, hero image | Yes |
+| `jemputan` | `JemputanSection.tsx` | Formal invitation wording, parents' names, couple names | No |
+| `details` | `EventDetailsSection.tsx` | Date, time, venue, map links | Yes |
+| `photos` | `CarouselSection.tsx` | Photo carousel | No |
+| `wishes` | `WishesSection.tsx` | Wishes wall (real-time) | No |
+
+`JemputanSection` renders `null` if all content fields are empty — safe to include even for events without this data filled in.
 
 ### Bottom navigation
 `BottomNavbar` is a sticky bar at the bottom of the page. Each button opens a `BottomSheet` containing a modal:
@@ -83,7 +86,7 @@ Sections rendered based on `sectionOrder` and `sectionsDisabled` fields from the
 
 The guest page respects all event color/image fields:
 - Global: `backgroundColor`, `colorPrimary`, `colorSecondary`, `colorAccent`, `backgroundImageUrl`
-- Per-section overrides: `eventDetailsBg*`, `wishesBg*`
+- Per-section overrides: `eventDetailsBg*`, `wishesBg*`, `jemputanBg*`
 
 Sections without overrides fall back to global colors.
 

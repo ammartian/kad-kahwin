@@ -39,6 +39,17 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
   const wishesColorAccent = useEditorStore((s) => s.wishesColorAccent);
   const sectionOrder = useEditorStore((s) => s.sectionOrder);
   const sectionsDisabled = useEditorStore((s) => s.sectionsDisabled);
+  const invitationFatherBride = useEditorStore((s) => s.invitationFatherBride);
+  const invitationMotherBride = useEditorStore((s) => s.invitationMotherBride);
+  const invitationFatherGroom = useEditorStore((s) => s.invitationFatherGroom);
+  const invitationMotherGroom = useEditorStore((s) => s.invitationMotherGroom);
+  const invitationBrideName = useEditorStore((s) => s.invitationBrideName);
+  const invitationGroomName = useEditorStore((s) => s.invitationGroomName);
+  const invitationWording = useEditorStore((s) => s.invitationWording);
+  const jemputanBgColor = useEditorStore((s) => s.jemputanBgColor);
+  const jemputanColorPrimary = useEditorStore((s) => s.jemputanColorPrimary);
+  const jemputanColorSecondary = useEditorStore((s) => s.jemputanColorSecondary);
+  const jemputanColorAccent = useEditorStore((s) => s.jemputanColorAccent);
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -70,6 +81,17 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
         wishesColorAccent: wishesColorAccent && isValidHex(wishesColorAccent) ? wishesColorAccent : undefined,
         sectionOrder,
         sectionsDisabled,
+        invitationFatherBride: invitationFatherBride || undefined,
+        invitationMotherBride: invitationMotherBride || undefined,
+        invitationFatherGroom: invitationFatherGroom || undefined,
+        invitationMotherGroom: invitationMotherGroom || undefined,
+        invitationBrideName: invitationBrideName || undefined,
+        invitationGroomName: invitationGroomName || undefined,
+        invitationWording: invitationWording || undefined,
+        jemputanBgColor: jemputanBgColor && isValidHex(jemputanBgColor) ? jemputanBgColor : undefined,
+        jemputanColorPrimary: jemputanColorPrimary && isValidHex(jemputanColorPrimary) ? jemputanColorPrimary : undefined,
+        jemputanColorSecondary: jemputanColorSecondary && isValidHex(jemputanColorSecondary) ? jemputanColorSecondary : undefined,
+        jemputanColorAccent: jemputanColorAccent && isValidHex(jemputanColorAccent) ? jemputanColorAccent : undefined,
       });
       setSaveStatus("idle");
     } catch {
@@ -101,6 +123,17 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
     wishesColorAccent,
     sectionOrder,
     sectionsDisabled,
+    invitationFatherBride,
+    invitationMotherBride,
+    invitationFatherGroom,
+    invitationMotherGroom,
+    invitationBrideName,
+    invitationGroomName,
+    invitationWording,
+    jemputanBgColor,
+    jemputanColorPrimary,
+    jemputanColorSecondary,
+    jemputanColorAccent,
   ]);
 
   useEffect(() => {
@@ -138,6 +171,17 @@ export function useAutoSave(eventId: Id<"events">): SaveStatus {
     wishesColorAccent,
     sectionOrder,
     sectionsDisabled,
+    invitationFatherBride,
+    invitationMotherBride,
+    invitationFatherGroom,
+    invitationMotherGroom,
+    invitationBrideName,
+    invitationGroomName,
+    invitationWording,
+    jemputanBgColor,
+    jemputanColorPrimary,
+    jemputanColorSecondary,
+    jemputanColorAccent,
     persist,
   ]);
 

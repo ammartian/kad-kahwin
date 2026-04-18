@@ -30,7 +30,21 @@ export type EditorField =
   | "wishesColorAccent"
   // Section ordering & visibility
   | "sectionOrder"
-  | "sectionsDisabled";
+  | "sectionsDisabled"
+  // Jemputan / Ucapan section content
+  | "invitationFatherBride"
+  | "invitationMotherBride"
+  | "invitationFatherGroom"
+  | "invitationMotherGroom"
+  | "invitationBrideName"
+  | "invitationGroomName"
+  | "invitationWording"
+  // Jemputan section overrides
+  | "jemputanBgImageUrl"
+  | "jemputanBgColor"
+  | "jemputanColorPrimary"
+  | "jemputanColorSecondary"
+  | "jemputanColorAccent";
 
 export interface EditorState {
   eventId: Id<"events"> | null;
@@ -64,6 +78,20 @@ export interface EditorState {
   // Section ordering & visibility
   sectionOrder: string[];
   sectionsDisabled: string[];
+  // Jemputan / Ucapan section content
+  invitationFatherBride: string;
+  invitationMotherBride: string;
+  invitationFatherGroom: string;
+  invitationMotherGroom: string;
+  invitationBrideName: string;
+  invitationGroomName: string;
+  invitationWording: string;
+  // Jemputan section overrides
+  jemputanBgImageUrl: string | null;
+  jemputanBgColor: string;
+  jemputanColorPrimary: string;
+  jemputanColorSecondary: string;
+  jemputanColorAccent: string;
 }
 
 const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
@@ -95,8 +123,22 @@ const DEFAULT_STATE: Omit<EditorState, "eventId"> = {
   wishesColorSecondary: "#c9bfb0",
   wishesColorAccent: "#c9a86c",
   // Section ordering & visibility
-  sectionOrder: ["landing", "details", "photos", "wishes"],
+  sectionOrder: ["landing", "jemputan", "details", "photos", "wishes"],
   sectionsDisabled: [],
+  // Jemputan / Ucapan section content
+  invitationFatherBride: "",
+  invitationMotherBride: "",
+  invitationFatherGroom: "",
+  invitationMotherGroom: "",
+  invitationBrideName: "",
+  invitationGroomName: "",
+  invitationWording: "",
+  // Jemputan section overrides
+  jemputanBgImageUrl: null,
+  jemputanBgColor: "#f8f4f0",
+  jemputanColorPrimary: "#1a1a1a",
+  jemputanColorSecondary: "#c9bfb0",
+  jemputanColorAccent: "#c9a86c",
 };
 
 interface EditorStore extends EditorState {
@@ -129,6 +171,18 @@ interface EditorStore extends EditorState {
     wishesColorAccent?: string;
     sectionOrder?: string[];
     sectionsDisabled?: string[];
+    invitationFatherBride?: string;
+    invitationMotherBride?: string;
+    invitationFatherGroom?: string;
+    invitationMotherGroom?: string;
+    invitationBrideName?: string;
+    invitationGroomName?: string;
+    invitationWording?: string;
+    jemputanBgImageUrl?: string | null;
+    jemputanBgColor?: string;
+    jemputanColorPrimary?: string;
+    jemputanColorSecondary?: string;
+    jemputanColorAccent?: string;
   }) => void;
   reset: () => void;
 }
@@ -173,6 +227,18 @@ export const useEditorStore = create<EditorStore>((set) => ({
       wishesColorAccent: event.wishesColorAccent ?? DEFAULT_STATE.wishesColorAccent,
       sectionOrder: event.sectionOrder ?? DEFAULT_STATE.sectionOrder,
       sectionsDisabled: event.sectionsDisabled ?? DEFAULT_STATE.sectionsDisabled,
+      invitationFatherBride: event.invitationFatherBride ?? "",
+      invitationMotherBride: event.invitationMotherBride ?? "",
+      invitationFatherGroom: event.invitationFatherGroom ?? "",
+      invitationMotherGroom: event.invitationMotherGroom ?? "",
+      invitationBrideName: event.invitationBrideName ?? "",
+      invitationGroomName: event.invitationGroomName ?? "",
+      invitationWording: event.invitationWording ?? "",
+      jemputanBgImageUrl: event.jemputanBgImageUrl ?? null,
+      jemputanBgColor: event.jemputanBgColor ?? DEFAULT_STATE.jemputanBgColor,
+      jemputanColorPrimary: event.jemputanColorPrimary ?? DEFAULT_STATE.jemputanColorPrimary,
+      jemputanColorSecondary: event.jemputanColorSecondary ?? DEFAULT_STATE.jemputanColorSecondary,
+      jemputanColorAccent: event.jemputanColorAccent ?? DEFAULT_STATE.jemputanColorAccent,
     }),
 
   reset: () =>
