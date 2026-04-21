@@ -240,7 +240,7 @@ export function Hero() {
               >
                 <div className="text-[0.55rem] font-bold text-primary font-display">Ahmad & Aisyah</div>
                 <div className="text-[0.45rem] text-muted-foreground mt-0.5">
-                  Majlis Perkahwinan • 15 Jun 2025
+                  Majlis Perkahwinan • 15 Jun 2026
                 </div>
                 <div className="h-px my-1.5" style={{ background: "rgba(195,47,142,0.12)" }} />
                 <div className="flex items-center gap-1.5 my-0.5">
