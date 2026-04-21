@@ -15,15 +15,11 @@ export function SecondaryCTA() {
   const { openWaitlistModal } = useLandingStore();
 
   const handleCTA = () => {
-    // Track CTA click
     trackHeroCTAClicked({
-      button_text: isWaitlistMode
-        ? t("hero.cta_primary_waitlist")
-        : t("secondary_cta.cta"),
-      section: "hero",
+      button_text: t("secondary_cta.cta"),
+      section: "secondary_cta",
       button_type: "secondary",
     });
-
     if (isWaitlistMode) {
       openWaitlistModal("secondary_cta");
     } else {
@@ -33,92 +29,97 @@ export function SecondaryCTA() {
 
   return (
     <section
+      id="waitlist"
       ref={sectionRef}
-      className="relative py-20 lg:py-28 overflow-hidden bg-background"
+      className="relative py-20 lg:py-28 overflow-hidden text-center"
+      style={{ background: "linear-gradient(135deg, var(--primary) 0%, #9b2d78 100%)" }}
     >
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/50 via-background to-primary/10">
-        <motion.div
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, var(--primary) 0%, transparent 50%)",
-            backgroundSize: "100% 100%",
-          }}
-        />
-      </div>
-
-      {/* Floating decorative elements */}
+      {/* Background orbs */}
       <motion.div
-        animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-10 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl"
+        animate={{ y: [0, -20, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-[300px] h-[300px] rounded-full pointer-events-none -top-[100px] -left-[80px]"
+        style={{ background: "rgba(255,255,255,0.06)", filter: "blur(40px)" }}
       />
       <motion.div
-        animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-10 right-10 w-32 h-32 bg-accent/10 rounded-full blur-xl"
-      />
-      <motion.div
-        animate={{ y: [0, 15, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="absolute top-1/2 right-1/4 w-16 h-16 bg-chart-4/10 rounded-full blur-lg"
+        animate={{ y: [0, 20, 0] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-[200px] h-[200px] rounded-full pointer-events-none -bottom-[60px] right-[5%]"
+        style={{ background: "rgba(255,255,255,0.06)", filter: "blur(40px)" }}
       />
 
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Radial highlight */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 80% at 50% 120%, rgba(255,255,255,0.08) 0%, transparent 60%)",
+        }}
+      />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={fadeIn}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="max-w-3xl mx-auto text-center"
+          className="max-w-[580px] mx-auto"
         >
-          {/* Headline with typewriter-like reveal */}
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="font-landing text-3xl sm:text-4xl lg:text-5xl text-foreground mb-6"
+          {/* Section label */}
+          <div
+            className="inline-flex items-center gap-1.5 font-display font-semibold text-[0.72rem] tracking-[0.1em] uppercase mb-5"
+            style={{ color: "rgba(255,255,255,0.6)" }}
           >
-            {t("secondary_cta.headline")}
+            {t("secondary_cta.label")}
+          </div>
+
+          {/* Headline */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-display font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] tracking-[-0.025em] leading-[1.2] text-white"
+          >
+            {t("secondary_cta.headline").replace(t("secondary_cta.headline_em"), "").trim()}{" "}
+            <em className="not-italic" style={{ color: "rgba(255,255,255,0.9)" }}>
+              {t("secondary_cta.headline_em")}
+            </em>
           </motion.h2>
 
           {/* Subheadline */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-lg sm:text-xl text-muted-foreground mb-10"
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="mt-3 text-base leading-[1.7] max-w-[500px] mx-auto"
+            style={{ color: "rgba(255,255,255,0.72)" }}
           >
             {t("secondary_cta.subheadline")}
           </motion.p>
 
-          {/* CTA Button with elastic animation */}
+          {/* CTA */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{
-              delay: 0.5,
-              type: "spring",
-              stiffness: 200,
-              damping: 15,
-            }}
+            transition={{ delay: 0.4, type: "spring", stiffness: 200, damping: 15 }}
+            className="mt-8"
           >
             <Button
               size="lg"
               onClick={handleCTA}
-              className="h-14 px-10 text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              className="h-14 px-8 text-base font-bold rounded-full transition-all duration-200 hover:scale-[1.03]"
+              style={{
+                background: "#fff",
+                color: "var(--primary)",
+              }}
             >
               {t("secondary_cta.cta")}
             </Button>
           </motion.div>
+
+          {/* Fine print */}
+          <p className="mt-3.5 text-[0.75rem]" style={{ color: "rgba(255,255,255,0.5)" }}>
+            {t("secondary_cta.fine_print")}
+          </p>
         </motion.div>
       </div>
     </section>

@@ -9,7 +9,13 @@
     "cta_primary_waitlist": "Sertai Senarai Tunggu",
     "cta_primary_live": "Cuba Percuma Sekarang",
     "cta_secondary": "Tonton Demo 1 Minit",
-    "free_note": "Percuma untuk 50 pasangan pertama. Sertai senarai tunggu."
+    "cta_ghost": "Lihat Ciri-ciri",
+    "free_note": "Percuma untuk 50 pasangan pertama. Sertai senarai tunggu.",
+    "badge": "Jemputan Digital untuk Pasangan Malaysia",
+    "headline_1": "Jemputan Kahwin",
+    "headline_2": "Yang Akan",
+    "headline_em": "Diingati",
+    "trust_text": "pasangan sudah mendaftar awal"
   },
   "social_proof": {
     "couples_registered": "Pasangan Berdaftar",
@@ -34,26 +40,53 @@
     }
   },
   "features": {
-    "section_title": "Apa Yang Anda Dapat?",
+    "section_title": "Semua Yang Anda Perlukan",
+    "section_label": "Ciri-ciri",
+    "section_sub": "Dari kad cantik hingga pengurusan tetamu — kami uruskan semua, anda nikmati momen.",
+    "section_title_em": "Perlukan",
+    "custom_link": {
+      "title": "Custom Link",
+      "description": "Pautan peribadi anda sendiri. Cantik, mudah dikongsi dan terus ke kad kahwin anda."
+    },
     "live_preview": {
       "title": "Edit & Lihat Terus",
-      "description": "Ubah warna, font, background. Semua update real-time. Tidak ada meneka atau agak-agak."
+      "description": "Buat perubahan dan lihat hasilnya serta merta. Tiada perlu muat semula."
     },
-    "wishlist": {
-      "title": "Wishlist",
-      "description": "Tetamu boleh pilih & beli hadiah dari Shopee/Lazada. Tak dapat hadiah yang sama. Win-win."
-    },
-    "rsvp": {
-      "title": "Rekod RSVP",
-      "description": "Tahu siapa datang, berapa orang. Export to Excel dengan satu click."
+    "rsvp_analytics": {
+      "title": "Rekod RSVP & Analytics",
+      "description": "Tahu siapa hadir, berapa orang dan dari mana mereka datang. Semua dalam paparan yang jelas."
     },
     "wishes": {
       "title": "Ucapan Real-time",
-      "description": "Tetamu ucap tahniah, anda baca terus. Macam WhatsApp group, tapi lebih cantik."
+      "description": "Tetamu boleh tinggalkan ucapan. Anda baca dan simpan kenangan manis itu selama-lamanya."
+    },
+    "wishlist_store": {
+      "title": "Wishlist Shopee & Lazada",
+      "description": "Kongsi senarai hadiah terus dari Shopee atau Lazada. Tetamu tahu apa yang anda mahukan."
+    },
+    "donation": {
+      "title": "Derma QR & Bank",
+      "description": "Terima sumbangan dengan kod QR atau nombor akaun bank. Mudah dan sopan."
+    },
+    "excel": {
+      "title": "Import & Export Excel",
+      "description": "Ada senarai tetamu dalam Excel? Import terus. Export bila-bila masa. Fleksibel sepenuhnya."
+    },
+    "lifetime": {
+      "title": "Akses Selama-lamanya",
+      "description": "Bayar sekali dan guna selamanya. Tiada bayaran bulanan. Tiada langganan tersembunyi."
+    },
+    "rsvp": {
+      "title": "Rekod RSVP",
+      "description": "Tahu siapa datang, berapa orang. Export ke Excel dengan satu klik."
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "description": "Tetamu boleh pilih dan beli hadiah dari Shopee/Lazada. Tiada hadiah yang sama."
     },
     "multi_manager": {
       "title": "Pasangan Edit Bersama",
-      "description": "Kedua-dua boleh edit bersama. Tidak ada lagi 'Sayang, you handle la' drama."
+      "description": "Kedua-dua boleh edit bersama. Tidak ada lagi drama 'Sayang, you handle la'."
     },
     "mobile_first": {
       "title": "Sempurna untuk Phone",
@@ -61,18 +94,21 @@
     }
   },
   "how_it_works": {
-    "section_title": "Macam Mana Nak Guna?",
+    "section_title": "Siap dalam 3 Langkah",
+    "section_title_em": "3 Langkah",
+    "section_label": "Cara Mudah",
+    "section_sub": "Dari daftar hingga kongsi tidak sampai 10 minit.",
     "step1": {
-      "title": "Daftar & Setup",
-      "description": "Login dengan Google, cipta event, pilih tema. 2 minit max."
+      "title": "Pilih Tema",
+      "description": "Pilih dari pelbagai tema kahwin cantik yang boleh disesuaikan dengan gaya majlis anda."
     },
     "step2": {
-      "title": "Isi Info & Wishlist",
-      "description": "Upload couple photo, isi info event, cipta wishlist dari Shopee/Lazada"
+      "title": "Isi Butiran",
+      "description": "Masukkan maklumat majlis, masa, tempat dan tetamu. Semua dalam satu paparan yang mudah."
     },
     "step3": {
-      "title": "Kongsi Link & Rekod RSVP",
-      "description": "Copy custom link, kongsi via WhatsApp, rekod RSVP."
+      "title": "Kongsi & Pantau",
+      "description": "Kongsi link melalui WhatsApp dan pantau RSVP serta ucapan secara langsung dari mana-mana sahaja."
     }
   },
   "why_you": {
@@ -137,33 +173,69 @@
     }
   },
   "pricing": {
+    "section_label": "Harga",
     "headline": "Satu Harga, Semua Fungsi",
-    "price": "RM39",
+    "section_sub": "Tiada caj tersembunyi. Tiada langganan. Bayar sekali dan guna selama-lamanya.",
+    "price": "RM49",
+    "price_rm": "49",
+    "title": "Pakej Seumur Hidup",
+    "badge": "Paling Popular",
+    "note": "Bayaran sekali sahaja • Akses selama-lamanya",
+    "promo": "Harga pelancaran khas untuk pendaftar awal — jimat sehingga 40%",
     "subtitle": "Satu-kali bayar",
     "unlimited": "Tetamu tak terhad  • Wishlist tak terhad  • Ucapan tak terhad ",
     "features": {
-      "custom_url": "Custom Link",
+      "custom_url": "Custom link peribadi",
+      "themes": "Tema tanpa had",
+      "rsvp": "RSVP + Analytics",
+      "wishes": "Ucapan real-time",
+      "wishlist": "Wishlist Shopee & Lazada",
+      "excel": "Import & Export Excel",
+      "donation": "Derma QR & Bank",
+      "language": "BM + English",
+      "support": "Sokongan penuh",
       "live_preview": "Edit & Lihat Terus",
-      "rsvp": "Rekod RSVP + Analytics",
-      "wishes": "Ucapan Real-time",
-      "wishlist": "Wishlist (Shopee/Lazada)",
       "multi_manager": "Pengurusan bersama (multiple users)",
-      "excel": "Excel import/export",
-      "donation": "Dermaan QR code & Bank",
-      "language": "Bahasa Malaysia + English",
       "lifetime": "Akses selama-lamanya (tiada bayaran bulanan)"
     },
-    "cta": "Mula Sekarang",
+    "cta": "Daftar Awal & Jimat",
     "early_bird": "Promosi: PERCUMA untuk 50 pasangan pertama!",
-    "early_bird_note": "(Biasanya RM39)"
+    "early_bird_note": "(Biasanya RM49)"
   },
   "secondary_cta": {
-    "headline": "Bersedia untuk majlis yang tidak akan dilupai?",
-    "subheadline": "Sertai 100+ pasangan yang sudah menggunaka kad kahwin digital.",
-    "cta": "Daftar Sekarang. Percuma untuk mula"
+    "label": "Daftar Awal",
+    "headline": "Jangan Lepaskan Harga Khas Pelancaran",
+    "headline_em": "Harga Khas Pelancaran",
+    "subheadline": "Daftar sekarang dan dapatkan akses awal serta diskaun eksklusif untuk pendaftar pertama. Terhad!",
+    "cta": "Daftar Sekarang",
+    "fine_print": "Tiada spam. Kami hanya akan menghubungi anda apabila sudah sedia untuk dilancarkan."
+  },
+  "testimonials": {
+    "section_label": "Testimoni",
+    "section_title": "Kata Mereka Yang Dah Cuba",
+    "t1": {
+      "quote": "Sangat mudah guna! Link cantik, tetamu pun suka. RSVP semua masuk dalam masa 2 hari je. Terima kasih KadKahwin!",
+      "name": "Nur Syafiqah",
+      "meta": "Majlis di Kuala Lumpur",
+      "avatar": "🌸"
+    },
+    "t2": {
+      "quote": "Saya suka feature wishlist! Tetamu tahu apa nak bagi. Dashboard RSVP pun clear sangat. Boleh track semua orang.",
+      "name": "Haziq & Liyana",
+      "meta": "Majlis di Johor Bahru",
+      "avatar": "💍"
+    },
+    "t3": {
+      "quote": "Lagi modern dari kad kertas! Ucapan dari tetamu boleh baca balik sampai bila-bila. Kenangan yang kekal.",
+      "name": "Farah Aziz",
+      "meta": "Majlis di Penang",
+      "avatar": "🎊"
+    }
   },
   "faq": {
     "section_title": "Soalan Lazim",
+    "section_heading": "Ada",
+    "section_heading_em": "Soalan?",
     "q1": {
       "question": "Berapa lama ambil masa untuk setup?",
       "answer": "5 minit je! Sign up dengan Google, pilih gambar background, isi details, done. Kalau you nak customize lagi detail (warna, music, wishlist), boleh ambil 10-15 minit."
@@ -200,13 +272,17 @@
   "footer": {
     "headline": "Cipta kad kahwin impian anda.",
     "cta": "Daftar Percuma",
+    "nav_features": "Ciri-ciri",
+    "nav_pricing": "Harga",
+    "nav_faq": "FAQ",
+    "nav_contact": "Hubungi",
     "links": {
       "privacy": "Polisi Privasi",
       "terms": "Syarat & Ketentuan",
       "contact": "Hubungi Kami",
       "help": "Bantuan"
     },
-    "copyright": "© 2026 Jemputan Digital. Made with love in Malaysia."
+    "copyright": "© 2025 KadKahwin. Hak cipta terpelihara."
   },
   "waitlist": {
     "title": "Cipta Jemputan Digital Anda",

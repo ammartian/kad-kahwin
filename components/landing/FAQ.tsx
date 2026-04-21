@@ -24,113 +24,62 @@ export function FAQ() {
   };
 
   const faqs = [
-    {
-      question: t("faq.q1.question"),
-      answer: t("faq.q1.answer"),
-    },
-    {
-      question: t("faq.q2.question"),
-      answer: t("faq.q2.answer"),
-    },
-    {
-      question: t("faq.q3.question"),
-      answer: t("faq.q3.answer"),
-    },
-    {
-      question: t("faq.q4.question"),
-      answer: t("faq.q4.answer"),
-    },
-    {
-      question: t("faq.q5.question"),
-      answer: t("faq.q5.answer"),
-    },
-    {
-      question: t("faq.q6.question"),
-      answer: t("faq.q6.answer"),
-    },
-    {
-      question: t("faq.q7.question"),
-      answer: t("faq.q7.answer"),
-    },
-    {
-      question: t("faq.q8.question"),
-      answer: t("faq.q8.answer"),
-    },
+    { question: t("faq.q1.question"), answer: t("faq.q1.answer") },
+    { question: t("faq.q2.question"), answer: t("faq.q2.answer") },
+    { question: t("faq.q3.question"), answer: t("faq.q3.answer") },
+    { question: t("faq.q4.question"), answer: t("faq.q4.answer") },
+    { question: t("faq.q5.question"), answer: t("faq.q5.answer") },
+    { question: t("faq.q6.question"), answer: t("faq.q6.answer") },
+    { question: t("faq.q7.question"), answer: t("faq.q7.answer") },
+    { question: t("faq.q8.question"), answer: t("faq.q8.answer") },
   ];
 
-  // Split FAQs into two columns for desktop
-  const leftColumn = faqs.slice(0, 4);
-  const rightColumn = faqs.slice(4);
-
   return (
-    <section ref={sectionRef} className="py-20 lg:py-28 bg-muted/30">
+    <section id="faq" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 lg:mb-16"
+          className="text-center mb-10"
         >
-          <h2 className="font-landing text-3xl sm:text-4xl lg:text-5xl text-foreground">
+          <span className="inline-flex items-center gap-1.5 text-primary font-display font-semibold text-[0.72rem] tracking-[0.1em] uppercase mb-3.5">
             {t("faq.section_title")}
+          </span>
+          <h2 className="font-display font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] tracking-[-0.025em] leading-[1.2] text-foreground">
+            {t("faq.section_heading")}{" "}
+            <em className="not-italic text-primary">{t("faq.section_heading_em")}</em>
           </h2>
         </motion.div>
 
-        {/* FAQ accordion - two columns on desktop */}
+        {/* FAQ accordion — single column */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto"
+          className="max-w-2xl mx-auto"
         >
-          {/* Left column */}
-          <div className="space-y-4">
-            <Accordion type="single" collapsible className="space-y-4">
-              {leftColumn.map((faq, index) => (
-                <motion.div key={index} variants={slideUp}>
-                  <AccordionItem
-                    value={`item-${index}`}
-                    className="bg-card rounded-xl px-6 overflow-hidden data-[state=open]:border-primary/40 transition-colors"
+          <Accordion type="single" collapsible className="space-y-0">
+            {faqs.map((faq, index) => (
+              <motion.div key={index} variants={slideUp}>
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="border-b border-primary/[0.12]"
+                >
+                  <AccordionTrigger
+                    className="text-left font-display font-semibold text-[0.95rem] text-foreground hover:text-primary py-5 [&[data-state=open]]:text-primary gap-4"
+                    onClick={() => handleFAQOpen(index, faq.question)}
                   >
-                    <AccordionTrigger
-                      className="text-left font-display font-semibold text-foreground hover:text-primary py-5 [&[data-state=open]]:text-primary"
-                      onClick={() => handleFAQOpen(index, faq.question)}
-                    >
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                </motion.div>
-              ))}
-            </Accordion>
-          </div>
-
-          {/* Right column */}
-          <div className="space-y-4">
-            <Accordion type="single" collapsible className="space-y-4">
-              {rightColumn.map((faq, index) => (
-                <motion.div key={index + 4} variants={slideUp}>
-                  <AccordionItem
-                    value={`item-${index + 4}`}
-                    className="bg-card rounded-xl px-6 overflow-hidden data-[state=open]:border-primary/40 transition-colors"
-                  >
-                    <AccordionTrigger
-                      className="text-left font-display font-semibold text-foreground hover:text-primary py-5 [&[data-state=open]]:text-primary"
-                      onClick={() => handleFAQOpen(index + 4, faq.question)}
-                    >
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                </motion.div>
-              ))}
-            </Accordion>
-          </div>
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[0.9rem] text-muted-foreground leading-[1.7] pb-5">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
+            ))}
+          </Accordion>
         </motion.div>
       </div>
     </section>
