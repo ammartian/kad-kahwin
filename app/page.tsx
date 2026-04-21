@@ -6,12 +6,10 @@ import { ConvexClientProvider } from "@/components/providers/ConvexProvider";
 import {
   Navbar,
   Hero,
-  SocialProof,
-  ProblemSolution,
   Features,
   HowItWorks,
-  WhyYou,
   Pricing,
+  // Testimonials,
   SecondaryCTA,
   FAQ,
   FooterCTA,
@@ -23,46 +21,40 @@ export default function Home() {
     <ConvexClientProvider>
       <PostHogProvider>
         <I18nProvider>
-        <div className="min-h-screen bg-background">
-          {/* Navigation */}
-          <Navbar />
+          <div className="min-h-screen bg-background">
+            {/* Navigation */}
+            <Navbar />
 
-          {/* Main content */}
-          <main>
-            {/* Section 1: Hero */}
-            <Hero />
+            {/* Main content */}
+            <main>
+              {/* Section 1: Hero */}
+              <Hero />
 
-            {/* Section 2: Social Proof */}
-            <SocialProof />
+              {/* Section 2: Features */}
+              <Features />
 
-            {/* Section 3: Problem → Solution → Emotional Hook */}
-            <ProblemSolution />
+              {/* Section 4: How It Works */}
+              <HowItWorks />
 
-            {/* Section 4: Features */}
-            <Features />
+              {/* Section 5: Pricing */}
+              <Pricing />
 
-            {/* Section 5: How It Works */}
-            <HowItWorks />
+              {/* Section 6: Testimonials (hidden for now) */}
+              {/* <Testimonials /> */}
 
-            {/* Section 6: Why You (Value Reinforcement) */}
-            <WhyYou />
+              {/* Section 7: FAQ */}
+              <FAQ />
 
-            {/* Section 7: Pricing */}
-            <Pricing />
+              {/* Section 8: Secondary CTA */}
+              <SecondaryCTA />
+            </main>
 
-            {/* Section 8: Secondary CTA */}
-            <SecondaryCTA />
-
-            {/* Section 9: FAQ */}
-            <FAQ />
-
-            {/* Section 10: Footer CTA */}
+            {/* Footer */}
             <FooterCTA />
-          </main>
 
-          {/* Waitlist Modal */}
-          <WaitlistModal />
-        </div>
+            {/* Waitlist Modal */}
+            <WaitlistModal />
+          </div>
         </I18nProvider>
       </PostHogProvider>
     </ConvexClientProvider>

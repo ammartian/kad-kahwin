@@ -18,7 +18,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLandingStore } from "@/stores/landing-store";
 import { scaleIn, fadeIn } from "@/lib/animations";
-import { Check, Sparkles, Loader2, AlertCircle, X } from "lucide-react";
+import { Check, Loader2, AlertCircle, X } from "lucide-react";
+import Image from "next/image";
 import {
   trackWaitlistFormOpened,
   trackWaitlistSubmitted,
@@ -148,7 +149,7 @@ export function WaitlistModal() {
                   onClick={handleClose}
                   className="px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
                 >
-                  {t("waitlist.close") || "Close"}
+                  {t("waitlist.close")}
                 </Button>
               </motion.div>
             ) : submitStatus === "error" ? (
@@ -179,14 +180,14 @@ export function WaitlistModal() {
                     onClick={() => setSubmitStatus("idle")}
                     className="px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
                   >
-                    {t("waitlist.try_again") || "Try Again"}
+                    {t("waitlist.try_again")}
                   </Button>
                   <Button
                     onClick={handleClose}
                     variant="ghost"
                     className="px-6 rounded-full"
                   >
-                    {t("waitlist.close") || "Close"}
+                    {t("waitlist.close")}
                   </Button>
                 </div>
               </motion.div>
@@ -199,8 +200,8 @@ export function WaitlistModal() {
                 exit="hidden"
               >
                 <DialogHeader className="text-center sm:text-center mb-6">
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Sparkles className="w-7 h-7 text-primary" />
+                  <div className="mx-auto mb-4 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center">
+                    <Image src="/logo.jpeg" alt="Jemputan Digital" width={64} height={64} />
                   </div>
                   <DialogTitle className="font-landing text-2xl text-foreground leading-snug">
                     {t("waitlist.title")}

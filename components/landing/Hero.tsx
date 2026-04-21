@@ -1,20 +1,38 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useLandingStore } from "@/stores/landing-store";
 import { isWaitlistMode } from "@/lib/config";
-import {
-  heroHeadline,
-  heroSubheadline,
-  heroCTA,
-  heroMockup,
-} from "@/lib/animations";
-import { ChevronDown } from "lucide-react";
 import { trackHeroCTAClicked } from "@/lib/posthog-events";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+
+function AnimatedCounter({ end, ready, suffix = "" }: { end: number; ready: boolean; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!isInView || !ready) return;
+    let startTime: number;
+    let raf: number;
+    const target = end;
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / 2000, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(easeOut * target));
+      if (progress < 1) raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [isInView, ready]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 const avatarStack = [
   { initials: "AH" },
@@ -22,23 +40,22 @@ const avatarStack = [
   { initials: "NSI" },
   { initials: "DE" },
   { initials: "QM" },
+  { initials: "ES" },
 ];
 
 export function Hero() {
   const { t } = useTranslation();
   const { openWaitlistModal } = useLandingStore();
-  const waitlistCount = useQuery(api.waitlist.getWaitlistCount) ?? 0;
-  const displayCount = waitlistCount + 80;
+  const waitlistCount = useQuery(api.waitlist.getWaitlistCount);
+  const displayCount = (waitlistCount ?? 0) + 80;
+  const isCountReady = waitlistCount !== undefined;
 
   const handlePrimaryCTA = () => {
     trackHeroCTAClicked({
-      button_text: isWaitlistMode
-        ? t("hero.cta_primary_waitlist")
-        : t("hero.cta_primary_live"),
+      button_text: isWaitlistMode ? t("hero.cta_primary_waitlist") : t("hero.cta_primary_live"),
       section: "hero",
       button_type: "primary",
     });
-
     if (isWaitlistMode) {
       openWaitlistModal("hero");
     } else {
@@ -47,156 +64,254 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-background">
-      {/* Subtle background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-3xl" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-background px-[6vw] pt-[120px] pb-20">
+      {/* Background gradient */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 50% -10%, #f9d8ee 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 80% 80%, #e0c6c8 0%, transparent 60%)",
+          }}
+        />
+        <motion.div
+          animate={{ y: [0, -30, 0], x: [0, 15, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute w-[380px] h-[380px] rounded-full opacity-35 blur-[60px] -top-20 -left-24"
+          style={{ background: "#f3b8d9" }}
+        />
+        <motion.div
+          animate={{ y: [0, -25, 0], x: [0, 12, 0] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute w-[280px] h-[280px] rounded-full opacity-35 blur-[60px] top-[40%] -right-16"
+          style={{ background: "#d4b8e0" }}
+        />
+        <motion.div
+          animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute w-[200px] h-[200px] rounded-full opacity-35 blur-[60px] bottom-[5%] left-[15%]"
+          style={{ background: "#fcd5e8" }}
+        />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-0">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* Copy section */}
-          <div className="order-2 lg:order-1 text-center lg:text-left">
-            <motion.h1
-              variants={heroHeadline}
-              initial="hidden"
-              animate="visible"
-              className="font-landing text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground leading-tight"
-            >
-              {t("hero.headline")}
-            </motion.h1>
+      {/* Hero content */}
+      <div className="relative z-10 max-w-[680px]">
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-1.5 bg-primary/[0.08] border border-primary/[0.18] text-primary font-display font-semibold text-[0.75rem] tracking-[0.04em] uppercase px-3.5 py-1.5 rounded-full mb-6"
+        >
+          <span className="text-[0.6rem]">✦</span>
+          {t("hero.badge")}
+        </motion.div>
 
-            <motion.p
-              variants={heroSubheadline}
-              initial="hidden"
-              animate="visible"
-              className="mt-5 text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0"
-            >
-              {t("hero.subheadline")}
-            </motion.p>
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="font-display font-extrabold text-[clamp(2.4rem,5.5vw,3.8rem)] leading-[1.15] tracking-[-0.03em] text-foreground"
+        >
+          {t("hero.headline_1")}
+          <br />
+          {t("hero.headline_2")}{" "}
+          <em
+            className="not-italic"
+            style={{
+              background: "linear-gradient(135deg, var(--primary) 0%, #e05aab 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            {t("hero.headline_em")}
+          </em>
+        </motion.h1>
 
-            <motion.div
-              variants={heroCTA}
-              initial="hidden"
-              animate="visible"
-              className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            >
-              <Button
-                size="lg"
-                onClick={handlePrimaryCTA}
-                className="h-13 px-8 text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-5 text-[1.05rem] text-muted-foreground max-w-[500px] mx-auto leading-[1.7]"
+        >
+          {t("hero.subheadline")}
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-9 flex items-center justify-center gap-3 flex-wrap"
+        >
+          <Button
+            size="lg"
+            onClick={handlePrimaryCTA}
+            className="h-[50px] px-8 text-[0.95rem] font-bold rounded-full transition-all duration-200"
+            style={{ boxShadow: "0 8px 24px rgba(197,47,142,0.3)" }}
+          >
+            {isWaitlistMode ? t("hero.cta_primary_waitlist") : t("hero.cta_primary_live")}
+          </Button>
+          <a
+            href="#features"
+            className="inline-flex items-center gap-1 text-muted-foreground font-display font-semibold text-[0.9rem] px-5 py-3 rounded-full hover:text-primary transition-colors duration-200"
+          >
+            {t("hero.cta_ghost")} →
+          </a>
+        </motion.div>
+
+        {/* Social proof row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-10 flex items-center justify-center gap-3 flex-wrap"
+        >
+          {/* Avatar stack */}
+          <div className="flex -space-x-2">
+            {avatarStack.map((avatar, i) => (
+              <div
+                key={i}
+                className="w-7 h-7 rounded-full bg-gradient-to-br from-primary/20 to-accent/40 border-2 border-background flex items-center justify-center"
               >
-                {isWaitlistMode
-                  ? t("hero.cta_primary_waitlist")
-                  : t("hero.cta_primary_live")}
-              </Button>
-            </motion.div>
-
-            {/* Free for first 50 couples note */}
-            <motion.p
-              variants={heroSubheadline}
-              initial="hidden"
-              animate="visible"
-              className="mt-3 text-sm font-medium text-primary max-w-xl mx-auto lg:mx-0"
-            >
-              {t("hero.free_note")}
-            </motion.p>
+                <span className="text-[8px] font-semibold text-foreground">{avatar.initials}</span>
+              </div>
+            ))}
+            <div className="w-7 h-7 rounded-full bg-primary/10 border-2 border-background flex items-center justify-center">
+              <span className="text-[8px] font-semibold text-primary">+{displayCount - 6}</span>
+            </div>
           </div>
 
-          {/* Visual section — Phone mockup */}
-          <motion.div
-            variants={heroMockup}
-            initial="hidden"
-            animate="visible"
-            className="order-1 lg:order-2 flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              {/* Phone frame */}
-              <div className="relative w-[260px] sm:w-[300px] aspect-[9/16] bg-gradient-to-br from-card to-secondary/20 rounded-[2.5rem] shadow-2xl border-8 border-foreground overflow-hidden mt-10">
-                {/* Phone notch */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-foreground rounded-full" />
+          {/* Count + label */}
+          <div className="flex items-center gap-1.5">
+            <span className="font-display font-bold text-[0.95rem] text-primary">
+              <AnimatedCounter end={displayCount} ready={isCountReady} suffix="+" />
+            </span>
+            <span className="text-[0.82rem] text-muted-foreground font-medium">
+              {t("social_proof.couples_registered")}
+            </span>
+          </div>
+        </motion.div>
+      </div>
 
-                {/* Invitation preview */}
-                <div className="absolute inset-4 top-10 flex flex-col items-center justify-center text-center p-3">
-                  <div className="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center mb-3">
-                    <span className="text-xl">💍</span>
-                  </div>
-                  <p className="font-landing text-xs text-muted-foreground mb-1">
-                    You&apos;re Invited
-                  </p>
-                  <h3 className="font-landing text-lg text-foreground">
-                    Shafiqah & Qayyum
-                  </h3>
-                  <p className="text-xs text-muted-foreground mt-1.5">
-                    15 March 2026
-                  </p>
-                  <div className="mt-5 w-full space-y-2">
-                    <div className="h-7 bg-primary/10 rounded-lg animate-pulse" />
-                    <div className="h-7 bg-accent/20 rounded-lg animate-pulse" />
-                    <div className="h-7 bg-secondary/10 rounded-lg animate-pulse" />
-                  </div>
+      {/* Device mockup */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="relative z-10 mt-16"
+      >
+        <div className="relative inline-block">
+          {/* Float card left */}
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -left-[90px] top-8 bg-white rounded-2xl px-3.5 py-2.5 z-10 hidden sm:block font-display"
+            style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.1)" }}
+          >
+            <div className="text-lg mb-0.5">💌</div>
+            <div className="text-[0.65rem] text-muted-foreground font-semibold whitespace-nowrap">
+              Jemputan Dihantar
+            </div>
+            <div className="text-[1.1rem] font-extrabold text-foreground">1,248</div>
+          </motion.div>
+
+          {/* Phone frame */}
+          <div
+            className="w-[200px] h-[360px] bg-white rounded-[32px] relative overflow-hidden flex items-center justify-center"
+            style={{
+              border: "8px solid #e8e0f0",
+              boxShadow: "0 32px 80px rgba(197,47,142,0.15), 0 4px 16px rgba(0,0,0,0.08)",
+            }}
+          >
+            <div
+              className="w-full h-full flex flex-col items-center justify-center p-5 gap-2"
+              style={{
+                background: "linear-gradient(160deg, #fff5fa 0%, #fce8f3 40%, #f0e0f8 100%)",
+              }}
+            >
+              {/* Mock card 1 */}
+              <div
+                className="rounded-xl p-2.5 w-full"
+                style={{ background: "rgba(255,255,255,0.8)", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
+              >
+                <div className="text-[0.55rem] font-bold text-primary font-display">Ahmad & Aisyah</div>
+                <div className="text-[0.45rem] text-muted-foreground mt-0.5">
+                  Majlis Perkahwinan • 15 Jun 2025
+                </div>
+                <div className="h-px my-1.5" style={{ background: "rgba(195,47,142,0.12)" }} />
+                <div className="flex items-center gap-1.5 my-0.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                  <div className="h-1 rounded bg-muted flex-1" />
+                </div>
+                <div className="flex items-center gap-1.5 my-0.5">
+                  <div
+                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style={{ background: "#E0C6C8" }}
+                  />
+                  <div className="h-1 rounded bg-muted w-4/5" />
+                </div>
+                <span
+                  className="inline-block mt-1 px-1.5 py-0.5 rounded-full text-primary text-[0.4rem] font-semibold"
+                  style={{ background: "rgba(197,47,142,0.12)" }}
+                >
+                  RSVP Terbuka ✓
+                </span>
+              </div>
+
+              {/* Mock card 2 */}
+              <div
+                className="rounded-xl p-2.5 w-full"
+                style={{ background: "rgba(197,47,142,0.06)" }}
+              >
+                <div
+                  className="text-[0.55rem] font-bold font-display"
+                  style={{ color: "#8784A1" }}
+                >
+                  Ucapan Terbaru
+                </div>
+                <div className="flex items-center gap-1.5 mt-1.5">
+                  <div
+                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style={{ background: "#E0C6C8" }}
+                  />
+                  <div className="h-1 rounded bg-muted/50 w-[90%]" />
+                </div>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <div
+                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style={{ background: "#E0C6C8" }}
+                  />
+                  <div className="h-1 rounded bg-muted/50 w-[70%]" />
                 </div>
               </div>
 
-              {/* Floating chips */}
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -right-4 top-20 bg-card rounded-xl shadow-lg p-2.5 border border-border"
+              <span
+                className="text-[0.45rem] px-2.5 py-1 rounded-full text-primary font-semibold"
+                style={{ background: "rgba(197,47,142,0.1)" }}
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">✅</span>
-                  <span className="text-xs font-semibold">RSVP: 150</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute -left-4 bottom-32 bg-card rounded-xl shadow-lg p-2.5 border border-border"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">💬</span>
-                  <span className="text-xs font-semibold">New wish!</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -right-8 bottom-20 bg-card rounded-xl shadow-lg p-2.5 border border-border"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">🎁</span>
-                  <span className="text-xs font-semibold">Gift claimed</span>
-                </div>
-              </motion.div>
+                kadkahwin.my/Ahmad-Aisyah
+              </span>
             </div>
+          </div>
+
+          {/* Float card right */}
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 5, delay: 1, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -right-[90px] bottom-16 bg-white rounded-2xl px-3.5 py-2.5 z-10 hidden sm:block font-display"
+            style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.1)" }}
+          >
+            <div className="text-lg mb-0.5">📊</div>
+            <div className="text-[0.65rem] text-muted-foreground font-semibold whitespace-nowrap">
+              RSVP Hadir
+            </div>
+            <div className="text-[1.1rem] font-extrabold text-foreground">87%</div>
           </motion.div>
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center text-muted-foreground cursor-pointer"
-          onClick={() =>
-            document
-              .getElementById("social-proof")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
-        >
-          <ChevronDown className="w-6 h-6" />
-        </motion.div>
       </motion.div>
     </section>
   );

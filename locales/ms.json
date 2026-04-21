@@ -9,7 +9,13 @@
     "cta_primary_waitlist": "Sertai Senarai Tunggu",
     "cta_primary_live": "Cuba Percuma Sekarang",
     "cta_secondary": "Tonton Demo 1 Minit",
-    "free_note": "Percuma untuk 50 pasangan pertama. Sertai senarai tunggu."
+    "cta_ghost": "Lihat Ciri-ciri",
+    "free_note": "Percuma untuk 50 pasangan pertama. Sertai senarai tunggu.",
+    "badge": "Jemputan Digital untuk Pasangan Malaysia",
+    "headline_1": "Jemputan Kahwin",
+    "headline_2": "Yang Akan",
+    "headline_em": "Diingati",
+    "trust_text": "pasangan sudah mendaftar awal"
   },
   "social_proof": {
     "couples_registered": "Pasangan Berdaftar",
@@ -34,26 +40,53 @@
     }
   },
   "features": {
-    "section_title": "Apa Yang Anda Dapat?",
+    "section_title": "Semua Yang Anda Perlukan",
+    "section_label": "Ciri-ciri",
+    "section_sub": "Dari kad cantik hingga pengurusan tetamu — kami uruskan semua, anda nikmati momen.",
+    "section_title_em": "Perlukan",
+    "custom_link": {
+      "title": "Custom Link",
+      "description": "Pautan peribadi anda sendiri. Cantik, mudah dikongsi dan terus ke kad kahwin anda."
+    },
     "live_preview": {
       "title": "Edit & Lihat Terus",
-      "description": "Ubah warna, font, background. Semua update real-time. Tidak ada meneka atau agak-agak."
+      "description": "Buat perubahan dan lihat hasilnya serta merta. Tiada perlu muat semula."
     },
-    "wishlist": {
-      "title": "Wishlist",
-      "description": "Tetamu boleh pilih & beli hadiah dari Shopee/Lazada. Tak dapat hadiah yang sama. Win-win."
-    },
-    "rsvp": {
-      "title": "Rekod RSVP",
-      "description": "Tahu siapa datang, berapa orang. Export to Excel dengan satu click."
+    "rsvp_analytics": {
+      "title": "Rekod RSVP & Analytics",
+      "description": "Tahu siapa hadir, berapa orang dan dari mana mereka datang. Semua dalam paparan yang jelas."
     },
     "wishes": {
       "title": "Ucapan Real-time",
-      "description": "Tetamu ucap tahniah, anda baca terus. Macam WhatsApp group, tapi lebih cantik."
+      "description": "Tetamu boleh tinggalkan ucapan. Anda baca dan simpan kenangan manis itu selama-lamanya."
+    },
+    "wishlist_store": {
+      "title": "Wishlist Shopee & Lazada",
+      "description": "Kongsi senarai hadiah terus dari Shopee atau Lazada. Tetamu tahu apa yang anda mahukan."
+    },
+    "donation": {
+      "title": "Derma QR & Bank",
+      "description": "Terima sumbangan dengan kod QR atau nombor akaun bank. Mudah dan sopan."
+    },
+    "excel": {
+      "title": "Import & Export Excel",
+      "description": "Ada senarai tetamu dalam Excel? Import terus. Export bila-bila masa. Fleksibel sepenuhnya."
+    },
+    "lifetime": {
+      "title": "Akses Selama-lamanya",
+      "description": "Bayar sekali dan guna selamanya. Tiada bayaran bulanan. Tiada langganan tersembunyi."
+    },
+    "rsvp": {
+      "title": "Rekod RSVP",
+      "description": "Tahu siapa datang, berapa orang. Export ke Excel dengan satu klik."
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "description": "Tetamu boleh pilih dan beli hadiah dari Shopee/Lazada. Tiada hadiah yang sama."
     },
     "multi_manager": {
       "title": "Pasangan Edit Bersama",
-      "description": "Kedua-dua boleh edit bersama. Tidak ada lagi 'Sayang, you handle la' drama."
+      "description": "Kedua-dua boleh edit bersama. Tidak ada lagi drama 'Sayang, you handle la'."
     },
     "mobile_first": {
       "title": "Sempurna untuk Phone",
@@ -61,18 +94,21 @@
     }
   },
   "how_it_works": {
-    "section_title": "Macam Mana Nak Guna?",
+    "section_title": "Siap dalam 3 Langkah",
+    "section_title_em": "3 Langkah",
+    "section_label": "Cara Mudah",
+    "section_sub": "Dari daftar hingga kongsi tidak sampai 10 minit.",
     "step1": {
-      "title": "Daftar & Setup",
-      "description": "Login dengan Google, cipta event, pilih tema. 2 minit max."
+      "title": "Pilih Tema",
+      "description": "Pilih dari pelbagai tema kahwin cantik yang boleh disesuaikan dengan gaya majlis anda."
     },
     "step2": {
-      "title": "Isi Info & Wishlist",
-      "description": "Upload couple photo, isi info event, cipta wishlist dari Shopee/Lazada"
+      "title": "Isi Butiran",
+      "description": "Masukkan maklumat majlis, masa, tempat dan tetamu. Semua dalam satu paparan yang mudah."
     },
     "step3": {
-      "title": "Kongsi Link & Rekod RSVP",
-      "description": "Copy custom link, kongsi via WhatsApp, rekod RSVP."
+      "title": "Kongsi & Pantau",
+      "description": "Kongsi link melalui WhatsApp dan pantau RSVP serta ucapan secara langsung dari mana-mana sahaja."
     }
   },
   "why_you": {
@@ -137,33 +173,69 @@
     }
   },
   "pricing": {
+    "section_label": "Harga",
     "headline": "Satu Harga, Semua Fungsi",
-    "price": "RM39",
+    "section_sub": "Tiada caj tersembunyi. Tiada langganan. Bayar sekali dan guna selama-lamanya.",
+    "price": "RM49",
+    "price_rm": "49",
+    "title": "Pakej Seumur Hidup",
+    "badge": "Paling Popular",
+    "note": "Bayaran sekali sahaja • Akses selama-lamanya",
+    "promo": "Harga pelancaran khas untuk pendaftar awal — jimat sehingga 40%",
     "subtitle": "Satu-kali bayar",
     "unlimited": "Tetamu tak terhad  • Wishlist tak terhad  • Ucapan tak terhad ",
     "features": {
-      "custom_url": "Custom Link",
+      "custom_url": "Custom link peribadi",
+      "themes": "Tema tanpa had",
+      "rsvp": "RSVP + Analytics",
+      "wishes": "Ucapan real-time",
+      "wishlist": "Wishlist Shopee & Lazada",
+      "excel": "Import & Export Excel",
+      "donation": "Derma QR & Bank",
+      "language": "BM + English",
+      "support": "Sokongan penuh",
       "live_preview": "Edit & Lihat Terus",
-      "rsvp": "Rekod RSVP + Analytics",
-      "wishes": "Ucapan Real-time",
-      "wishlist": "Wishlist (Shopee/Lazada)",
       "multi_manager": "Pengurusan bersama (multiple users)",
-      "excel": "Excel import/export",
-      "donation": "Dermaan QR code & Bank",
-      "language": "Bahasa Malaysia + English",
       "lifetime": "Akses selama-lamanya (tiada bayaran bulanan)"
     },
-    "cta": "Mula Sekarang",
+    "cta": "Daftar Awal & Jimat",
     "early_bird": "Promosi: PERCUMA untuk 50 pasangan pertama!",
-    "early_bird_note": "(Biasanya RM39)"
+    "early_bird_note": "(Biasanya RM49)"
   },
   "secondary_cta": {
-    "headline": "Bersedia untuk majlis yang tidak akan dilupai?",
-    "subheadline": "Sertai 100+ pasangan yang sudah menggunaka kad kahwin digital.",
-    "cta": "Daftar Sekarang. Percuma untuk mula"
+    "label": "Daftar Awal",
+    "headline": "Jangan Lepaskan Harga Khas Pelancaran",
+    "headline_em": "Harga Khas Pelancaran",
+    "subheadline": "Daftar sekarang dan dapatkan akses awal serta diskaun eksklusif untuk pendaftar pertama. Terhad!",
+    "cta": "Daftar Sekarang",
+    "fine_print": "Tiada spam. Kami hanya akan menghubungi anda apabila sudah sedia untuk dilancarkan."
+  },
+  "testimonials": {
+    "section_label": "Testimoni",
+    "section_title": "Kata Mereka Yang Dah Cuba",
+    "t1": {
+      "quote": "Sangat mudah guna! Link cantik, tetamu pun suka. RSVP semua masuk dalam masa 2 hari je. Terima kasih KadKahwin!",
+      "name": "Nur Syafiqah",
+      "meta": "Majlis di Kuala Lumpur",
+      "avatar": "🌸"
+    },
+    "t2": {
+      "quote": "Saya suka feature wishlist! Tetamu tahu apa nak bagi. Dashboard RSVP pun clear sangat. Boleh track semua orang.",
+      "name": "Haziq & Liyana",
+      "meta": "Majlis di Johor Bahru",
+      "avatar": "💍"
+    },
+    "t3": {
+      "quote": "Lagi modern dari kad kertas! Ucapan dari tetamu boleh baca balik sampai bila-bila. Kenangan yang kekal.",
+      "name": "Farah Aziz",
+      "meta": "Majlis di Penang",
+      "avatar": "🎊"
+    }
   },
   "faq": {
     "section_title": "Soalan Lazim",
+    "section_heading": "Ada",
+    "section_heading_em": "Soalan?",
     "q1": {
       "question": "Berapa lama ambil masa untuk setup?",
       "answer": "5 minit je! Sign up dengan Google, pilih gambar background, isi details, done. Kalau you nak customize lagi detail (warna, music, wishlist), boleh ambil 10-15 minit."
@@ -200,13 +272,17 @@
   "footer": {
     "headline": "Cipta kad kahwin impian anda.",
     "cta": "Daftar Percuma",
+    "nav_features": "Ciri-ciri",
+    "nav_pricing": "Harga",
+    "nav_faq": "FAQ",
+    "nav_contact": "Hubungi",
     "links": {
       "privacy": "Polisi Privasi",
       "terms": "Syarat & Ketentuan",
       "contact": "Hubungi Kami",
       "help": "Bantuan"
     },
-    "copyright": "© 2026 Jemputan Digital. Made with love in Malaysia."
+    "copyright": "© 2025 KadKahwin. Hak cipta terpelihara."
   },
   "waitlist": {
     "title": "Cipta Jemputan Digital Anda",
@@ -222,10 +298,299 @@
     "error_message": "Cuba lagi? Jika masalah berterusan, email kami di hello@kadkahwin.my",
     "error_email_required": "Email diperlukan",
     "error_email_invalid": "Sila masukkan email yang sah",
-    "error_email_exists": "Email ini sudah berdaftar. Tengok inbox anda!"
+    "error_email_exists": "Email ini sudah berdaftar. Tengok inbox anda!",
+    "try_again": "Cuba Lagi",
+    "close": "Tutup"
   },
   "language": {
     "ms": "BM",
     "en": "EN"
+  },
+  "dashboard": {
+    "app_name": "Jemputan Digital",
+    "sign_out": "Log Keluar",
+    "welcome": "Selamat datang",
+    "no_events": "Tiada acara lagi",
+    "create_first": "Cipta acara perkahwinan pertama anda untuk mula membuat kad jemputan digital.",
+    "create_event": "+ Cipta Acara Baru",
+    "coming_soon": "Ciri ini akan tersedia sebentar lagi",
+    "event_count": "{{count}} acara",
+    "event_count_plural": "{{count}} acara",
+    "copy_link": "Salin pautan",
+    "manage": "Urus"
+  },
+  "event_creation": {
+    "title": "Cipta Acara Baru",
+    "couple_name": "Nama pasangan",
+    "couple_name_placeholder": "cth. Shafiqah & Qayyum",
+    "wedding_date": "Tarikh majlis",
+    "wedding_time": "Masa majlis",
+    "wedding_time_placeholder": "cth. 14:00",
+    "slug": "Pautan tersuai",
+    "slug_placeholder": "shafiqah-qayyum",
+    "url_preview": "Pautan jemputan anda",
+    "rsvp_deadline": "Tarikh tutup RSVP (pilihan)",
+    "submit": "Cipta Acara",
+    "submitting": "Sedang mencipta...",
+    "success_title": "Acara berjaya dicipta!",
+    "success_message": "Jemputan kahwin anda sudah sedia. Anda boleh menyesuaikannya dan kongsi pautan.",
+    "slug_checking": "Memeriksa...",
+    "slug_available": "Tersedia",
+    "slug_taken": "Sudah digunakan",
+    "slug_suggest": "Cuba",
+    "slug_invalid": "Guna huruf kecil, nombor dan sempang sahaja",
+    "error_slug_taken": "Pautan ini sudah digunakan",
+    "error_generic": "Ada masalah. Sila cuba lagi."
+  },
+  "event_card": {
+    "draft": "Draf",
+    "published": "Diterbitkan",
+    "copied": "Disalin!",
+    "view_invitation": "Lihat jemputan"
+  },
+  "builder": {
+    "back_to_dashboard": "Dashboard",
+    "title": "Edit Jemputan",
+    "background": "Latar Belakang",
+    "background_image": "Gambar latar",
+    "background_image_hint": "Seret atau klik untuk muat naik (JPG, PNG, WEBP, max 5MB)",
+    "background_color": "Warna latar (jika tiada gambar)",
+    "colors": "Warna Tema",
+    "color_primary": "Warna Teks",
+    "color_primary_hint": "Teks, nama & tarikh",
+    "color_secondary": "Warna Sempadan",
+    "color_secondary_hint": "Sempadan input & kad",
+    "color_accent": "Ikon & Aksen",
+    "color_accent_hint": "Ikon, butang & garisan",
+    "music": "Muzik",
+    "music_placeholder": "cth. https://youtube.com/watch?v=...",
+    "music_hint": "Pautan YouTube — auto main & ulang pada halaman tetamu",
+    "event_details": "Butiran Majlis",
+    "couple_name": "Nama pasangan",
+    "couple_name_placeholder": "cth. Shafiqah & Qayyum",
+    "wedding_date": "Tarikh majlis",
+    "wedding_time": "Masa majlis",
+    "wedding_time_placeholder": "cth. 14:00",
+    "location": "Pautan Lokasi",
+    "location_waze": "Waze",
+    "location_google": "Google Maps",
+    "location_apple": "Apple Maps",
+    "location_placeholder": "https://...",
+    "save_status_idle": "Disimpan",
+    "save_status_saving": "Menyimpan...",
+    "save_status_error": "Gagal menyimpan",
+    "error_image_size": "Gambar mesti kurang daripada 5MB",
+    "error_image_format": "Guna format JPG, PNG atau WEBP sahaja",
+    "error_youtube_url": "Sila masukkan pautan YouTube yang sah",
+    "donation": "Derma",
+    "donation_qr": "Kod QR (DuitNow/TNG)",
+    "donation_qr_hint": "Muat naik imej QR (JPG, PNG, WEBP, max 2MB)",
+    "bank_name": "Nama bank",
+    "bank_account": "Nombor akaun",
+    "bank_holder": "Nama pemegang akaun",
+    "error_hex_color": "Guna kod hex 6 digit (cth. #ff0000)",
+    "uploading": "Memuat naik...",
+    "remove_image": "Buang gambar",
+    "venue_name": "Nama tempat majlis",
+    "venue_name_placeholder": "cth. Dewan Besar Tuanku Canselor",
+    "venue_address": "Alamat tempat majlis",
+    "venue_address_placeholder": "cth. Jalan Universiti, 50603 Kuala Lumpur",
+    "photos": "Foto Pasangan",
+    "photos_hint": "Muat naik sehingga 10 foto (JPG, PNG, WEBP, max 5MB setiap satu)",
+    "photos_add": "Tambah Foto",
+    "photos_count": "{{count}}/10 foto",
+    "photos_max_reached": "Had 10 foto telah dicapai",
+    "tab_landing": "Landing",
+    "tab_details": "Butiran",
+    "tab_photos": "Foto & Ucapan",
+    "tab_sections": "Bahagian",
+    "sections_title": "Susunan Bahagian",
+    "section_landing": "Halaman Utama",
+    "section_details": "Butiran Acara",
+    "section_photos": "Galeri Foto",
+    "section_wishes": "Ucapan",
+    "section_always_on": "Sentiasa aktif",
+    "section_pinned": "Tetap di atas",
+    "section_event_details_bg": "Latar Butiran Majlis",
+    "section_event_details_colors": "Warna Butiran Majlis",
+    "section_wishes_bg": "Latar Ucapan",
+    "section_wishes_colors": "Warna Ucapan",
+    "image_resolution_hint": "Resolusi terbaik: 1080 × 1920 px (9:16 potret), maks 5 MB",
+    "section_jemputan": "Undangan / Ucapan",
+    "section_jemputan_bg": "Latar Undangan",
+    "section_jemputan_colors": "Warna Undangan",
+    "jemputan_bride_side": "Pihak Pengantin Perempuan",
+    "jemputan_groom_side": "Pihak Pengantin Lelaki",
+    "jemputan_father_bride": "Nama Bapa (Pengantin Perempuan)",
+    "jemputan_mother_bride": "Nama Ibu (Pengantin Perempuan)",
+    "jemputan_father_groom": "Nama Bapa (Pengantin Lelaki)",
+    "jemputan_mother_groom": "Nama Ibu (Pengantin Lelaki)",
+    "jemputan_bride_name": "Nama Penuh Pengantin Perempuan",
+    "jemputan_groom_name": "Nama Penuh Pengantin Lelaki",
+    "jemputan_bride_name_placeholder": "cth. Nur Aisyah binti Abdullah",
+    "jemputan_groom_name_placeholder": "cth. Muhammad Hafiz bin Ahmad",
+    "jemputan_parent_placeholder": "cth. Abdullah bin Ibrahim",
+    "jemputan_wording": "Teks Jemputan",
+    "jemputan_wording_hint": "Contoh: Dengan hormatnya kami menjemput Tuan/Puan ke majlis perkahwinan..."
+  },
+  "guest": {
+    "open_in_waze": "Buka di Waze",
+    "open_in_google_maps": "Buka di Google Maps",
+    "open_in_apple_maps": "Buka di Apple Maps",
+    "not_found": "Jemputan tidak dijumpai atau belum diterbitkan.",
+    "play_music": "Main muzik",
+    "wedding_music": "Muzik majlis",
+    "couple_name_placeholder": "Nama Pasangan",
+    "scroll_down": "Tatal ke bawah",
+    "hero_tagline": "Walimatul Urus",
+    "event_details_title": "Butiran Majlis",
+    "card_date": "Tarikh",
+    "card_time": "Masa",
+    "card_venue": "Tempat",
+    "card_address": "Alamat"
+  },
+  "navbar": {
+    "music": "Muzik",
+    "calendar": "Tarikh",
+    "donation": "Bayar",
+    "location": "Lokasi",
+    "rsvp": "RSVP",
+    "wishlist": "Hadiah"
+  },
+  "calendar": {
+    "title": "Tambah ke Kalendar",
+    "add_google": "Tambah ke Google Calendar",
+    "add_apple": "Tambah ke Apple Calendar",
+    "add_outlook": "Tambah ke Outlook"
+  },
+  "event_nav": {
+    "builder": "Edit",
+    "guests": "Tetamu",
+    "wishlist": "Wishlist"
+  },
+  "guests": {
+    "title": "Senarai Tetamu",
+    "add_guest": "Tambah Tetamu",
+    "import_excel": "Import Excel",
+    "export_excel": "Export Excel",
+    "name": "Nama",
+    "phone": "Telefon",
+    "email": "Emel",
+    "pax": "Pax",
+    "rsvp_status": "RSVP",
+    "attending": "Hadir",
+    "not_attending": "Tidak hadir",
+    "pending": "Belum jawab",
+    "actions": "Tindakan",
+    "delete": "Padam",
+    "analytics_attending": "Hadir",
+    "analytics_pax": "Jumlah Pax",
+    "analytics_not_attending": "Tidak Hadir",
+    "analytics_pending": "Belum Jawab",
+    "import_modal_title": "Import Excel",
+    "import_modal_hint": "Seret fail atau klik untuk muat naik. Format: Nama, Telefon, Emel, Pax (pilihan)",
+    "import_success": "{{count}} tetamu berjaya diimport",
+    "import_errors": "Ralat: {{errors}}",
+    "add_guest_modal_title": "Tambah Tetamu",
+    "add_error": "Gagal menambah tetamu. Sila cuba lagi.",
+    "no_guests": "Tiada tetamu lagi. Tambah secara manual atau import dari Excel.",
+    "load_more": "Muat lebih",
+    "search_placeholder": "Cari mengikut nama, emel, telefon...",
+    "filter_all": "Semua",
+    "sort_name": "Susun mengikut nama",
+    "sort_rsvp": "Susun mengikut RSVP",
+    "export_preparing": "Menyediakan export..."
+  },
+  "wishlist": {
+    "title": "Senarai Hadiah",
+    "add_item": "Tambah Item",
+    "add_gift": "Tambah Hadiah",
+    "item_title": "Nama item",
+    "item_url": "Pautan produk (Shopee/Lazada)",
+    "claimed": "Dituntut",
+    "claimed_by": "Dituntut oleh {{name}}",
+    "claim_button": "Saya akan beli",
+    "unclaim_button": "Batalkan",
+    "claimed_badge": "Dituntut",
+    "buy_button": "Beli",
+    "hidden": "Tersembunyi",
+    "visible": "Tunjuk",
+    "hide": "Sembunyi",
+    "delete": "Padam",
+    "edit": "Edit",
+    "no_items": "Tiada item dalam senarai hadiah",
+    "already_claimed": "Item ini telah dituntut oleh orang lain",
+    "enter_name": "Masukkan nama anda",
+    "cancel": "Batal",
+    "platform_shopee": "Shopee",
+    "platform_lazada": "Lazada",
+    "platform_other": "Lain-lain"
+  },
+  "wishes": {
+    "title": "Ucapan",
+    "placeholder": "Tulis ucapan anda...",
+    "send": "Hantar",
+    "load_more": "Muat lebih",
+    "char_count": "{{count}}/255",
+    "just_now": "Baru sahaja",
+    "minutes_ago": "{{count}} minit lepas",
+    "hours_ago": "{{count}} jam lepas",
+    "days_ago": "{{count}} hari lepas",
+    "write_button": "Tulis Ucapan",
+    "modal_title": "Tulis Ucapan",
+    "name_label": "Nama",
+    "name_placeholder": "Nama anda",
+    "message_label": "Ucapan",
+    "message_placeholder": "Ucapan anda...",
+    "submit": "Hantar",
+    "success_message": "Terima kasih! Ucapan anda telah dihantar.",
+    "ticker_empty": "Jadilah yang pertama mengucapkan tahniah!"
+  },
+  "donation": {
+    "title": "Sumbangan",
+    "bank_name": "Nama bank",
+    "account_number": "Nombor akaun",
+    "account_holder": "Pemegang akaun",
+    "copy": "Salin",
+    "copied": "Disalin!",
+    "empty": "Tiada maklumat pembayaran"
+  },
+  "location": {
+    "title": "Lokasi Majlis",
+    "empty": "Tiada maklumat lokasi",
+    "open_waze": "Buka di Waze",
+    "open_google": "Google Maps",
+    "open_apple": "Apple Maps"
+  },
+  "music_modal": {
+    "title": "Muzik Majlis",
+    "now_playing": "Sedang dimainkan",
+    "play": "Main",
+    "pause": "Jeda",
+    "powered_by": "Dikuasakan oleh YouTube"
+  },
+  "rsvp": {
+    "title": "RSVP",
+    "attending": "Saya hadir",
+    "not_attending": "Saya tidak hadir",
+    "pax_label": "Bilangan tetamu (1-10)",
+    "name_placeholder": "Nama anda",
+    "submit": "Hantar",
+    "submitting": "Menghantar...",
+    "submitted": "Terima kasih! Kami menantikan kehadiran anda.",
+    "deadline_passed": "Tarikh tutup RSVP telah berlalu",
+    "already_submitted": "Anda telah RSVP",
+    "already_submitted_detail": "Anda telah RSVP sebagai {{status}}, {{pax}} orang"
+  },
+  "sign_in": {
+    "title": "Jemputan Digital",
+    "subtitle": "Log masuk untuk mula membuat kad kahwin digital anda",
+    "google_btn": "Teruskan dengan Google",
+    "google_btn_loading": "Sedang log masuk...",
+    "error": "Gagal log masuk. Sila cuba lagi.",
+    "terms_prefix": "Dengan log masuk, anda bersetuju dengan",
+    "terms_link": "Terma Perkhidmatan",
+    "terms_and": "dan",
+    "privacy_link": "Dasar Privasi"
   }
 }

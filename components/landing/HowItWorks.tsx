@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { slideUp, staggerContainer, fadeIn } from "@/lib/animations";
-import { UserPlus, FileEdit, Share2 } from "lucide-react";
+import { slideUp, staggerContainer } from "@/lib/animations";
 import { useSectionTracking } from "@/hooks/use-section-tracking";
 
 export function HowItWorks() {
@@ -12,55 +11,62 @@ export function HowItWorks() {
 
   const steps = [
     {
-      number: "01",
-      icon: UserPlus,
+      number: "1",
       title: t("how_it_works.step1.title"),
       description: t("how_it_works.step1.description"),
     },
     {
-      number: "02",
-      icon: FileEdit,
+      number: "2",
       title: t("how_it_works.step2.title"),
       description: t("how_it_works.step2.description"),
     },
     {
-      number: "03",
-      icon: Share2,
+      number: "3",
       title: t("how_it_works.step3.title"),
       description: t("how_it_works.step3.description"),
     },
   ];
 
   return (
-    <section
-      id="how-it-works"
-      ref={sectionRef}
-      className="py-20 lg:py-28 bg-background"
-    >
+    <section id="how-it-works" ref={sectionRef} className="py-20 lg:py-28 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-landing text-3xl sm:text-4xl lg:text-5xl text-foreground">
-            {t("how_it_works.section_title")}
-          </h2>
-        </motion.div>
+        <div className="max-w-[880px] mx-auto">
+          {/* Section header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-14"
+          >
+            <span className="inline-flex items-center gap-1.5 text-primary font-display font-semibold text-[0.72rem] tracking-[0.1em] uppercase mb-3.5">
+              {t("how_it_works.section_label")}
+            </span>
+            <h2 className="font-display font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] tracking-[-0.025em] leading-[1.2] text-foreground">
+              {t("how_it_works.section_title").replace(t("how_it_works.section_title_em"), "").trim()}{" "}
+              <em className="not-italic text-primary">{t("how_it_works.section_title_em")}</em>
+            </h2>
+            <p className="mt-3 text-muted-foreground text-center leading-[1.7]">
+              {t("how_it_works.section_sub")}
+            </p>
+          </motion.div>
 
-        {/* Steps timeline */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="relative"
-        >
-          {/* Desktop timeline line */}
-          {/* <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-accent to-primary" /> */}
+          {/* Steps */}
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-8 relative"
+          >
+            {/* Connecting line (desktop only) */}
+            <div
+              className="hidden lg:block absolute top-7 h-0.5 pointer-events-none"
+              style={{
+                left: "16%",
+                right: "16%",
+                background: "linear-gradient(90deg, var(--primary), #e0c6c8)",
+              }}
+            />
 
-          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
             {steps.map((step, index) => (
               <motion.div
                 key={index}
@@ -68,67 +74,29 @@ export function HowItWorks() {
                 className="relative text-center"
               >
                 {/* Step number badge */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="relative z-10 inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground font-landing text-xl mb-6 shadow-md"
+                <div
+                  className="relative z-10 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5 font-display font-extrabold text-[1.1rem] text-white"
+                  style={{
+                    background: "linear-gradient(135deg, var(--primary), #e05aab)",
+                    boxShadow: "0 8px 20px rgba(197,47,142,0.3)",
+                  }}
                 >
                   {step.number}
-                </motion.div>
+                </div>
 
                 {/* Title */}
-                <h3 className="font-landing text-xl lg:text-2xl text-foreground mb-3">
+                <h3 className="font-display font-bold text-[1rem] text-foreground mb-2">
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
+                <p className="text-[0.87rem] text-muted-foreground leading-[1.6] max-w-xs mx-auto">
                   {step.description}
                 </p>
               </motion.div>
             ))}
-          </div>
-        </motion.div>
-
-        {/* Demo video placeholder */}
-        {/* <motion.div
-          variants={fadeIn}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mt-16 lg:mt-20"
-        >
-          <div className="relative max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-muted to-secondary/30 shadow-xl border">
-            
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className="w-16 h-16 rounded-full bg-primary flex items-center justify-center cursor-pointer shadow-lg"
-                >
-                  <svg
-                    className="w-6 h-6 text-white ml-1"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </motion.div>
-              </div>
-              <p className="text-muted-foreground font-medium">
-                Demo video coming soon
-              </p>
-              <p className="text-sm text-muted-foreground/70 mt-2">
-                See the complete flow in 60 seconds
-              </p>
-            </div>
-
-            
-            <div className="absolute top-4 left-4 flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-destructive/50" />
-              <div className="w-3 h-3 rounded-full bg-chart-4/50" />
-              <div className="w-3 h-3 rounded-full bg-chart-3/50" />
-            </div>
-          </div>
-        </motion.div> */}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

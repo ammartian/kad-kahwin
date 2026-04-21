@@ -9,5 +9,6 @@ export { Pricing } from "./Pricing";
 export { SecondaryCTA } from "./SecondaryCTA";
 export { FAQ } from "./FAQ";
 export { FooterCTA } from "./FooterCTA";
+export { Testimonials } from "./Testimonials";
 export { WaitlistModal } from "./WaitlistModal";
 export { LanguageToggle } from "./LanguageToggle";
