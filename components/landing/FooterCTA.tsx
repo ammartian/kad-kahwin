@@ -18,7 +18,7 @@ export function FooterCTA() {
         className="font-display font-bold text-[1rem] text-white"
         style={{ letterSpacing: "-0.02em" }}
       >
-        KadKahwin ✦
+        Jemputan Digital ✦
       </div>
 
       {/* Nav links */}
@@ -45,7 +45,7 @@ export function FooterCTA() {
           {t("footer.nav_faq")}
         </a>
         <a
-          href="mailto:hello@kadkahwin.my"
+          href="mailto:hello@jemputandigital.my"
           className="text-[0.82rem] transition-colors duration-200 hover:text-primary"
           style={{ color: "rgba(255,255,255,0.4)", textDecoration: "none" }}
         >

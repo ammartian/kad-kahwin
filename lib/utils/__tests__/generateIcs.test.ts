@@ -145,7 +145,7 @@ describe("generateIcs: generateIcsContent", () => {
       startDate: "2030-06-15",
     });
 
-    expect(content).toMatch(/UID:\d+-kadkahwin@kadkahwin\.my/);
+    expect(content).toMatch(/UID:\d+-jemputandigital@jemputandigital\.my/);
   });
 
   it("does not throw and produces valid DTSTART when startTime not provided", () => {

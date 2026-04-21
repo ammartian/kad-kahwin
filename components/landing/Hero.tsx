@@ -293,7 +293,7 @@ export function Hero() {
                 className="text-[0.45rem] px-2.5 py-1 rounded-full text-primary font-semibold"
                 style={{ background: "rgba(197,47,142,0.1)" }}
               >
-                kadkahwin.my/Ahmad-Aisyah
+                jemputandigital.my/Ahmad-Aisyah
               </span>
             </div>
           </div>
