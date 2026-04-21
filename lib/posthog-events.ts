@@ -13,7 +13,7 @@ export interface LandingPageViewedProps {
 
 export interface HeroCTAClickedProps {
   button_text: string;
-  section: "hero";
+  section: "hero" | "secondary_cta" | "pricing" | "footer";
   button_type: "primary" | "secondary";
 }
 
