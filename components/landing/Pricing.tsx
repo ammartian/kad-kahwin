@@ -93,6 +93,17 @@ export function Pricing() {
                   <div className="text-muted-foreground font-display font-bold text-sm mb-2">
                     {t("pricing.title")}
                   </div>
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <span className="text-[1rem] text-muted-foreground line-through font-display">
+                      {t("pricing.price_original")}
+                    </span>
+                    <span
+                      className="text-white font-display font-bold text-[0.7rem] px-2 py-0.5 rounded-full"
+                      style={{ background: "var(--primary)" }}
+                    >
+                      -57%
+                    </span>
+                  </div>
                   <div
                     className="font-display font-extrabold text-foreground leading-none"
                     style={{ fontSize: "2.2rem", letterSpacing: "-0.03em" }}
@@ -140,7 +151,7 @@ export function Pricing() {
             transition={{ delay: 0.6 }}
             className="text-center text-[0.82rem] text-muted-foreground mt-5"
           >
-            🎉 {t("pricing.promo")}
+            {t("pricing.promo")}
           </motion.p>
         </div>
       </div>
