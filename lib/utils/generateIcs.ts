@@ -49,7 +49,7 @@ export function generateIcsContent(data: IcsEventData): string {
     `SUMMARY:${escapeIcsText(data.title)}`,
     location ? `LOCATION:${escapeIcsText(location)}` : null,
     data.description ? `DESCRIPTION:${escapeIcsText(data.description)}` : null,
-    `UID:${Date.now()}-kadkahwin@kadkahwin.my`,
+    `UID:${Date.now()}-jemputandigital@jemputandigital.my`,
     "END:VEVENT",
     "END:VCALENDAR",
   ]
