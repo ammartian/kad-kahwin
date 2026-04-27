@@ -26,7 +26,7 @@ function AnimatedCounter({ end, suffix = "", duration = 2 }: AnimatedCounterProp
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      
+
       // Easing function for smooth animation
       const easeOut = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(easeOut * end));
@@ -51,7 +51,7 @@ export function SocialProof() {
   const { t } = useTranslation();
   const { sectionRef, isInView } = useSectionTracking("social_proof");
   const waitlistCount = useQuery(api.waitlist.getWaitlistCount) ?? 0;
-  
+
   // Add 60 to the actual count (e.g., 1 user → 81, 10 users → 90)
   const displayCount = waitlistCount + 80;
 
