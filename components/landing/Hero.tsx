@@ -202,14 +202,14 @@ export function Hero() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="relative z-10 mt-16"
+        className="relative z-10 mt-16 px-[72px] sm:px-0"
       >
         <div className="relative inline-block">
           {/* Float card left */}
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-[90px] top-8 bg-white rounded-2xl px-3.5 py-2.5 z-10 hidden sm:block font-display"
+            className="absolute -left-[70px] sm:-left-[90px] top-8 bg-white rounded-2xl px-3 py-2 sm:px-3.5 sm:py-2.5 z-10 font-display"
             style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.1)" }}
           >
             <div className="text-lg mb-0.5">💌</div>
@@ -302,7 +302,7 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, delay: 1, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -right-[90px] bottom-16 bg-white rounded-2xl px-3.5 py-2.5 z-10 hidden sm:block font-display"
+            className="absolute -right-[70px] sm:-right-[90px] bottom-16 bg-white rounded-2xl px-3 py-2 sm:px-3.5 sm:py-2.5 z-10 font-display"
             style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.1)" }}
           >
             <div className="text-lg mb-0.5">📊</div>
