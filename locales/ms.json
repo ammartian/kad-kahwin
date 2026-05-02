@@ -201,6 +201,7 @@
       "lifetime": "Akses selama-lamanya (tiada bayaran bulanan)"
     },
     "cta": "Daftar Awal & Jimat",
+    "cta_live": "Cuba Sekarang",
     "early_bird": "Promosi: 57% diskaun untuk pasangan akses awal!",
     "early_bird_note": "(Biasanya RM49)"
   },
@@ -264,7 +265,7 @@
     },
     "q7": {
       "question": "Boleh refund?",
-      "answer": "Tidak boleh. Kerana ini adalah produk digital dan anda dapat akses segera, tidak ada refund. Tetapi kami ada mode preview/trial percuma jadi anda boleh cuba sebelum bayar."
+      "answer": "Kami ada mode preview percuma supaya anda boleh cuba semua ciri sebelum bayar. Cuba dulu, beli kalau puas hati."
     },
     "q8": {
       "question": "Bahasa apa yang tersedia?",

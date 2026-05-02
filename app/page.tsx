@@ -36,14 +36,14 @@ export default function Home() {
               {/* Section 4: How It Works */}
               <HowItWorks />
 
-              {/* Section 5: Pricing */}
+              {/* Section 5: FAQ — answers objections before ask */}
+              <FAQ />
+
+              {/* Section 6: Pricing */}
               <Pricing />
 
-              {/* Section 6: Testimonials (hidden for now) */}
+              {/* Section 7: Testimonials (hidden for now) */}
               {/* <Testimonials /> */}
-
-              {/* Section 7: FAQ */}
-              <FAQ />
 
               {/* Section 8: Secondary CTA */}
               <SecondaryCTA />

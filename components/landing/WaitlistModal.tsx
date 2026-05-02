@@ -114,12 +114,6 @@ export function WaitlistModal() {
   return (
     <Dialog open={isWaitlistModalOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md overflow-hidden border-border bg-card p-0" showCloseButton={false}>
-        {/* Decorative background blobs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl">
-          <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-2xl" />
-          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-accent/10 rounded-full blur-2xl" />
-        </div>
-
         <div className="relative p-6">
           <AnimatePresence mode="wait">
             {submitStatus === "success" ? (

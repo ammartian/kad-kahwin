@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-02T00:00:00Z",
+  "title": "Design System: Jemputan Digital",
+  "extensions": {
+    "colorMeta": {
+      "celebration-magenta": {
+        "role": "primary",
+        "displayName": "Celebration Magenta",
+        "canonical": "oklch(51% 0.26 340)",
+        "tonalRamp": [
+          "oklch(15% 0.10 340)",
+          "oklch(25% 0.16 340)",
+          "oklch(35% 0.22 340)",
+          "oklch(43% 0.25 340)",
+          "oklch(51% 0.26 340)",
+          "oklch(63% 0.22 340)",
+          "oklch(76% 0.16 340)",
+          "oklch(91% 0.06 340)"
+        ]
+      },
+      "celebration-magenta-dark": {
+        "role": "primary-dark",
+        "displayName": "Vivid Magenta (dark mode)",
+        "canonical": "oklch(58% 0.29 335)",
+        "tonalRamp": [
+          "oklch(18% 0.12 335)",
+          "oklch(28% 0.18 335)",
+          "oklch(38% 0.24 335)",
+          "oklch(48% 0.27 335)",
+          "oklch(58% 0.29 335)",
+          "oklch(68% 0.24 335)",
+          "oklch(80% 0.16 335)",
+          "oklch(93% 0.06 335)"
+        ]
+      },
+      "soft-linen": {
+        "role": "neutral-bg",
+        "displayName": "Soft Linen",
+        "canonical": "oklch(97% 0.006 300)",
+        "tonalRamp": [
+          "oklch(20% 0.006 300)",
+          "oklch(35% 0.006 300)",
+          "oklch(50% 0.006 300)",
+          "oklch(65% 0.006 300)",
+          "oklch(78% 0.006 300)",
+          "oklch(87% 0.006 300)",
+          "oklch(93% 0.006 300)",
+          "oklch(97% 0.006 300)"
+        ]
+      },
+      "lavender-mist": {
+        "role": "secondary",
+        "displayName": "Lavender Mist",
+        "canonical": "oklch(55% 0.09 300)",
+        "tonalRamp": [
+          "oklch(18% 0.07 300)",
+          "oklch(28% 0.09 300)",
+          "oklch(38% 0.09 300)",
+          "oklch(48% 0.09 300)",
+          "oklch(55% 0.09 300)",
+          "oklch(67% 0.07 300)",
+          "oklch(80% 0.05 300)",
+          "oklch(93% 0.02 300)"
+        ]
+      },
+      "blush-pink": {
+        "role": "tertiary",
+        "displayName": "Blush Pink",
+        "canonical": "oklch(82% 0.04 15)",
+        "tonalRamp": [
+          "oklch(25% 0.04 15)",
+          "oklch(38% 0.05 15)",
+          "oklch(50% 0.06 15)",
+          "oklch(62% 0.06 15)",
+          "oklch(72% 0.05 15)",
+          "oklch(82% 0.04 15)",
+          "oklch(90% 0.03 15)",
+          "oklch(96% 0.01 15)"
+        ]
+      },
+      "dark-plum": {
+        "role": "neutral-bg-dark",
+        "displayName": "Dark Plum",
+        "canonical": "oklch(20% 0.12 305)",
+        "tonalRamp": [
+          "oklch(10% 0.08 305)",
+          "oklch(16% 0.10 305)",
+          "oklch(20% 0.12 305)",
+          "oklch(28% 0.12 305)",
+          "oklch(38% 0.11 305)",
+          "oklch(50% 0.09 305)",
+          "oklch(65% 0.07 305)",
+          "oklch(82% 0.04 305)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only. One instance per page. Poppins 800."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section H2 headings. May contain one text-primary em span."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles, feature headings, step titles. Poppins 700."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose. Nunito Sans 400. Max 65-75ch. Never Poppins for body paragraphs."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Section eyebrow labels. Poppins semibold, uppercase, tracking +0.1em, text-primary."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ambient",
+        "value": "1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06)",
+        "purpose": "Default card shadow at rest. Barely perceptible."
+      },
+      {
+        "name": "brand-hover-glow",
+        "value": "0 16px 40px rgba(197,47,142,0.10)",
+        "purpose": "Feature card hover. Brand-tinted diffuse glow."
+      },
+      {
+        "name": "cta-glow",
+        "value": "0 8px 24px rgba(197,47,142,0.3)",
+        "purpose": "Primary CTA button shadow. Makes the button lift off the page."
+      },
+      {
+        "name": "float-card",
+        "value": "0 8px 24px rgba(0,0,0,0.1)",
+        "purpose": "Floating metric cards in the phone mockup. Clean shadow, no tint."
+      },
+      {
+        "name": "mockup",
+        "value": "0 32px 80px rgba(197,47,142,0.15), 0 4px 16px rgba(0,0,0,0.08)",
+        "purpose": "Phone mockup frame. Large diffuse brand glow plus tight ambient."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-standard",
+        "value": "easeOut",
+        "purpose": "Default for all Framer Motion transitions."
+      },
+      {
+        "name": "slide-up",
+        "value": "{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }",
+        "purpose": "Standard scroll-reveal for cards and content blocks."
+      },
+      {
+        "name": "stagger-children",
+        "value": "0.1s",
+        "purpose": "Delay between staggered children in feature grids and step lists."
+      },
+      {
+        "name": "scale-in",
+        "value": "{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: 'easeOut' } } }",
+        "purpose": "Pricing card and modal entrance."
+      },
+      {
+        "name": "float",
+        "value": "{ animate: { y: [0, -10, 0], transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' } } }",
+        "purpose": "Phone mockup float cards only. Not used on decorative backgrounds."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (Brand)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA on landing/brand surfaces. Pill shape, CTA glow.",
+      "html": "<button class=\"ds-btn-primary\">Daftar Awal & Jimat</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #C52F8E; color: #FFFFFF; font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 700; line-height: 1; padding: 14px 32px; height: 50px; border-radius: 9999px; border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(197,47,142,0.3); transition: background 0.2s, box-shadow 0.2s; } .ds-btn-primary:hover { background: #b02880; box-shadow: 0 10px 28px rgba(197,47,142,0.4); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(197,47,142,0.4); } .ds-btn-primary:disabled { opacity: 0.5; pointer-events: none; }"
+    },
+    {
+      "name": "Primary Button (Product)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA in dashboard and builder. Gently curved, no glow.",
+      "html": "<button class=\"ds-btn-product\">Simpan</button>",
+      "css": ".ds-btn-product { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #C52F8E; color: #FFFFFF; font-family: 'Poppins', sans-serif; font-size: 0.875rem; font-weight: 600; line-height: 1; padding: 10px 24px; height: 40px; border-radius: 8px; border: none; cursor: pointer; transition: background 0.2s; } .ds-btn-product:hover { background: #b02880; } .ds-btn-product:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(197,47,142,0.4); } .ds-btn-product:disabled { opacity: 0.5; pointer-events: none; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary CTA alongside primary. No background fill.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#features\">Lihat Ciri-ciri →</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 4px; background: transparent; color: #8B79AB; font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 600; padding: 12px 20px; border-radius: 9999px; text-decoration: none; cursor: pointer; transition: color 0.2s; } .ds-btn-ghost:hover { color: #C52F8E; }"
+    },
+    {
+      "name": "Hero Feature Card",
+      "kind": "card",
+      "refersTo": "card-feature-hero",
+      "description": "2 large differentiator cards above the supporting 4-card grid. Stronger tint, larger content.",
+      "html": "<div class=\"ds-card-hero\"><span class=\"ds-card-hero-emoji\">♾️</span><h3 class=\"ds-card-hero-title\">Akses Selama-lamanya</h3><p class=\"ds-card-hero-desc\">Bayar sekali, guna seumur hidup. Tiada bayaran bulanan, tiada yuran tersembunyi.</p></div>",
+      "css": ".ds-card-hero { background: rgba(197,47,142,0.04); border: 1px solid rgba(197,47,142,0.2); border-radius: 18px; padding: 32px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; } .ds-card-hero:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(197,47,142,0.12); border-color: rgba(197,47,142,0.4); } .ds-card-hero-emoji { display: block; font-size: 2rem; margin-bottom: 16px; } .ds-card-hero-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.1rem; color: #000000; margin-bottom: 8px; } .ds-card-hero-desc { font-family: 'Nunito Sans', sans-serif; font-size: 0.9rem; color: #8B79AB; line-height: 1.6; margin: 0; }"
+    },
+    {
+      "name": "Supporting Feature Card",
+      "kind": "card",
+      "refersTo": "card-base",
+      "description": "4 compact supporting feature cards below the hero pair.",
+      "html": "<div class=\"ds-card-support\"><span class=\"ds-card-support-emoji\">✏️</span><h3 class=\"ds-card-support-title\">Edit & Lihat Terus</h3><p class=\"ds-card-support-desc\">Perubahan nampak serta-merta dalam preview sebelah kanan.</p></div>",
+      "css": ".ds-card-support { background: #F8F7F9; border: 1px solid rgba(197,47,142,0.1); border-radius: 18px; padding: 24px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; } .ds-card-support:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(197,47,142,0.08); border-color: rgba(197,47,142,0.25); } .ds-card-support-emoji { display: block; font-size: 1.3rem; margin-bottom: 12px; } .ds-card-support-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.9rem; color: #000000; margin-bottom: 6px; } .ds-card-support-desc { font-family: 'Nunito Sans', sans-serif; font-size: 0.83rem; color: #8B79AB; line-height: 1.6; margin: 0; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-base",
+      "description": "Standard form input. Transparent on Input Field background.",
+      "html": "<div class=\"ds-input-wrap\"><input class=\"ds-input\" type=\"email\" placeholder=\"nama@email.com\" /></div>",
+      "css": ".ds-input-wrap { position: relative; } .ds-input { display: block; width: 100%; height: 36px; background: transparent; border: 1px solid #8B79AB; border-radius: 8px; padding: 4px 12px; font-family: 'Nunito Sans', sans-serif; font-size: 0.875rem; color: #000000; transition: border-color 0.15s, box-shadow 0.15s; outline: none; } .ds-input::placeholder { color: #8B79AB; } .ds-input:focus-visible { border-color: #C52F8E; box-shadow: 0 0 0 3px rgba(197,47,142,0.25); } .ds-input[aria-invalid='true'] { border-color: #D95C5C; box-shadow: 0 0 0 3px rgba(217,92,92,0.2); } .ds-input:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Section Label",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Section eyebrow label. Always Poppins semibold, uppercase, text-primary.",
+      "html": "<span class=\"ds-section-label\">✦ Ciri-ciri</span>",
+      "css": ".ds-section-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'Poppins', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #C52F8E; }"
+    },
+    {
+      "name": "Pricing Card",
+      "kind": "card",
+      "refersTo": "card-base",
+      "description": "Single-tier pricing card. 2px primary border, centered layout.",
+      "html": "<div class=\"ds-pricing-card\"><div class=\"ds-pricing-title\">Pakej Seumur Hidup</div><div class=\"ds-pricing-price\"><span class=\"ds-pricing-original\">RM69</span><div class=\"ds-pricing-main\"><sup>RM</sup>39</div></div><div class=\"ds-pricing-note\">Bayaran sekali sahaja • Akses selama-lamanya</div><button class=\"ds-btn-primary\" style=\"margin-top:20px\">Daftar Awal & Jimat</button></div>",
+      "css": ".ds-pricing-card { background: #F8F7F9; border: 2px solid #C52F8E; border-radius: 22px; padding: 32px; text-align: center; max-width: 460px; } .ds-pricing-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.875rem; color: #8B79AB; margin-bottom: 16px; } .ds-pricing-original { font-family: 'Poppins', sans-serif; font-size: 1rem; color: #8B79AB; text-decoration: line-through; display: block; margin-bottom: 4px; } .ds-pricing-main { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 2.2rem; color: #000000; letter-spacing: -0.03em; line-height: 1; } .ds-pricing-main sup { font-size: 1.2rem; vertical-align: super; } .ds-pricing-note { font-family: 'Nunito Sans', sans-serif; font-size: 0.8rem; color: #8B79AB; margin-top: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Modern Kad Kahwin",
+    "overview": "The printed wedding card, reborn as software. Every decision in this system should be legible to a Mak Cik opening a WhatsApp link on a Samsung Galaxy A-series. The system does not reach for decoration. It is beautiful because it works — because a couple can get from zero to shareable link in five minutes, and because every guest, at every age, can RSVP without needing instructions.\n\nThis is a celebratory product, but the chrome is restrained. Celebration lives in the couple's content — their names, their date, their photos — not in the interface scaffolding around it. The system's job is to get out of the way and let the invitation breathe.\n\nThe color vocabulary is warm but not sweet. The typography is confident but not formal. The spacing breathes without being sparse. The system explicitly rejects: SaaS-template blue-and-cream, clipart wedding kitsch, and clinical Scandinavian whiteness.",
+    "keyCharacteristics": [
+      "Celebration Magenta as the single load-bearing accent — rare, purposeful, never decorative",
+      "Soft Linen background that reads as 'invitation paper' without literally being paper",
+      "Rounded and unhurried shapes — all tap targets generous, no sharp edges",
+      "Framer Motion stagger reveals on scroll, never idle looping decoration",
+      "Two-font system: Poppins for identity, Nunito Sans for readability",
+      "Light mode primary; dark mode is a deep plum that extends the brand hue into darkness"
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "Celebration Magenta appears on ≤40% of any given screen. Use it for the CTA, the focus ring, and one emphasis word per section header. Using it everywhere collapses the accent into wallpaper.",
+        "section": "colors"
+      },
+      {
+        "name": "The Warm Tint Rule",
+        "body": "No surface is pure neutral. Every background is tinted toward the brand hue. A stark-neutral surface signals the wrong product.",
+        "section": "colors"
+      },
+      {
+        "name": "The Section Label Rule",
+        "body": "Every section eyebrow label follows: Poppins semibold, 0.72rem, tracking +0.1em, uppercase, text-primary. Do not vary this pattern per section.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Em Rule",
+        "body": "Each H2 headline gets at most one em span wrapping the single most important word. Never wrap multiple words; never nest a gradient inside it. Solid Celebration Magenta only.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Surfaces are flat at rest. Shadows appear only as a response to state (hover, active, fixed chrome). A resting card with a heavy shadow signals the wrong register.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Celebration Magenta for CTAs, focus rings, active section labels, and one em-span per section headline.",
+      "Do keep cards flat at rest. Let the brand hover glow appear only on hover.",
+      "Do use Poppins for all headings, CTAs, and labels. Use Nunito Sans for all body paragraphs.",
+      "Do apply rounded-full (pill) to all brand-surface CTAs. Apply rounded-md (8px) to product-UI buttons.",
+      "Do tint every surface toward the brand hue: Soft Linen, not pure white; Dark Plum, not #000.",
+      "Do cap body copy at 65-75ch.",
+      "Do animate with Framer Motion easeOut on scroll-reveal, stagger children at 0.1s intervals."
+    ],
+    "donts": [
+      "Don't use background-clip: text with a gradient. Replace with solid text-primary. Absolute ban.",
+      "Don't add animated background blobs (motion.div with blur-[60px] rounded-full). The static radial gradient is sufficient.",
+      "Don't make this look like a generic SaaS product. No cream backgrounds with Inter font and a blue CTA.",
+      "Don't make this look like a tacky Malaysian wedding portal. No glitter, no garish gradients, no clipart roses.",
+      "Don't go cold/clinical minimalist. Every surface must feel alive.",
+      "Don't use identical card grids. Use the 2-tier (hero/supporting) layout where hierarchy matters.",
+      "Don't stack urgency signals in pricing: not crossed-out price + percentage badge + corner badge + promo note simultaneously.",
+      "Don't use border-left as a colored stripe accent on cards or callouts.",
+      "Don't use font-landing (Pavanam) or font-accent (Montserrat) on general UI chrome.",
+      "Don't animate layout properties (height, width, padding). Use transform and opacity only."
+    ]
+  }
+}

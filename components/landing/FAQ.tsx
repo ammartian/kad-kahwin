@@ -48,8 +48,7 @@ export function FAQ() {
             {t("faq.section_title")}
           </span>
           <h2 className="font-display font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] tracking-[-0.025em] leading-[1.2] text-foreground">
-            {t("faq.section_heading")}{" "}
-            <em className="not-italic text-primary">{t("faq.section_heading_em")}</em>
+            {t("faq.section_heading")} {t("faq.section_heading_em")}
           </h2>
         </motion.div>
 

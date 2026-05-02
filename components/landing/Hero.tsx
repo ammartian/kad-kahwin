@@ -74,24 +74,6 @@ export function Hero() {
               "radial-gradient(ellipse 80% 60% at 50% -10%, #f9d8ee 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 80% 80%, #e0c6c8 0%, transparent 60%)",
           }}
         />
-        <motion.div
-          animate={{ y: [0, -30, 0], x: [0, 15, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute w-[380px] h-[380px] rounded-full opacity-35 blur-[60px] -top-20 -left-24"
-          style={{ background: "#f3b8d9" }}
-        />
-        <motion.div
-          animate={{ y: [0, -25, 0], x: [0, 12, 0] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute w-[280px] h-[280px] rounded-full opacity-35 blur-[60px] top-[40%] -right-16"
-          style={{ background: "#d4b8e0" }}
-        />
-        <motion.div
-          animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute w-[200px] h-[200px] rounded-full opacity-35 blur-[60px] bottom-[5%] left-[15%]"
-          style={{ background: "#fcd5e8" }}
-        />
       </div>
 
       {/* Hero content */}
@@ -117,15 +99,7 @@ export function Hero() {
           {t("hero.headline_1")}
           <br />
           {t("hero.headline_2")}{" "}
-          <em
-            className="not-italic"
-            style={{
-              background: "linear-gradient(135deg, var(--primary) 0%, #e05aab 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
+          <em className="not-italic text-primary">
             {t("hero.headline_em")}
           </em>
         </motion.h1>
@@ -171,16 +145,17 @@ export function Hero() {
           className="mt-10 flex items-center justify-center gap-3 flex-wrap"
         >
           {/* Avatar stack */}
-          <div className="flex -space-x-2">
+          <div className="flex -space-x-2" role="img" aria-label={`${displayCount}+ pasangan telah mendaftar`}>
             {avatarStack.map((avatar, i) => (
               <div
                 key={i}
                 className="w-7 h-7 rounded-full bg-gradient-to-br from-primary/20 to-accent/40 border-2 border-background flex items-center justify-center"
+                aria-hidden="true"
               >
                 <span className="text-[8px] font-semibold text-foreground">{avatar.initials}</span>
               </div>
             ))}
-            <div className="w-7 h-7 rounded-full bg-primary/10 border-2 border-background flex items-center justify-center">
+            <div className="w-7 h-7 rounded-full bg-primary/10 border-2 border-background flex items-center justify-center" aria-hidden="true">
               <span className="text-[8px] font-semibold text-primary">+{displayCount - 6}</span>
             </div>
           </div>

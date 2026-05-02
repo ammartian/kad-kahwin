@@ -42,8 +42,7 @@ export function HowItWorks() {
               {t("how_it_works.section_label")}
             </span>
             <h2 className="font-display font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] tracking-[-0.025em] leading-[1.2] text-foreground">
-              {t("how_it_works.section_title").replace(t("how_it_works.section_title_em"), "").trim()}{" "}
-              <em className="not-italic text-primary">{t("how_it_works.section_title_em")}</em>
+              {t("how_it_works.section_title")}
             </h2>
             <p className="mt-3 text-muted-foreground text-center leading-[1.7]">
               {t("how_it_works.section_sub")}
@@ -57,16 +56,6 @@ export function HowItWorks() {
             animate={isInView ? "visible" : "hidden"}
             className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-8 relative"
           >
-            {/* Connecting line (desktop only) */}
-            <div
-              className="hidden lg:block absolute top-7 h-0.5 pointer-events-none"
-              style={{
-                left: "16%",
-                right: "16%",
-                background: "linear-gradient(90deg, var(--primary), #e0c6c8)",
-              }}
-            />
-
             {steps.map((step, index) => (
               <motion.div
                 key={index}
