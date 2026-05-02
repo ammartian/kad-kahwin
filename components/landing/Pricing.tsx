@@ -69,23 +69,6 @@ export function Pricing() {
               className="relative bg-background rounded-3xl p-7 sm:p-8 text-center overflow-hidden"
               style={{ border: "2px solid var(--primary)" }}
             >
-              {/* Badge */}
-              <div className="absolute top-5 right-5">
-                <span
-                  className="text-white font-display font-bold text-[0.7rem] px-3 py-1 rounded-full uppercase tracking-[0.04em]"
-                  style={{ background: "var(--primary)" }}
-                >
-                  {t("pricing.badge")}
-                </span>
-              </div>
-
-              {/* Decorative circle */}
-              <div
-                className="absolute bottom-0 right-0 w-[200px] h-[200px] rounded-full pointer-events-none"
-                style={{
-                  background: "radial-gradient(circle, rgba(197,47,142,0.08) 0%, transparent 70%)",
-                }}
-              />
 
               <div className="relative z-10">
                 {/* Price info */}
@@ -96,12 +79,6 @@ export function Pricing() {
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <span className="text-[1rem] text-muted-foreground line-through font-display">
                       {t("pricing.price_original")}
-                    </span>
-                    <span
-                      className="text-white font-display font-bold text-[0.7rem] px-2 py-0.5 rounded-full"
-                      style={{ background: "var(--primary)" }}
-                    >
-                      -57%
                     </span>
                   </div>
                   <div
@@ -120,7 +97,7 @@ export function Pricing() {
                       onClick={handleCTA}
                       className="rounded-full font-semibold px-7 text-[0.88rem]"
                     >
-                      {isWaitlistMode ? t("pricing.cta") : t("pricing.cta")}
+                      {isWaitlistMode ? t("pricing.cta") : t("pricing.cta_live")}
                     </Button>
                   </div>
                 </div>
@@ -144,15 +121,6 @@ export function Pricing() {
             </div>
           </motion.div>
 
-          {/* Promo note */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 0.6 }}
-            className="text-center text-[0.82rem] text-muted-foreground mt-5"
-          >
-            {t("pricing.promo")}
-          </motion.p>
         </div>
       </div>
     </section>

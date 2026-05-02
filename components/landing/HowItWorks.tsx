@@ -61,8 +61,8 @@ export function HowItWorks() {
             <div
               className="hidden lg:block absolute top-7 h-0.5 pointer-events-none"
               style={{
-                left: "16%",
-                right: "16%",
+                left: "calc(100% / 6)",
+                right: "calc(100% / 6)",
                 background: "linear-gradient(90deg, var(--primary), #e0c6c8)",
               }}
             />

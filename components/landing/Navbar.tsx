@@ -58,6 +58,17 @@ export function Navbar() {
 
             {/* Desktop nav */}
             <div className="hidden lg:flex items-center gap-6">
+              <div className="flex items-center gap-5">
+                <a href="#features" className="text-[0.88rem] font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+                  {t("footer.nav_features")}
+                </a>
+                <a href="#pricing" className="text-[0.88rem] font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+                  {t("footer.nav_pricing")}
+                </a>
+                <a href="#faq" className="text-[0.88rem] font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+                  {t("footer.nav_faq")}
+                </a>
+              </div>
               <Button onClick={handleCTA} className="rounded-full px-6 font-semibold">
                 {isWaitlistMode
                   ? t("hero.cta_primary_waitlist")

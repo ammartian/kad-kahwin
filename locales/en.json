@@ -201,6 +201,7 @@
       "lifetime": "Lifetime access (no monthly fees)"
     },
     "cta": "Register Early & Save",
+    "cta_live": "Get Started",
     "early_bird": "57% discount for early access couples!",
     "early_bird_note": "(Normally RM49)"
   },
@@ -264,7 +265,7 @@
     },
     "q7": {
       "question": "Can I get a refund?",
-      "answer": "Since it's a digital product and you get instant access, no refunds. But we have a free preview/trial mode so you can test before paying."
+      "answer": "We have a free preview mode so you can try everything before paying. Test it first, buy when you're happy."
     },
     "q8": {
       "question": "What languages are available?",
