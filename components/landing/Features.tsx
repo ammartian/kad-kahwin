@@ -15,6 +15,8 @@ const supportingFeatures = [
   { emoji: "📊", titleKey: "features.rsvp_analytics.title", descKey: "features.rsvp_analytics.description" },
   { emoji: "💬", titleKey: "features.wishes.title", descKey: "features.wishes.description" },
   { emoji: "💸", titleKey: "features.donation.title", descKey: "features.donation.description" },
+  { emoji: "📤", titleKey: "features.excel.title", descKey: "features.excel.description" },
+  { emoji: "👫", titleKey: "features.multi_manager.title", descKey: "features.multi_manager.description" },
 ];
 
 export function Features() {
@@ -35,8 +37,7 @@ export function Features() {
             {t("features.section_label")}
           </span>
           <h2 className="font-display font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] tracking-[-0.025em] leading-[1.2] text-foreground">
-            {t("features.section_title").replace(t("features.section_title_em"), "").trim()}{" "}
-            <em className="not-italic text-primary">{t("features.section_title_em")}</em>
+            {t("features.section_title")}
           </h2>
           <p className="mt-3 text-muted-foreground max-w-[500px] mx-auto leading-[1.7]">
             {t("features.section_sub")}
@@ -69,12 +70,12 @@ export function Features() {
             ))}
           </motion.div>
 
-          {/* Supporting features — 4 compact cards */}
+          {/* Supporting features — 6 compact cards */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
           >
             {supportingFeatures.map((feature, index) => (
               <motion.div

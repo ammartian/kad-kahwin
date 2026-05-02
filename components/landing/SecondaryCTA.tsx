@@ -34,20 +34,6 @@ export function SecondaryCTA() {
       className="relative py-20 lg:py-28 overflow-hidden text-center"
       style={{ background: "linear-gradient(135deg, var(--primary) 0%, #9b2d78 100%)" }}
     >
-      {/* Background orbs */}
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-[300px] h-[300px] rounded-full pointer-events-none -top-[100px] -left-[80px]"
-        style={{ background: "rgba(255,255,255,0.06)", filter: "blur(40px)" }}
-      />
-      <motion.div
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-[200px] h-[200px] rounded-full pointer-events-none -bottom-[60px] right-[5%]"
-        style={{ background: "rgba(255,255,255,0.06)", filter: "blur(40px)" }}
-      />
-
       {/* Radial highlight */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -79,10 +65,7 @@ export function SecondaryCTA() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="font-display font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] tracking-[-0.025em] leading-[1.2] text-white"
           >
-            {t("secondary_cta.headline").replace(t("secondary_cta.headline_em"), "").trim()}{" "}
-            <em className="not-italic" style={{ color: "rgba(255,255,255,0.9)" }}>
-              {t("secondary_cta.headline_em")}
-            </em>
+            {t("secondary_cta.headline")}
           </motion.h2>
 
           {/* Subheadline */}

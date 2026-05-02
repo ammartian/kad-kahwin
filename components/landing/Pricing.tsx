@@ -50,8 +50,7 @@ export function Pricing() {
               {t("pricing.section_label")}
             </span>
             <h2 className="font-display font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] tracking-[-0.025em] leading-[1.2] text-foreground">
-              {t("pricing.headline").split(", ")[0]},{" "}
-              <em className="not-italic text-primary">{t("pricing.headline").split(", ")[1]}</em>
+              {t("pricing.headline")}
             </h2>
             <p className="mt-3 text-muted-foreground mx-auto leading-[1.7]">
               {t("pricing.section_sub")}
